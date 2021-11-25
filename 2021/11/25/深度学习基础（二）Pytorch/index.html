@@ -1,0 +1,722 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>深度学习基础（二）Pytorch | royhuang's blog</title><meta name="keywords" content="Pytorch"><meta name="author" content="Wanghui Huang"><meta name="copyright" content="Wanghui Huang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="PTboy：PyTorch一、快速入门 本笔记主要参考：pytorch中文教程  、pytorch开源书籍中文教程  1.1 安装进入 PyTorch官网  我们可以看到需要安装的软件和版本：   Package：包管理软件，可以用 pip ，为了方便我们使用 Conda CUDA : 显卡加速软件，GPU 跑一定要下载，CPU 不用。我们显卡是 GTX 1650 ，GPU 勉强可以跑得动，故下载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习基础（二）Pytorch">
+<meta property="og:url" content="http://example.com/2021/11/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%EF%BC%88%E4%BA%8C%EF%BC%89Pytorch/index.html">
+<meta property="og:site_name" content="royhuang&#39;s blog">
+<meta property="og:description" content="PTboy：PyTorch一、快速入门 本笔记主要参考：pytorch中文教程  、pytorch开源书籍中文教程  1.1 安装进入 PyTorch官网  我们可以看到需要安装的软件和版本：   Package：包管理软件，可以用 pip ，为了方便我们使用 Conda CUDA : 显卡加速软件，GPU 跑一定要下载，CPU 不用。我们显卡是 GTX 1650 ，GPU 勉强可以跑得动，故下载">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/about-bg.jpg">
+<meta property="article:published_time" content="2021-11-25T09:00:17.449Z">
+<meta property="article:modified_time" content="2021-11-25T10:49:26.278Z">
+<meta property="article:author" content="Wanghui Huang">
+<meta property="article:tag" content="Pytorch">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/about-bg.jpg"><link rel="shortcut icon" href="/img/cat.jpg"><link rel="canonical" href="http://example.com/2021/11/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%EF%BC%88%E4%BA%8C%EF%BC%89Pytorch/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":"true# copy button","highlightLang":false,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":100,"languages":{"author":"作者: Wanghui Huang","link":"链接: ","source":"来源: royhuang's blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '深度学习基础（二）Pytorch',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-11-25 18:49:26'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/cat.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/about-bg.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">royhuang's blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">深度学习基础（二）Pytorch</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-25T09:00:17.449Z" title="发表于 2021-11-25 17:00:17">2021-11-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-11-25T10:49:26.278Z" title="更新于 2021-11-25 18:49:26">2021-11-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/Pytorch/">Pytorch</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">6.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>24分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="深度学习基础（二）Pytorch"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="PTboy：PyTorch"><a href="#PTboy：PyTorch" class="headerlink" title="PTboy：PyTorch"></a>PTboy：PyTorch</h1><h2 id="一、快速入门"><a href="#一、快速入门" class="headerlink" title="一、快速入门"></a>一、快速入门</h2><blockquote>
+<p>本笔记主要参考：<a target="_blank" rel="noopener" href="https://pytorch.apachecn.org/docs/1.2/beginner/blitz/tensor_tutorial.html">pytorch中文教程</a>  、<a target="_blank" rel="noopener" href="https://github.com/zergtant/pytorch-handbook/blob/master/chapter1/1.2-pytorch-installation.md">pytorch开源书籍中文教程</a></p>
+</blockquote>
+<h3 id="1-1-安装"><a href="#1-1-安装" class="headerlink" title="1.1 安装"></a>1.1 安装</h3><p>进入 <a target="_blank" rel="noopener" href="https://pytorch.org/get-started/locally/">PyTorch官网</a>  我们可以看到需要安装的软件和版本：</p>
+<p><img src="https://i.loli.net/2021/11/25/fBHA6qsLgpb9t5O.png" alt="1571924345686"></p>
+<ul>
+<li><em>Package</em>：包管理软件，可以用 <code>pip</code> ，为了方便我们使用 <em>Conda</em></li>
+<li><em>CUDA</em> : 显卡加速软件，<em>GPU</em> 跑一定要下载，<em>CPU</em> 不用。我们显卡是 <em>GTX 1650</em> ，<em>GPU</em> 勉强可以跑得动，故下载。</li>
+</ul>
+<p>下面依次详细记录安装 <em>Conda</em> &amp;  <em>CUDA</em> 。</p>
+<h4 id="1-1-1-安装-AnaConda"><a href="#1-1-1-安装-AnaConda" class="headerlink" title="1.1.1 安装 AnaConda"></a>1.1.1 安装 <em>AnaConda</em></h4><blockquote>
+<p>安装参考 ： <a target="_blank" rel="noopener" href="https://blog.csdn.net/ITLearnHall/article/details/81708148">Anaconda详细安装及使用教程</a></p>
+</blockquote>
+<p>官网下载： <a target="_blank" rel="noopener" href="https://www.anaconda.com/distribution/#download-section">AnaConda最新版本</a> 。太慢了，选择 : <a target="_blank" rel="noopener" href="https://pc.qq.com/search.html#!keyword=Anaconda">腾讯软件下载AnaConda</a> 。</p>
+<p>下载完毕后开始安装，一直下一步就好 ，有两个地方需要说明：</p>
+<ul>
+<li>安装路径：安装路径需要英文懒得折腾，直接默认安装路径了</li>
+<li>环境变量：在安装过程中可以勾选自动添加环境变量，记得勾选</li>
+</ul>
+<p>如果安装成功，且环境变量配置成功，在 <code>cmd</code> 输入 <code>conda -V</code> 可以看到如下版本信息：</p>
+<p><img src="https://i.loli.net/2021/11/25/8owdTcqDSEFuykl.png" alt="1571973110341"></p>
+<h5 id="Conda-使用初体验"><a href="#Conda-使用初体验" class="headerlink" title="Conda 使用初体验"></a>Conda 使用初体验</h5><blockquote>
+<p>以下操作都是命令行，在 <code>cmd</code> 环境中进行。</p>
+</blockquote>
+<p><em>创建虚拟环境：</em></p>
+<ul>
+<li>更新所有包：<code>conda upgrade --all</code></li>
+<li>创建虚拟环境：<code>conda  create  --name  ptboy   python=3.7</code></li>
+<li>切换环境 &amp; 查看已创建环境：<code>activate ptboy</code>  &amp; <code>conda env list</code> </li>
+<li>切换/退出  python 解释器：<code>python</code> 、<code>exit()</code> </li>
+</ul>
+<p><em>包管理 ：</em> </p>
+<ul>
+<li>安装 / 卸载 包 ： <code>conda install 要安装的包名</code>   、<code>conda remove 要卸载的包名</code>  </li>
+</ul>
+<p><em>和 <code>pycharm</code> 连接：</em></p>
+<blockquote>
+<p>下面略有不对，可参考这篇文章：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c958ead0fa13">Anaconda与pycharm连接</a></p>
+</blockquote>
+<ul>
+<li><p><code>File --&gt; Settings --&gt; Project:你的项目名 ---&gt; Project Interpreter</code> ，然后 <code>Add</code> ：</p>
+<p><img src="https://i.loli.net/2021/11/25/QpLxcbA3twhGiUV.png" alt="1571974895349"></p>
+</li>
+<li><p>设置虚拟环境python解释器：</p>
+<p><img src="https://i.loli.net/2021/11/25/xTP2ZlcvnUoRMD1.png" alt="1571975414213"></p>
+</li>
+</ul>
+<h4 id="1-1-2-安装-CUDA-amp-cuDNN"><a href="#1-1-2-安装-CUDA-amp-cuDNN" class="headerlink" title="1.1.2 安装 CUDA  &amp; cuDNN"></a>1.1.2 安装 <em>CUDA</em>  &amp; <em>cuDNN</em></h4><h5 id="安装-CUDA"><a href="#安装-CUDA" class="headerlink" title="安装 CUDA"></a>安装 <em>CUDA</em></h5><blockquote>
+<p>:slightly_smiling_face: 狗日的fuck 中国移动网卡，浪费我一天时间检查网络，原来是你这:dog: 东西限我速！</p>
+</blockquote>
+<p>首先我们去官网下载 <em>CUDA</em> ：<a target="_blank" rel="noopener" href="https://developer.nvidia.com/cuda-downloads?target_os=Windows&target_arch=x86_64&target_version=10&target_type=exelocal">CUDA 10.1 下载</a></p>
+<p><img src="https://i.loli.net/2021/11/25/l9cwqesz5HfU42W.png" alt="1571924806891"></p>
+<p>点击右下角 <code>Download[2.5GB]</code> 下载即可。</p>
+<ol>
+<li><p>下载完毕后，解压默认会提取到临时目录，不用修改（临时目录会自动删除）</p>
+</li>
+<li><p>一直下一步 –&gt; 自定义安装 ，勾选以下：</p>
+<p><img src="https://i.loli.net/2021/11/25/b9nZNElCxUdFk2o.png" alt="1571926415928"></p>
+<ul>
+<li><p>:warning: 一般安装出错都是由于 <code>Visual Studio Intergration</code> ，所以去除掉，实际我也用不到 VS 环境。</p>
+<p>如果需要VS环境，可参考这篇文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zzpong/article/details/80282814">CUDA安装失败原因解决</a> 。</p>
+</li>
+</ul>
+</li>
+<li><p>下一步，<em>使用默认安装位置，不折腾了</em>：</p>
+<p><img src="https://i.loli.net/2021/11/25/WqRvLnHYcoi9mJl.png" alt="1571927440985"></p>
+</li>
+</ol>
+<p>一直下一步安装，很快便会显示安装完成了。</p>
+<p>接着便是最重要容易出错的  <em>环境变量配置了</em> ：</p>
+<p>:warning: 下面都是默认安装路径，如果需要自定义安装注意修改环境变量路径名。</p>
+<ul>
+<li>高级系统设置 –&gt; 环境变量  –&gt; 系统变量，添加以下几个环境变量：<ol>
+<li><code>CUDA_SDK_PATH = C:\ProgramData\NVIDIA Corporation\CUDA Samples\v10.1</code></li>
+<li><code>CUDA_LIB_PATH = %CUDA_PATH%\lib\x64</code></li>
+<li><code>CUDA_BIN_PATH = %CUDA_PATH%\bin</code></li>
+<li><code>CUDA_SDK_BIN_PATH = %CUDA_SDK_PATH%\bin\win64</code></li>
+<li><code>CUDA_SDK_LIB_PATH = %CUDA_SDK_PATH%\common\lib\x64</code></li>
+</ol>
+</li>
+<li>高级系统设置 –&gt; 环境变量  –&gt; 系统变量 –&gt; PATH , 添加：<ol>
+<li><em>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\lib\x64</em> </li>
+<li><em>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\bin</em></li>
+<li><em>C:\ProgramData\NVIDIA Corporation\CUDA Samples\v10.1\common\lib\x64</em></li>
+<li><em>C:\ProgramData\NVIDIA Corporation\CUDA Samples\v10.1\bin\win64</em></li>
+</ol>
+</li>
+</ul>
+<p>在<code>cmd</code> 键入 <code>nvcc -V</code> 来查看是否正确安装：</p>
+<p><img src="https://i.loli.net/2021/11/25/NY176sQzlvBaMoK.png" alt="1571928979917"></p>
+<h5 id="安装-cuDNN"><a href="#安装-cuDNN" class="headerlink" title="安装 cuDNN"></a>安装 <em>cuDNN</em></h5><p>我们继续开始安装 <em>cuDNN</em> ，下载<em>cuDNN</em> 地址：<a target="_blank" rel="noopener" href="https://developer.nvidia.com/rdp/cudnn-download"><em>cuDNN 7.6.4</em> 下载</a></p>
+<p>:warning: 下载前要先注册会员，选择 QQ登陆马上就注册好了？</p>
+<p><img src="https://i.loli.net/2021/11/25/IuO5iLQyK2dnwrN.png" alt="1571925832156"></p>
+<p>点击上述红框位置下载即可，解压文件复制下图所示3个文件：</p>
+<p><img src="https://i.loli.net/2021/11/25/juxozgvkHWOnhEC.png" alt="1571929101766"></p>
+<p>然后找到 <code>CUDA</code> 安装目录（我之前是默认），复制替换对应下面三个文件：</p>
+<p><img src="https://i.loli.net/2021/11/25/u8LX4rVIUCPSKYf.png" alt="1571929211740"></p>
+<h5 id="整体测试安装"><a href="#整体测试安装" class="headerlink" title="整体测试安装"></a>整体测试安装</h5><p>切换到目录(默认) ：<code>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\extras\demo_suite</code></p>
+<p><img src="https://i.loli.net/2021/11/25/dQIUFhY1eKzwPtq.png" alt="1571970802044"></p>
+<p>可以看到上述两个程序：<code>bandwidthTest.exe</code> 、<code>deviceQuery.exe</code> 两个测试程序。</p>
+<p>在 <code>cmd</code> 中运行这两个测试程序：</p>
+<p><img src="https://i.loli.net/2021/11/25/GS2isUc65B8ClAJ.png" alt="1571970903897"></p>
+<p><img src="https://i.loli.net/2021/11/25/XmCreFNqJaQ3HtR.png" alt="1571970948142"></p>
+<p>出现以上信息则证明安装成功。</p>
+<blockquote>
+<p>第一次安装出错：原因是驱动版本跟不上 <code>CUDA</code> 版本。</p>
+</blockquote>
+<p>解决办法如下，下载 <code>NVIDIA GeForce Experience</code> ：<a target="_blank" rel="noopener" href="https://pc.qq.com/detail/0/detail_11500.html">腾讯下载 NVIDIA GeForce Experience</a> 。</p>
+<p>打开软件更新驱动，下载  <code>GeForce Game Ready Driver</code>：</p>
+<p><img src="https://i.loli.net/2021/11/25/8w1zKqWmbs73GUR.png" alt="1571971153488"></p>
+<p>安装，会提示你更新驱动，直接更新就好。再次运行便会发现可以正常运行测试信息了。</p>
+<h4 id="1-1-3-安装-pytorch"><a href="#1-1-3-安装-pytorch" class="headerlink" title="1.1.3 安装 pytorch"></a>1.1.3 安装 pytorch</h4><p>进入官网，我们可以看到安装命令：/</p>
+<blockquote>
+<p>………….</p>
+</blockquote>
+<p>参数 <code>-c pytorch</code> 指的是 <code>pytorh</code> 官方仓库，由于速度太慢我们换成清华源：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/</span><br><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/</span><br><span class="line"></span><br><span class="line">conda config --<span class="built_in">set</span> show_channel_urls yes</span><br></pre></td></tr></table></figure>
+
+<p>:warning: 一开始好像没有引用 <code>pytorch</code> 清华源（第三个），一直官方安装不成功。</p>
+<p>再执行安装命令即可快速安装了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install pytorch torchvision cudatoolkit=10.1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/11/25/vGUserbgIdTVM6N.png" alt="1571986922540"></p>
+<p>最后切换到 <code>python</code> 解释器，输入 <code>import torch</code> ，不报错则安装成功了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(ptboy) C:\Users\86151&gt;python</span><br><span class="line">&gt;&gt;&gt; import pytorch</span><br></pre></td></tr></table></figure>
+
+<h5 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h5><p>一开始由于安装太慢尝试各种办法，删除了 <code>.condarc文件(everything进行搜索)</code> 默认通道 <code>default</code> （最后一行）。最终文件内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">channels:</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line">show_channel_urls: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-1-4-安装使用-jupyter"><a href="#1-1-4-安装使用-jupyter" class="headerlink" title="1.1.4 安装使用 jupyter"></a>1.1.4 安装使用 <em>jupyter</em></h4><blockquote>
+<p> 该部分主要参考于 ：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/33105153">Jupyter Notebook介绍、安装及使用教程</a> </p>
+</blockquote>
+<h5 id="快速启动"><a href="#快速启动" class="headerlink" title="快速启动"></a>快速启动</h5><ol>
+<li><p>安装</p>
+<p>进入到 <code>cmd</code> 界面进行安装。我最开始想在指定环境 <code>activate ot</code>下安装，显示缺少依赖。</p>
+<p>我想后面还可以设置引用环境为 <code>ot</code> ，就不管了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install jupyter</span><br></pre></td></tr></table></figure></li>
+<li><p>启动</p>
+<blockquote>
+<p>启动后界面那一堆文件，其实是我们家目录中的文件。</p>
+</blockquote>
+<p>在 <code>cmd</code> 窗口输入下面命令，会自动在浏览器打开 <code>jupyter</code>。</p>
+<p>:warning: 不要关闭 <code>cmd</code> 否则在 <code>Jupyter</code> 中也无法继续操作！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter notebook</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/11/25/Y9mb1jhGI45eK8R.png" alt="1576138744882"></p>
+<p>如果想换个浏览器打开，可以查看到 <code>cmd</code> 中有 <code>token</code> 值：</p>
+<p><img src="https://i.loli.net/2021/11/25/zETXUlyvQj4pk2S.png" alt="1576138873300"></p>
+<p>输入 <code>http://localhost:8080</code>  在键入上述<code>token</code> 即可！</p>
+<p>也可以使用 <code>jupyter notebook list</code> 查看<code>token</code> 值。</p>
+</li>
+<li><p>启动配置</p>
+<p>指定端口启动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter notebook --port &lt;port_number&gt;</span><br></pre></td></tr></table></figure>
+
+<p>启动但不打开服务器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter notebook --no-browser</span><br></pre></td></tr></table></figure></li>
+<li><p>设置文件保存路径</p>
+<blockquote>
+<p>仅说如何在 <code>windows</code> 设置，<code>linux</code> 参照最开始提到的教程。</p>
+</blockquote>
+<p>默认保存文档是在家目录，我们可以修改想要保存文件的目录。首先查询配置文件地址：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter notebook --generate-config</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/11/25/NuF3HRY6Og87oQS.png" alt="1576139490927"></p>
+<p>编辑该配置文件：找到 <code>c.NotebookApp.notebook_dir</code> 取消注释配置自己想保存的路径</p>
+<p><img src="D:/hwh/images/1576140406053.png" alt="1576140406053"></p>
+<ul>
+<li><p>实际测试最好用 <code>\\</code>  , 成功后再启动就能看见一个清爽的界面</p>
+<p><img src="https://i.loli.net/2021/11/25/vR8zOUrkqB5myKb.png" alt="1576140563010"></p>
+</li>
+</ul>
+</li>
+</ol>
+<h5 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h5><blockquote>
+<p> <em>主界面 &amp; 笔记本页面简介</em></p>
+</blockquote>
+<p><img src="https://i.loli.net/2021/11/25/XW6IzmFaD4rniPU.jpg" alt="preview"></p>
+<p><img src="https://i.loli.net/2021/11/25/4eB3oOAsfhJG62g.jpg" alt="preview"></p>
+<ul>
+<li>根据上图我们创建一个<code>.ipynb</code> 文件，编辑上面测试代码 &amp; <code>md文字</code> 进行输出。</li>
+<li><code>ESC</code> 进入命令模式 ：<ul>
+<li><code>a</code> 在当前cell创建一个cell</li>
+<li><code>b</code> 在当前cell之后创建一个cell</li>
+<li><code>m</code> 进入 <code>markdown</code> 模式（单元格前面 <code>In[]</code> 没了）</li>
+<li><code>y</code> 进入 <code>code</code>  （单元格前面 <code>In[]</code> 又出现了）</li>
+<li><code>l</code> 显示 cell 中总行数</li>
+<li><code>dd</code> 删除当前cell</li>
+<li></li>
+</ul>
+</li>
+</ul>
+<h5 id="扩展功能"><a href="#扩展功能" class="headerlink" title="扩展功能"></a>扩展功能</h5><blockquote>
+<p>扩展功能1 ： 关联 <em>Jupyter Notebook</em>和 <em>conda</em> 环境。</p>
+</blockquote>
+<ol>
+<li><p>安装 <code>nb_conda</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install nb_conda</span><br></pre></td></tr></table></figure>
+
+<p>:warning: 出现报以下错误<img src="https://i.loli.net/2021/11/25/lMEk4fcpLraAoBu.png" alt="1576141764028"></p>
+<p>摸不着头脑，我主要做了以下事就可以了：</p>
+<ul>
+<li><p><code>conda clean -- packages</code>  (好像没软用)</p>
+</li>
+<li><p>修改了下文件 <code>.condarc</code> 去除清华源换成别的源（？？）</p>
+<p><img src="https://i.loli.net/2021/11/25/G5NCnWrPvwIToyS.png" alt="1576143102897"></p>
+</li>
+</ul>
+</li>
+<li><p>愉快查看环境</p>
+<blockquote>
+<p>此时在 <code>jupyter</code> 会增加一列 <code>Conda</code> 我们可以查看<code>Conda</code> 拥有的环境变量。</p>
+<p>:warning: 但是此时不能直接点击切换环境，如 <code>ot</code>  </p>
+</blockquote>
+<p><img src="https://i.loli.net/2021/11/25/jYo2E75R81rDyVd.jpg" alt="preview"></p>
+<p>查看环境又他娘报错：<br><img src="https://i.loli.net/2021/11/25/FYElc1Ltha2xHsV.png" alt="1576143237966"></p>
+<p>解决报错：</p>
+<p><img src="https://i.loli.net/2021/11/25/vXng1bdWBo58RUa.png" alt="1576143795333"></p>
+</li>
+<li><p>切换 <code>conda</code> 环境</p>
+<p>如果想要指定 <code>conda</code> 指定环境，经过测试要先在<code>cmd</code> 激活指定环境：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">activeta ot</span><br></pre></td></tr></table></figure>
+
+<p>然后再启动 <code>Jupyter</code> ，即发现此时 <code>conda</code> 环境以及切换到 <code>ot</code> ：</p>
+<p><img src="https://i.loli.net/2021/11/25/HuX2UJGa9MnzL7A.png" alt="1576157365347"></p>
+</li>
+</ol>
+<blockquote>
+<p>扩展2：在 <code>jupyter</code>  使用 <code>markdowm</code>  </p>
+<p>:warning: 一开始报各种错误，又是 conda.exe 不存在 / 产生冲突。解决如下：</p>
+<ol>
+<li><p>卸载  <em>Anaconda</em> </p>
+<p>有些冲动了，感觉可以不卸载。</p>
+</li>
+<li><p>新建环境 <em>base0</em> </p>
+<p>:warning: 最开始安装 <code>3.7</code> 版本，后面安装扩展显示报错产生冲突。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create --name base0 --python=3.5</span><br></pre></td></tr></table></figure>
+
+<p>接下来以下命令都能正常执行了。</p>
+</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>经过测试实际可行的安装扩展插件方法：</p>
+<ol>
+<li><p>用 <code>pip</code> 安装扩展</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install conda-forge jupyter_contrib_nbextensions</span><br></pre></td></tr></table></figure></li>
+<li><p>解决安装的相关依赖</p>
+<p>执行 <code>1.</code> 命令会显示要先安装 <code>lxml</code> 之类，为了速度先直接用<code>conda</code> 安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install lxml</span><br></pre></td></tr></table></figure></li>
+<li><p>安装扩展</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install conda-forge jupyter_contrib_nbextensions</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以快速安装好扩展了。</p>
+<p>但是打开扩展可能出现下面问题：<br><img src="https://i.loli.net/2021/11/25/2fXtpUrSZjWsJGg.png" alt="1576595148296"></p>
+<p>尝试执行下面命令即可解决：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter contrib nbextensions install --sys-prefix --skip-running-check</span><br></pre></td></tr></table></figure></li>
+</ol>
+</blockquote>
+<ol>
+<li><p>安装扩展</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install -c conda-forge jupyter_contrib_nbextensions</span><br></pre></td></tr></table></figure></li>
+<li><p>开始使用 <code>markdown</code></p>
+<p>点击导航栏多出来的 <code>Nbextensions</code> 类目，勾选  <code>Tableof Contents ⑵</code> 。</p>
+<p>然后便可以在 <code>Jupyter</code> 中使用 <code>markdown</code> 了 ：</p>
+<p><img src="https://i.loli.net/2021/11/25/yI4cGQNrLSvOtJ6.jpg" alt="img"></p>
+</li>
+<li><p>补充使用</p>
+<p>- </p>
+</li>
+</ol>
+<h5 id="加载各种"><a href="#加载各种" class="headerlink" title="加载各种"></a>加载各种</h5><ol>
+<li><p>加载指定网址源码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%load URL</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/11/25/WzquYQd1aByPAJ9.gif" alt="img"></p>
+</li>
+<li><p>加载本地 <code>python</code> 文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%load Python文件的绝对路径</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2021/11/25/T2qbfp84Mg7JuAX.gif" alt="img"></p>
+<blockquote>
+<p>:slightly_smiling_face: 其实你不想加载 <code>python</code>  文件再运行，也可直接运行文件。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%run Python文件的绝对路径</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h5 id="使用-shell-命令"><a href="#使用-shell-命令" class="headerlink" title="使用 shell 命令"></a>使用 shell 命令</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!shell命令</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>!pwd</code> : 获取当前笔记本所在绝对路径位置</li>
+</ul>
+<p>也可在 <code>jupyter</code>  打开终端 ， <em>new —&gt; Terminal</em>  。</p>
+<h5 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h5><ul>
+<li><p>按<code>esc</code>键进入命令模式，此时不能操作单元格</p>
+<p><img src="https://i.loli.net/2021/11/25/iOuTaozw4HPZs5G.jpg" alt="img"></p>
+</li>
+<li><p>按<code>enter</code>或<code>return</code>键进入编辑模式，可编辑单元格</p>
+</li>
+</ul>
+<h3 id="1-2-张量"><a href="#1-2-张量" class="headerlink" title="1.2 张量"></a>1.2 张量</h3><h4 id="1-2-1-生成张量"><a href="#1-2-1-生成张量" class="headerlink" title="1.2.1 生成张量"></a>1.2.1 生成张量</h4><blockquote>
+<p>以下都需引入如下包。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">import</span> torch</span><br></pre></td></tr></table></figure>
+
+<h5 id="库函数生成"><a href="#库函数生成" class="headerlink" title="库函数生成"></a>库函数生成</h5><blockquote>
+<p>类似于 <code>numpy</code> 库函数生成<code>ndarray</code>，但有时候 <code>numpy</code> 传入有时是<code>triple</code>，而 <code>pytorch</code> 传入基本都是 <code>int</code></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># empty ： 没有初始化的张量（元素随机）</span></span><br><span class="line">torch.empty(<span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># rand：随机初始化张量</span></span><br><span class="line">torch.rand(<span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># zeros：生成全零张量</span></span><br><span class="line">torch.zeros(<span class="number">5</span>, <span class="number">3</span>, dtype=torch.long) <span class="comment"># 同时还指定元素类似为 long </span></span><br></pre></td></tr></table></figure>
+
+<h5 id="直接构造"><a href="#直接构造" class="headerlink" title="直接构造"></a>直接构造</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = torch.tensor([<span class="number">5.5</span>, <span class="number">3</span>])</span><br><span class="line"><span class="built_in">print</span>(x)Copy</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensor([<span class="number">5.5000</span>, <span class="number">3.0000</span>])</span><br></pre></td></tr></table></figure>
+
+<h5 id="根据已有张量构造"><a href="#根据已有张量构造" class="headerlink" title="根据已有张量构造"></a>根据已有张量构造</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">X = torch.zeros(<span class="number">3</span>,<span class="number">3</span>)</span><br><span class="line"><span class="built_in">print</span>(X)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据X实例方法 new_ones 生成全0张量，大小也可改变（那不等于直接库函数创建？）</span></span><br><span class="line">X1 = X.new_ones(<span class="number">2</span>,<span class="number">2</span>,dtype=torch.double)</span><br><span class="line"><span class="built_in">print</span>(X1)</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tensor([[<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>],</span><br><span class="line">        [<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>],</span><br><span class="line">        [<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>]])</span><br><span class="line">tensor([[<span class="number">1.</span>, <span class="number">1.</span>],</span><br><span class="line">        [<span class="number">1.</span>, <span class="number">1.</span>]], dtype=torch.float64)</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-2-常用张量方法"><a href="#1-2-2-常用张量方法" class="headerlink" title="1.2.2 常用张量方法"></a>1.2.2 常用张量方法</h4><h5 id="形状相关"><a href="#形状相关" class="headerlink" title="形状相关"></a>形状相关</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.查看形状</span></span><br><span class="line">X.size()  <span class="comment"># 输出：torch.Size([3, 3])</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.改变形状 </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = torch.randn(<span class="number">4</span>, <span class="number">4</span>)</span><br><span class="line">torch.Size([<span class="number">4</span>, <span class="number">4</span>])</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y = x.view(<span class="number">16</span>)</span><br><span class="line">torch.Size([<span class="number">16</span>])</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>z = x.view(-<span class="number">1</span>, <span class="number">8</span>)  <span class="comment"># 参数为-1，指的是这个维度根据：元素个数/其它维度 ，自动计算出来</span></span><br><span class="line">torch.Size([<span class="number">2</span>, <span class="number">8</span>])</span><br></pre></td></tr></table></figure>
+
+<h5 id="索引操作"><a href="#索引操作" class="headerlink" title="索引操作"></a>索引操作</h5><blockquote>
+<p>类似 <code>numpy</code> 进行各种索引操作。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = torch.rand(<span class="number">3</span>,<span class="number">3</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x</span><br><span class="line">tensor([[<span class="number">0.3667</span>, <span class="number">0.7708</span>, <span class="number">0.9581</span>],</span><br><span class="line">        [<span class="number">0.0958</span>, <span class="number">0.6113</span>, <span class="number">0.3566</span>],</span><br><span class="line">        [<span class="number">0.6013</span>, <span class="number">0.0894</span>, <span class="number">0.2580</span>]])</span><br></pre></td></tr></table></figure>
+
+<p>切片索引：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 索引第2列</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x[:,<span class="number">1</span>]</span><br><span class="line">tensor([<span class="number">0.7708</span>, <span class="number">0.6113</span>, <span class="number">0.0894</span>])</span><br></pre></td></tr></table></figure>
+
+<p>不想写了…今天是 2019 / 11 / 12 16:58 ，我是青青草原带灰狼哈哈</p>
+<h5 id="numpy数组-⇄-Torch-张量"><a href="#numpy数组-⇄-Torch-张量" class="headerlink" title="numpy数组 ⇄ Torch 张量"></a>numpy数组 ⇄ Torch 张量</h5><blockquote>
+<p><code>ndarray</code> 数组每个元素之间是<code>空格</code> ，<code>Tensor</code> 是 <code>逗号</code> 。</p>
+</blockquote>
+<p><code>torch</code> 张量 → <code>numpy</code> 数组 ：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># numpy()</span></span><br><span class="line"></span><br><span class="line">a = torch.ones(<span class="number">5</span>)  <span class="comment"># 张量 : tensor([1., 1., 1., 1., 1.])</span></span><br><span class="line">b = a.numpy()      <span class="comment"># ndarray :[1. 1. 1. 1. 1.]</span></span><br></pre></td></tr></table></figure>
+
+<p><code>torch</code> 张量 ← <code>numpy</code> 数组 ：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># torch.form_numpy()</span></span><br><span class="line"></span><br><span class="line">a = np.ones(<span class="number">5</span>)           <span class="comment"># ndarray：[1. 1. 1. 1. 1.]</span></span><br><span class="line">b = torch.from_numpy(a)  <span class="comment"># 张量： tensor([1., 1., 1., 1., 1.])</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-3-张量运算"><a href="#1-2-3-张量运算" class="headerlink" title="1.2.3 张量运算"></a>1.2.3 张量运算</h4><h5 id="加减乘除"><a href="#加减乘除" class="headerlink" title="加减乘除"></a>加减乘除</h5><blockquote>
+<p> 仅以加法为例，更多上百种运算参考：<a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/torch.html">这里</a></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.直接相加</span></span><br><span class="line">y = torch.rand(<span class="number">5</span>, <span class="number">3</span>)</span><br><span class="line"><span class="built_in">print</span>(x + y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.库函数 torch.add</span></span><br><span class="line">torch.add(x, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.张量实例本身函数（in-place）</span></span><br><span class="line">y.add_(x)    <span class="comment"># adds x to y</span></span><br><span class="line"><span class="comment"># 其它in-place操作</span></span><br><span class="line">x.copy_(y)   <span class="comment"># 复制y到x </span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="1-3-自动求导"><a href="#1-3-自动求导" class="headerlink" title="1.3 自动求导"></a>1.3 自动求导</h3><p><code>pytorch</code> 在所有神经网络的核心是 <code>autograd</code> 包，而<code>autograd</code> 包核心类是 <code>torch.Tensor</code> <em>。</em></p>
+<p><u><em>如何进行自动求导</em></u> ：</p>
+<ul>
+<li>给希望追踪对它进行求导的张量<code>x</code>，设置属性 <code>requires_grad = True</code> </li>
+<li>当完成计算后，通过调用 <code>backward(gradient)</code> 方法，自动计算所有的梯度（自动累加到 <code>grad</code> 属性）<ul>
+<li>调用 <code>backward()</code> 方法需要指定一个参数<code>gradient</code>，*<u><strong>该参数匹配张量形状</strong></u>*  ？ 特别的，如果此时张量是标量，可不传入参数，等价此时 <code>gradient =  torch.tensor(1)</code> 。</li>
+</ul>
+</li>
+<li>通过被追踪的张量 <code>x</code> 属性值 <code>grad</code> ，即 <code>x.grad</code> 便可求出它的梯度</li>
+</ul>
+<p><u><em>如果不希望跟踪历史记录</em></u> ：</p>
+<ul>
+<li>将代码块包装在 <code>with torch.no_grad()：</code> 中 </li>
+</ul>
+<h4 id="1-3-1-关于-Function"><a href="#1-3-1-关于-Function" class="headerlink" title="1.3.1 关于 Function"></a>1.3.1 关于 Function</h4><p><em>Function</em> 是自动求导另外一个非常重要的*<u>类</u>*  。<code>Tensor类</code> 和 <code>Function类</code>互相连接并生成一个非循环图，它表示和存储了完整的计算历史。</p>
+<ul>
+<li> 每个张量都有一个<code>.grad_fn</code>属性，这个属性引用了一个创建了<code>Tensor</code>的<code>Function</code> （*<u>没太明白</u>* ？）</li>
+</ul>
+<h4 id="1-3-2-向量求导（没太整明白）"><a href="#1-3-2-向量求导（没太整明白）" class="headerlink" title="1.3.2 向量求导（没太整明白）"></a>1.3.2 向量求导（没太整明白）</h4><blockquote>
+<p>已知 $\vec y = f(\vec x)$ ， 其中 $\vec y $ 和 $\vec x$ 都是向量，那么 $\vec y $ 对 $\vec x $ 的梯度形式应该是？</p>
+</blockquote>
+<p>在数学上，$\frac{\partial \vec y}{\partial \vec x}$ 应该是一个雅可比矩阵，可记为 $J$ :<br>$$<br>J = \begin{bmatrix}<br>\frac{\partial \vec y_1}{\partial \vec x_1} \ … \  \frac{\partial \vec y_m}{\partial \vec x_1} \<br>… \<br>\frac{\partial \vec y_1}{\partial \vec x_n} \ … \  \frac{\partial \vec y_m}{\partial \vec x_n} </p>
+<p>\end{bmatrix}<br>$$</p>
+<blockquote>
+<p>已知 $l=g(\vec y)$  其中 $l$ 为<strong>标量</strong> ，那么 $\frac{\partial l }{\partial \vec y}$ 梯度$v$ 形式应该是？</p>
+</blockquote>
+<p>$$<br>v =<br>\begin{bmatrix}<br>\frac{\partial l }{\partial y_1} \ … \ \frac{\partial l }{\partial y_m}<br>\end{bmatrix} ^T<br>$$</p>
+<blockquote>
+<p>根据上述，我们已知 $J = \frac{\partial \vec y}{\partial \vec x}$  ， $ v =\frac{\partial l }{\partial \vec y}$ , 那么 $\frac{\partial l }{\partial \vec x}$ ?</p>
+</blockquote>
+<p>根据链式法则： $\frac{\partial l }{\partial \vec x}$ = $\frac{\partial l }{\partial \vec y} · \frac{\partial \vec y}{\partial \vec x}$<br>$$<br>\frac{\partial l }{\partial \vec x} = \frac{\partial l }{\partial \vec y} · \frac{\partial \vec y}{\partial \vec x}<br>= J·v =<br>\begin{bmatrix}<br>\frac{\partial \vec y_1}{\partial \vec x_1} \ … \  \frac{\partial \vec y_m}{\partial \vec x_1} \<br>… \<br>\frac{\partial \vec y_1}{\partial \vec x_n} \ … \  \frac{\partial \vec y_m}{\partial \vec x_n}<br>\end{bmatrix}<br>\begin{bmatrix}<br>\frac{\partial l }{\partial y_1} \ … \ \frac{\partial l }{\partial y_m}<br>\end{bmatrix}<br>=<br>\begin{bmatrix}<br>\frac{\partial l }{\partial x_1} \ … \ \frac{\partial l }{\partial x_m}<br>\end{bmatrix}<br>$$</p>
+<h4 id="1-3-3-举个栗子"><a href="#1-3-3-举个栗子" class="headerlink" title="1.3.3 举个栗子"></a>1.3.3 举个栗子</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br></pre></td></tr></table></figure>
+
+<h5 id="栗子1"><a href="#栗子1" class="headerlink" title="栗子1"></a>栗子1</h5><blockquote>
+<p>以下过程可表示为 ：$out = \frac{1}{4} \sum_i z_i = \frac{1}{4} \sum_i 3(x_i+2)^2  $ </p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = torch.ones(<span class="number">2</span>,<span class="number">2</span>,requires_grad=<span class="literal">True</span>)  <span class="comment"># 追踪张量x</span></span><br><span class="line">y = x + <span class="number">2</span></span><br><span class="line">z = y * y * <span class="number">3</span></span><br><span class="line">out = z.mean()</span><br></pre></td></tr></table></figure>
+
+<p><em>out</em> 调用方法 <code>backward</code> 进行反向传播，因为 <em>out</em> 是标量，所以可不用传参数： cvb n</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">out.backward()</span><br></pre></td></tr></table></figure>
+
+<p>由于 <em>x</em> 设置了 <code>requires_grad = True</code>  ，其梯度会被自动累加，我们可计算其梯度为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x.grad</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line"><span class="comment"># tensor([[4.5000, 4.5000],</span></span><br><span class="line"><span class="comment">#        [4.5000, 4.5000]])</span></span><br></pre></td></tr></table></figure>
+
+<p><em><strong>Q :</strong></em> 没明白，根据 <em><strong>1.3.2</strong></em>  节，此时输出不该是一个 <code>4*1</code> 大小张量吗？</p>
+<p><em><strong>A:</strong></em> 非也，因为此时<code>x</code> 是 <code>2*2</code> 大小，而 <em><strong>1.3.2</strong></em>  节 <code>x</code> 是 <code>m*1</code> 大小</p>
+<h5 id="栗子2"><a href="#栗子2" class="headerlink" title="栗子2"></a>栗子2</h5><blockquote>
+<p>以下过程可表示为： $y = (x<em>2)^{2</em>y.data.norm}$ </p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">x = torch.randn(<span class="number">3</span>, requires_grad=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">y = x * <span class="number">2</span></span><br><span class="line"><span class="keyword">while</span> y.data.norm() &lt; <span class="number">1000</span>:</span><br><span class="line">    y = y * <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出y</span></span><br><span class="line"><span class="comment"># tensor([-920.6895, -115.7301, -867.6995], grad_fn=&lt;MulBackward&gt;)</span></span><br></pre></td></tr></table></figure>
+
+<p>显然，此时 $y$ 是一个向量，那么此时调用 <code>backward</code> 进行反向传播需传递参数 <code>gradient</code> ：</p>
+<p><em><strong>依然不太明白此时 <code>gradient</code> 参数意义？</strong></em> </p>
+<ul>
+<li><p>大小和 <code>x</code> 保持一致，那么其中的列表值是什么意思呢？</p>
+<blockquote>
+<p>经过请教大师兄，解释如下：</p>
+<ul>
+<li><p><code>gradient</code> 参数表示学习速率 $\alpha$ ，当 $\alpha = 1$  时 <code>x.grad</code>  = 512 ；$\alpha = 0.1$ ,那么 <code>x.grad</code>  = 51.2。</p>
+<p>控制当前梯度变化速率，而且可对于每个不同样本 $x_i$ 进行控制。</p>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gradients = torch.tensor([<span class="number">0.1</span>, <span class="number">1.0</span>, <span class="number">0.0001</span>], dtype=torch.<span class="built_in">float</span>)</span><br><span class="line">y.backward(gradients)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(x.grad)</span><br><span class="line"></span><br><span class="line"><span class="comment"># tensor([ 51.2000, 512.0000,   0.0512])</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="1-4-神经网络"><a href="#1-4-神经网络" class="headerlink" title="1.4 神经网络"></a>1.4 神经网络</h3><blockquote>
+<p>我的神经网络都是没有好好训练啊，做笔记还在胡思乱写，现在反向传播还来得及吗？</p>
+</blockquote>
+<p><img src="https://i.loli.net/2021/11/25/mXKvAwVLEQxqoBj.png" alt="img"></p>
+<h4 id="14-1-快速入门"><a href="#14-1-快速入门" class="headerlink" title="14.1 快速入门"></a>14.1 快速入门</h4><h5 id="定义网络"><a href="#定义网络" class="headerlink" title="定义网络"></a>定义网络</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(Net, self).__init__()</span><br><span class="line">        <span class="comment"># class torch.nn.Conv1d(in_channels, out_channels, kernel_size, stride=1,                   padding=0, dilation=1, groups=1, bias=True)</span></span><br><span class="line">        <span class="comment"># 输入图像channels：1；输出channels：6；kernel = 5x5，方阵可只写一个数字5</span></span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">1</span>, <span class="number">6</span>, <span class="number">5</span>)</span><br><span class="line">        self.conv2 = nn.Conv2d(<span class="number">6</span>, <span class="number">16</span>, <span class="number">5</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># class torch.nn.Linear(in_features, out_features, bias=True)</span></span><br><span class="line">        <span class="comment"># in_features ： 输入样本的大小</span></span><br><span class="line">        <span class="comment"># out_features： 输出样本的大小 </span></span><br><span class="line">        <span class="comment"># nn.Linear 传入相连两个layer各自大小，返回一个函数fc(x),可用来计算前向传播下一层layer值</span></span><br><span class="line">        self.fc1 = nn.Linear(<span class="number">16</span> * <span class="number">5</span> * <span class="number">5</span>, <span class="number">120</span>)</span><br><span class="line">        self.fc2 = nn.Linear(<span class="number">120</span>, <span class="number">84</span>)</span><br><span class="line">        self.fc3 = nn.Linear(<span class="number">84</span>, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        <span class="comment"># torch.nn.functional.max_pool2d(input, kernel_size, stride=None, padding=0, dilation=1, ceil_mode=False, return_indices=False)</span></span><br><span class="line">        <span class="comment"># input：输入的张量。在这里激活函数为relu，会将神经元输入值映射到新值（输出值）</span></span><br><span class="line">        x = F.max_pool2d(F.relu(self.conv1(x)), (<span class="number">2</span>, <span class="number">2</span>))</span><br><span class="line">        x = F.max_pool2d(F.relu(self.conv2(x)), <span class="number">2</span>)</span><br><span class="line">        </span><br><span class="line">        x = x.view(-<span class="number">1</span>, self.num_flat_features(x)) <span class="comment"># 和全连接层相连先平铺</span></span><br><span class="line">        x = F.relu(self.fc1(x))</span><br><span class="line">        x = F.relu(self.fc2(x))</span><br><span class="line">        x = self.fc3(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">num_flat_features</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        平铺卷积层图像特征向量：</span></span><br><span class="line"><span class="string">          因为输入图片size = (1,1,32,32),表示输入1张大小为1@32*32的特征图</span></span><br><span class="line"><span class="string">          显然第一个参数1，指图片个数，也就是一次批处理的数量</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        size = x.size()[<span class="number">1</span>:]  <span class="comment"># 除去批处理维度的其他所有维度，[1,16,5,5] --&gt; [16,5,5]</span></span><br><span class="line">        num_features = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> size:</span><br><span class="line">            num_features *= s</span><br><span class="line">        <span class="keyword">return</span> num_features</span><br><span class="line"></span><br><span class="line">net = Net()</span><br></pre></td></tr></table></figure>
+
+<p>现在让我们进行前向传播和反向传播、更新权重等。下一节将会以实际例子来统合下面方法。</p>
+<h5 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a>前向传播</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">input</span> = torch.randn(<span class="number">1</span>, <span class="number">1</span>, <span class="number">32</span>, <span class="number">32</span>)  <span class="comment"># 随机输入一张图像</span></span><br><span class="line">out = net(<span class="built_in">input</span>)   <span class="comment"># 前向传播</span></span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tensor([[ 0.0399, -0.0856,  0.0668,  0.0915,  0.0453, -0.0680, -0.1024,  0.0493,</span><br><span class="line">         -0.1043, -0.1267]], grad_fn=&lt;AddmmBackward&gt;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h5><p>一个损失函数接受一对 <em>(output, target)</em> 作为输入，<code>nn</code> 包多个不同损失函数。</p>
+<p>例如：均方误差损失函数MSE，<code>nn.MSELoss()</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">output = net(<span class="built_in">input</span>)</span><br><span class="line">target = torch.randn(<span class="number">10</span>)          <span class="comment"># 本例子中使用模拟数据</span></span><br><span class="line">target = target.view(<span class="number">1</span>, -<span class="number">1</span>)       <span class="comment"># 使目标值与数据值形状一致,size=(1,10)</span></span><br><span class="line"></span><br><span class="line">criterion = nn.MSELoss()</span><br><span class="line">loss = criterion(output, target)  <span class="comment"># tensor(1.0263, grad_fn=&lt;MseLossBackward&gt;)</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h5><blockquote>
+<p> <em><strong>Q :</strong></em> 传入一个随机梯度进行反向传播？</p>
+</blockquote>
+<p>有了 <code>loss</code> 函数我们便可以进行反向传播。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net.zero_grad()                    <span class="comment"># 清除所有参数的梯度缓存</span></span><br><span class="line">loss.backward(torch.randn(<span class="number">1</span>, <span class="number">10</span>))  <span class="comment"># 传入一个随机梯度进行反向传播？</span></span><br></pre></td></tr></table></figure>
+
+<p>同时我们还可以查看反向传播后 <em><strong>conv1</strong></em> 层 <em><strong>bias</strong></em> 梯度：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; net.conv1.bias.grad</span><br><span class="line">tensor([ 0.0084,  0.0019, -0.0179, -0.0212,  0.0067, -0.0096])</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="1-4-2-举个栗子：训练分类器"><a href="#1-4-2-举个栗子：训练分类器" class="headerlink" title="1.4.2 举个栗子：训练分类器"></a>1.4.2 举个栗子：训练分类器</h4><blockquote>
+<p>这部分主要参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/016a23bc6554">基于PyTorch的CIFAR10小记</a></p>
+</blockquote>
+<p>训练一个图像分类器可按照以下顺序进行：</p>
+<ul>
+<li>使用<code>torchvision</code>加载和归一化 <em>CIFAR10</em> 训练集和测试集</li>
+<li>定义一个卷积神经网络</li>
+<li>定义损失函数</li>
+<li>在训练集上训练网络</li>
+<li>在测试集上测试网络</li>
+</ul>
+<h5 id="1-加载数据"><a href="#1-加载数据" class="headerlink" title="1 加载数据"></a>1 加载数据</h5><blockquote>
+<p>该部分主要参考于 ： <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/016a23bc6554">基于PyTorch的CIFAR10小记</a></p>
+</blockquote>
+<p>测试数据集使用 <code>CIFAR10</code>，直接用<code>torchvision</code> 太慢，我们使用 <a target="_blank" rel="noopener" href="http://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz">链接</a> 来进行下载。</p>
+<p>下载完毕后，导入包和一些基本参数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="keyword">import</span> torchvision.transforms <span class="keyword">as</span> transforms</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 参数设置</span></span><br><span class="line">EPOCHS = <span class="number">20</span></span><br><span class="line">BATCH_SIZE = <span class="number">512</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 0.创建一个转换器，将torchvision数据集的输出范围[0,1]转换为归一化范围的张量[-1,1]</span></span><br><span class="line"><span class="comment"># 为什么需要转换？</span></span><br><span class="line">transform = transforms.Compose\</span><br><span class="line">([</span><br><span class="line">    transforms.ToTensor(),</span><br><span class="line">    transforms.Normalize((<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>), (<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>))</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1.创建训练集</span></span><br><span class="line">trainset = torchvision.datasets.CIFAR10\</span><br><span class="line">(</span><br><span class="line">    root=<span class="string">&#x27;./data&#x27;</span>,         <span class="comment"># 存放的目录</span></span><br><span class="line">    train=<span class="literal">True</span>,            <span class="comment"># 是否训练集</span></span><br><span class="line">    download=<span class="literal">True</span>,         <span class="comment"># 是否需要下载</span></span><br><span class="line">    transform=transform    <span class="comment"># 是否进行转换</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.创建测试集</span></span><br><span class="line">testset = torchvision.datasets.CIFAR10\</span><br><span class="line">(</span><br><span class="line">    root=<span class="string">&#x27;./data&#x27;</span>,</span><br><span class="line">    train=<span class="literal">False</span>,</span><br><span class="line">    download=<span class="literal">True</span>,</span><br><span class="line">    transform=transform</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.创建训练/测试加载器</span></span><br><span class="line"><span class="comment"># shuffle -- 是否打乱顺序</span></span><br><span class="line">trainloader = torch.utils.data.DataLoader(trainset, batch_size=BATCH_SIZE, shuffle=<span class="literal">True</span> )</span><br><span class="line"></span><br><span class="line">testloader = torch.utils.data.DataLoader (testset, batch_size=BATCH_SIZE, shuffle=<span class="literal">True</span> )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.设置类别标签</span></span><br><span class="line">classes = (<span class="string">&#x27;plane&#x27;</span>, <span class="string">&#x27;car&#x27;</span>, <span class="string">&#x27;bird&#x27;</span>, <span class="string">&#x27;cat&#x27;</span>, <span class="string">&#x27;deer&#x27;</span>, <span class="string">&#x27;dog&#x27;</span>, <span class="string">&#x27;frog&#x27;</span>, <span class="string">&#x27;horse&#x27;</span>, <span class="string">&#x27;ship&#x27;</span>, <span class="string">&#x27;truck&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>上面一些代码进行解释：</p>
+<blockquote>
+<p>转换器</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>), (<span class="number">0.5</span>, <span class="number">0.5</span>, <span class="number">0.5</span>))])</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>ToTensor()</code>: 将一个取值是 [0,255]的<em>PI.Imag</em>e（或者 <em>shape=(H,W,C)</em> 的<em>ndarray</em>）  —&gt; 取值是[0,1,0]的<em>torch.FloadTensor</em>（同时 *shape=(C,H,W)*）</p>
+</li>
+<li><p><code>Normalize(mean, std)</code> ： 给定均值 <em>mean、std</em>，会将<em>Tensor</em>正则化，即：<em>Normalized_image=(image-mean)/std</em></p>
+</li>
+<li><p><code>transforms.Compose([ transforms.CenterCrop(10),transforms.ToTensor() ])</code> </p>
+<ul>
+<li>将多个 <em>transform</em> 组合起来使用，比如上面是进行了 <em><u>中心裁剪</u></em> +  <em><u>ToTensor</u></em> </li>
+</ul>
+</li>
+</ul>
+<h5 id="2-定义网络"><a href="#2-定义网络" class="headerlink" title="2 定义网络"></a>2 定义网络</h5><blockquote>
+<p>该网络定义在文件: <code>CNN1.py</code> </p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line">LR = <span class="number">0.005</span>  <span class="comment"># 学习率</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span>(<span class="params">torch.nn.Module</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义网络结构：3个卷积层 + 1个全连接层</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(Net, self).__init__()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 3个卷积层</span></span><br><span class="line">        <span class="comment"># 定义该卷积层依次经过： 3*3卷积核 --&gt; ReLU激活函数 --&gt; 池化层下采样</span></span><br><span class="line">        self.conv1 = torch.nn.Sequential\</span><br><span class="line">        (</span><br><span class="line"><span class="comment"># Conv2d(in_channels, out_channels, kernel_size, stride=1, padding=0,  dilation=1)</span></span><br><span class="line">            torch.nn.Conv2d(<span class="number">3</span>, <span class="number">16</span>, <span class="number">3</span>, padding=<span class="number">1</span>),  <span class="comment"># 3@32*32 -&gt; 16@32*32</span></span><br><span class="line">            torch.nn.ReLU(),</span><br><span class="line">            <span class="comment"># 第一个参数是卷积核大小2*2，第二个参数是stride</span></span><br><span class="line">            torch.nn.MaxPool2d(<span class="number">2</span>, <span class="number">2</span>)               <span class="comment"># 16*32*32 -&gt; 16*16*16</span></span><br><span class="line">        )</span><br><span class="line">        self.conv2 = torch.nn.Sequential\</span><br><span class="line">        (</span><br><span class="line">            torch.nn.Conv2d(<span class="number">16</span>, <span class="number">32</span>, <span class="number">3</span>, padding=<span class="number">1</span>),  <span class="comment"># 16*16*16 -&gt; 32*16*16</span></span><br><span class="line">            torch.nn.ReLU(),</span><br><span class="line">            torch.nn.MaxPool2d(<span class="number">2</span>, <span class="number">2</span>)                <span class="comment"># 32*16*16 -&gt; 32*8*8</span></span><br><span class="line">        )</span><br><span class="line">        self.conv3 = torch.nn.Sequential\</span><br><span class="line">        (</span><br><span class="line">            torch.nn.Conv2d(<span class="number">32</span>, <span class="number">64</span>, <span class="number">3</span>, padding=<span class="number">1</span>),  <span class="comment"># 32*8*8 -&gt; 64*8*8</span></span><br><span class="line">            torch.nn.ReLU(),</span><br><span class="line">            torch.nn.MaxPool2d(<span class="number">2</span>, <span class="number">2</span>)                <span class="comment"># 64*8*8 -&gt; 64*4*4</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 1个全连接层（2个？）</span></span><br><span class="line">        self.fc1 = torch.nn.Sequential\</span><br><span class="line">        (</span><br><span class="line">            <span class="comment"># class torch.nn.Linear(in_features, out_features, bias=True)</span></span><br><span class="line">            torch.nn.Linear(<span class="number">64</span>*<span class="number">4</span>*<span class="number">4</span>, <span class="number">32</span>),</span><br><span class="line">            torch.nn.ReLU(),</span><br><span class="line">            <span class="comment"># torch.nn.Dropout()</span></span><br><span class="line">        )</span><br><span class="line">        self.fc2 = torch.nn.Linear(<span class="number">32</span>, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 前向传播</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x = self.conv1(x)</span><br><span class="line">        x = self.conv2(x)</span><br><span class="line">        x = self.conv3(x)</span><br><span class="line">        x = x.view(-<span class="number">1</span>, <span class="number">64</span>*<span class="number">4</span>*<span class="number">4</span>)  <span class="comment"># 和全连接层相连先扁平化 </span></span><br><span class="line">        x = self.fc1(x)</span><br><span class="line">        x = self.fc2(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line">net = Net()</span><br><span class="line">net.cuda()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 损失函数：使用交叉熵</span></span><br><span class="line">criterion = torch.nn.CrossEntropyLoss() </span><br><span class="line"><span class="comment"># 权重更新规则：使用Adam下降（optim.SGD,随机梯度下降）</span></span><br><span class="line">optimizer = torch.optim.Adam(net.parameters(), lr=LR)</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="3-训练函数-amp-测试函数"><a href="#3-训练函数-amp-测试函数" class="headerlink" title="3 训练函数 &amp;  测试函数"></a>3 训练函数 &amp;  测试函数</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 5.训练函数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span>(<span class="params">model, criterion, optimizer, trainloader, epochs=<span class="number">5</span>, interval=<span class="number">50</span></span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;----- Train Start -----&#x27;</span>)</span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(epochs):</span><br><span class="line">        running_loss = <span class="number">0.0</span></span><br><span class="line">        <span class="comment"># 遍历数据迭代器：获取数据信息</span></span><br><span class="line">        <span class="keyword">for</span> step, (x,y) <span class="keyword">in</span> <span class="built_in">enumerate</span>(trainloader):</span><br><span class="line">            <span class="comment"># 获取输入</span></span><br><span class="line">            <span class="comment"># [易错] 使用GPU训练，数据也需要设置cuda</span></span><br><span class="line">            inputs, labels = x.cuda(),y.cuda()</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 下面其实就是梯度下降过程，参考：https://www.zhihu.com/question/305638940</span></span><br><span class="line">            <span class="comment"># 权重清零</span></span><br><span class="line">            optimizer.zero_grad() <span class="comment"># 一次bacth计算出的梯度g(loss对weigth导数）用于</span></span><br><span class="line">                                  <span class="comment"># 更新权重 w = w - α*g 后，下次g要清零重新计算</span></span><br><span class="line">            <span class="comment"># 计算loss反向传播</span></span><br><span class="line">            output = model(inputs)             <span class="comment"># 期望输出值</span></span><br><span class="line">            loss = criterion(output, labels)   <span class="comment"># 该次代价</span></span><br><span class="line">            loss.backward()                    <span class="comment"># 反向传播</span></span><br><span class="line">            optimizer.step()                   <span class="comment"># 更新权重</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 输出每log_interval=50次批次平均loss</span></span><br><span class="line">            <span class="comment"># loss是张量：tensor(2.3109, device=&#x27;cuda:0&#x27;, grad_fn=&lt;NllLossBackward&gt;)</span></span><br><span class="line">            running_loss += loss.item()</span><br><span class="line">            <span class="keyword">if</span> step % log_interval == (log_interval - <span class="number">1</span>):</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&#x27;[%d, %5d] loss: %.4f&#x27;</span> %(epoch+<span class="number">1</span>, step+<span class="number">1</span>, running_loss/ interval))</span><br><span class="line">                running_loss = <span class="number">0.0</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;----- Train Finished -----&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>现在我们来开始设置测试函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 6.测试函数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span>(<span class="params">model, testloader</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;------ Test Start -----&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    correct = <span class="number">0</span></span><br><span class="line">    total = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> test_x, test_y <span class="keyword">in</span> testloader:</span><br><span class="line">            <span class="comment"># 批处理数量，batch_size = 512: 一次输入512张图片</span></span><br><span class="line">            <span class="comment"># images.shape = torch.Size([512,3,32,32]) lable.shape = torch.Size([512])</span></span><br><span class="line">            images, labels = test_x.cuda(), test_y.cuda()</span><br><span class="line"></span><br><span class="line">            <span class="comment"># output.shape = torch.Size([512,10])</span></span><br><span class="line">            output = model(images)        </span><br><span class="line"></span><br><span class="line">            <span class="comment"># predicted.shape = torch.Size([512])</span></span><br><span class="line">            <span class="comment"># torch.max : 返回每行最大值，如果[指定维度] 还会返回对应最大值索引</span></span><br><span class="line">            <span class="comment"># output.data : 获取张量数据，返回还是一个张量？</span></span><br><span class="line">            _, predicted = torch.<span class="built_in">max</span>(output.data, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># size() 方法：获取大小，返回一个张量如：torch.Size([3, 4])</span></span><br><span class="line">            <span class="comment"># sum()  方法：求张量所有元素和，返回一个张量如：tensor(3.2860)</span></span><br><span class="line">            <span class="comment"># item() 方法：把[1]个元素大小的张量，转换为 python数值类型</span></span><br><span class="line">            total += labels.size(<span class="number">0</span>)</span><br><span class="line">            correct += (predicted == labels).<span class="built_in">sum</span>().item()</span><br><span class="line"></span><br><span class="line">    accuracy = <span class="number">100</span> * correct / total</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;Accuracy of the network is: %.4f %%&#x27;</span> % accuracy)</span><br><span class="line">    <span class="keyword">return</span> accuracy</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># train(CNN1.net, CNN1.criterion, CNN1.optimizer, trainloader, epochs=EPOCHS)</span></span><br><span class="line">    test(CNN1.net, testloader)</span><br></pre></td></tr></table></figure>
+
+<p>最后测试准确率为：<code>71.3%</code> 左右。</p>
+<h5 id="4-规范代码结构"><a href="#4-规范代码结构" class="headerlink" title="4 规范代码结构"></a>4 规范代码结构</h5><blockquote>
+<p>该部分主要参考： <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/29024978">PyTorch实战指南</a></p>
+</blockquote>
+<p>定义文件结构如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">├── checkpoints/</span><br><span class="line">├── data/</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── dataset.py</span><br><span class="line">│   └── get_data.sh</span><br><span class="line">├── models/</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── AlexNet.py</span><br><span class="line">│   ├── BasicModule.py</span><br><span class="line">│   └── ResNet34.py</span><br><span class="line">└── utils/</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   └── visualize.py</span><br><span class="line">├── config.py</span><br><span class="line">├── main.py</span><br><span class="line">├── requirements.txt</span><br><span class="line">├── README.md</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、常用函数"><a href="#二、常用函数" class="headerlink" title="二、常用函数"></a>二、常用函数</h2><h3 id="归一：BatchNorm2d"><a href="#归一：BatchNorm2d" class="headerlink" title="归一：BatchNorm2d"></a>归一：<em>BatchNorm2d</em></h3><h4 id="中文文档解释"><a href="#中文文档解释" class="headerlink" title="中文文档解释"></a>中文文档解释</h4><blockquote>
+<ol>
+<li><p>pytorch 中文文档 ：<a target="_blank" rel="noopener" href="https://www.pytorchtutorial.com/docs/package_references/torch-nn/?query=BatchNorm2d#class-torchnnbatchnorm2dnum_features-eps1e-05-momentum01-affinetruesource">class torch.nn.BatchNorm2d</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/38102762/answer/391649040">知乎问答：BN为什么效果好?</a></p>
+</li>
+</ol>
+</blockquote>
+<p>:warning: 参数 <em>num_features</em> : 实际只传的是通道数！</p>
+<p><img src="https://i.loli.net/2021/11/25/nFCWeRi5y1SLTBk.png" alt="1576833667384"></p>
+<h4 id="实例补充"><a href="#实例补充" class="headerlink" title="实例补充"></a>实例补充</h4><blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yongjieShi/p/9332655.html">Pytorch中的Batch Normalization操作</a></p>
+</blockquote>
+<p>假设存在<code>4</code> 个 <em>batch</em> ，每个特征图大小为：<code>3*2*2</code>  ，即通道数为 <code>3</code> ，长宽为 <code>2*2</code> 。那么归一化如下：</p>
+<ol>
+<li><p>每个<em>batch</em> ，从相同通道（比如第一个<code>R</code>通道）取出特征图其大小为 <code>2*2</code> </p>
+</li>
+<li><p>上述一共有 <code>4</code> 个 <code>2*2</code> 的特征图，对这<code>16</code> 个元素进行归一化操作</p>
+<p><img src="https://i.loli.net/2021/11/25/GRiuVUk8r2Lcmnx.png" alt="1576834202406"></p>
+</li>
+<li><p>重复 <code>1 2</code> 两次 （一共3个通道），则对剩余两个通道的<code>16*2</code> 个元素也进行了归一化</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Wanghui Huang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2021/11/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%EF%BC%88%E4%BA%8C%EF%BC%89Pytorch/">http://example.com/2021/11/25/深度学习基础（二）Pytorch/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">royhuang's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Pytorch/">Pytorch</a></div><div class="post_share"><div class="social-share" data-image="/img/about-bg.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatPay.png" target="_blank"><img class="post-qr-code-img" src="/img/wechatPay.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/img/alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/11/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%89%EF%BC%89OpenCV/"><img class="prev-cover" src="/img/about-bg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">深度学习基础（三）OpenCV</div></div></a></div><div class="next-post pull-right"><a href="/2021/11/25/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89Numpy/"><img class="next-cover" src="/img/about-bg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">深度学习基础（一）Numpy</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/cat.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wanghui Huang</div><div class="author-info__description">tech & life</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Wanghui-Huang"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Wanghui-Huang" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:hwh199601@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">royHuang's studio</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PTboy%EF%BC%9APyTorch"><span class="toc-text">PTboy：PyTorch</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="toc-text">一、快速入门</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E5%AE%89%E8%A3%85"><span class="toc-text">1.1 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-1-%E5%AE%89%E8%A3%85-AnaConda"><span class="toc-text">1.1.1 安装 AnaConda</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Conda-%E4%BD%BF%E7%94%A8%E5%88%9D%E4%BD%93%E9%AA%8C"><span class="toc-text">Conda 使用初体验</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-2-%E5%AE%89%E8%A3%85-CUDA-amp-cuDNN"><span class="toc-text">1.1.2 安装 CUDA  &amp; cuDNN</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-CUDA"><span class="toc-text">安装 CUDA</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-cuDNN"><span class="toc-text">安装 cuDNN</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%B5%8B%E8%AF%95%E5%AE%89%E8%A3%85"><span class="toc-text">整体测试安装</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-3-%E5%AE%89%E8%A3%85-pytorch"><span class="toc-text">1.1.3 安装 pytorch</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E5%85%85"><span class="toc-text">补充</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-4-%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8-jupyter"><span class="toc-text">1.1.4 安装使用 jupyter</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%90%AF%E5%8A%A8"><span class="toc-text">快速启动</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-text">基本使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%E5%8A%9F%E8%83%BD"><span class="toc-text">扩展功能</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E5%90%84%E7%A7%8D"><span class="toc-text">加载各种</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-shell-%E5%91%BD%E4%BB%A4"><span class="toc-text">使用 shell 命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-text">快捷键</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%BC%A0%E9%87%8F"><span class="toc-text">1.2 张量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-%E7%94%9F%E6%88%90%E5%BC%A0%E9%87%8F"><span class="toc-text">1.2.1 生成张量</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BA%93%E5%87%BD%E6%95%B0%E7%94%9F%E6%88%90"><span class="toc-text">库函数生成</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E6%9E%84%E9%80%A0"><span class="toc-text">直接构造</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E5%B7%B2%E6%9C%89%E5%BC%A0%E9%87%8F%E6%9E%84%E9%80%A0"><span class="toc-text">根据已有张量构造</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-%E5%B8%B8%E7%94%A8%E5%BC%A0%E9%87%8F%E6%96%B9%E6%B3%95"><span class="toc-text">1.2.2 常用张量方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BD%A2%E7%8A%B6%E7%9B%B8%E5%85%B3"><span class="toc-text">形状相关</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95%E6%93%8D%E4%BD%9C"><span class="toc-text">索引操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#numpy%E6%95%B0%E7%BB%84-%E2%87%84-Torch-%E5%BC%A0%E9%87%8F"><span class="toc-text">numpy数组 ⇄ Torch 张量</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-%E5%BC%A0%E9%87%8F%E8%BF%90%E7%AE%97"><span class="toc-text">1.2.3 张量运算</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4"><span class="toc-text">加减乘除</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E8%87%AA%E5%8A%A8%E6%B1%82%E5%AF%BC"><span class="toc-text">1.3 自动求导</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-1-%E5%85%B3%E4%BA%8E-Function"><span class="toc-text">1.3.1 关于 Function</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-2-%E5%90%91%E9%87%8F%E6%B1%82%E5%AF%BC%EF%BC%88%E6%B2%A1%E5%A4%AA%E6%95%B4%E6%98%8E%E7%99%BD%EF%BC%89"><span class="toc-text">1.3.2 向量求导（没太整明白）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-3-%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90"><span class="toc-text">1.3.3 举个栗子</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%97%E5%AD%901"><span class="toc-text">栗子1</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%97%E5%AD%902"><span class="toc-text">栗子2</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-text">1.4 神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#14-1-%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="toc-text">14.1 快速入门</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C"><span class="toc-text">定义网络</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%89%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="toc-text">前向传播</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-text">损失函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="toc-text">反向传播</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-2-%E4%B8%BE%E4%B8%AA%E6%A0%97%E5%AD%90%EF%BC%9A%E8%AE%AD%E7%BB%83%E5%88%86%E7%B1%BB%E5%99%A8"><span class="toc-text">1.4.2 举个栗子：训练分类器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE"><span class="toc-text">1 加载数据</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C"><span class="toc-text">2 定义网络</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E8%AE%AD%E7%BB%83%E5%87%BD%E6%95%B0-amp-%E6%B5%8B%E8%AF%95%E5%87%BD%E6%95%B0"><span class="toc-text">3 训练函数 &amp;  测试函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-%E8%A7%84%E8%8C%83%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84"><span class="toc-text">4 规范代码结构</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-text">二、常用函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%92%E4%B8%80%EF%BC%9ABatchNorm2d"><span class="toc-text">归一：BatchNorm2d</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3%E8%A7%A3%E9%87%8A"><span class="toc-text">中文文档解释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%E8%A1%A5%E5%85%85"><span class="toc-text">实例补充</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/11/25/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80%EF%BC%88%E4%BA%8C%EF%BC%89CSS%E7%AC%94%E8%AE%B0/" title="前端基础（二）CSS基础笔记">前端基础（二）CSS基础笔记</a><time datetime="2021-11-25T10:45:45.161Z" title="发表于 2021-11-25 18:45:45">2021-11-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/11/25/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89JavaScript%E7%AC%94%E8%AE%B0/" title="前端基础（一）JavaScript基础笔记">前端基础（一）JavaScript基础笔记</a><time datetime="2021-11-25T10:44:17.432Z" title="发表于 2021-11-25 18:44:17">2021-11-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/11/25/Python%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" title="Python 基础笔记">Python 基础笔记</a><time datetime="2021-11-25T10:40:15.008Z" title="发表于 2021-11-25 18:40:15">2021-11-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/11/25/%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%88%E4%B8%80%EF%BC%89MySQL%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" title="数据库（一）MySQL基础笔记">数据库（一）MySQL基础笔记</a><time datetime="2021-11-25T10:37:31.105Z" title="发表于 2021-11-25 18:37:31">2021-11-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/11/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89%E5%90%B4%E6%81%A9%E8%BE%BE%E7%AC%94%E8%AE%B0%20/" title="机器学习（一）吴恩达笔记">机器学习（一）吴恩达笔记</a><time datetime="2021-11-25T10:34:24.303Z" title="发表于 2021-11-25 18:34:24">2021-11-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 By Wanghui Huang</div><div class="footer_custom_text">Tencent Cloud</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: '7920b243397ba41b79a6',
+      clientSecret: 'cf88800e73c283b2cc76bc3817304b6964982a47',
+      repo: 'Wanghui-Huang.github.io',
+      owner: 'Wanghui-Huang',
+      admin: ['Wanghui-Huang'],
+      id: '51a4717cc38b0a257d2a7182b2e5384d',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: true,
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
