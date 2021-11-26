@@ -152,7 +152,7 @@
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/cat.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> aboutME</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/about-bg.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">royhuang's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> aboutME</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">数据库（一）MySQL基础笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-25T10:37:31.105Z" title="发表于 2021-11-25 18:37:31">2021-11-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-11-25T10:41:32.511Z" title="更新于 2021-11-25 18:41:32">2021-11-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/">MySQL</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">8.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>31分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="数据库（一）MySQL基础笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>第一章 ：初识 MySQL</h1>
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/cat.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> aboutME</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/about-bg.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">royhuang's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> aboutME</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">数据库（一）MySQL基础笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-25T10:37:31.105Z" title="发表于 2021-11-25 18:37:31">2021-11-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-11-25T10:41:32.511Z" title="更新于 2021-11-25 18:41:32">2021-11-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/">MySQL</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">8.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>31分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="数据库（一）MySQL基础笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>第一章 ：初识 MySQL</h1>
 <h2 id="1-1-MySQL-概述">1.1 MySQL 概述</h2>
 <ul>
 <li>
@@ -336,7 +336,7 @@
 </blockquote>
 <p>新建 <em>.txt</em> 文本文件，写入：</p>
 <blockquote>
-<p>:warning: 注意，下面 <em>basedir &amp; datedir</em> ，一定是你自己的 <em>mysql</em> 安装目录！</p>
+<p>⚠️ 注意，下面 <em>basedir &amp; datedir</em> ，一定是你自己的 <em>mysql</em> 安装目录！</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line"><span class="comment"># 设置3306端口</span></span><br><span class="line">port=3306</span><br><span class="line"><span class="comment"># 设置mysql的安装目录</span></span><br><span class="line">basedir=D:\软件\mysql-8.0.16-winx64   <span class="comment"># 切记此处一定要用双斜杠\\</span></span><br><span class="line"><span class="comment"># 设置mysql数据库的数据的存放目录</span></span><br><span class="line">datadir=D:\软件\mysql-8.0.16-winx64\\Data   <span class="comment"># 此处同上</span></span><br><span class="line"><span class="comment"># 允许最大连接数</span></span><br><span class="line">max_connections=200</span><br><span class="line"><span class="comment"># 允许连接失败的次数。这是为了防止有人从该主机试图攻击数据库系统</span></span><br><span class="line">max_connect_errors=10</span><br><span class="line"><span class="comment"># 服务端使用的字符集默认为UTF8</span></span><br><span class="line">character-set-server=utf8</span><br><span class="line"><span class="comment"># 创建新表时将使用的默认存储引擎</span></span><br><span class="line">default-storage-engine=INNODB</span><br><span class="line"><span class="comment"># 默认使用“mysql_native_password”插件认证</span></span><br><span class="line">default_authentication_plugin=mysql_native_password</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line"><span class="comment"># 设置mysql客户端默认字符集</span></span><br><span class="line">default-character-set=utf8</span><br><span class="line"></span><br><span class="line">[client]</span><br><span class="line"><span class="comment"># 设置mysql客户端连接服务端时默认使用的端口</span></span><br><span class="line">port=3306</span><br><span class="line">default-character-set=utf8</span><br></pre></td></tr></table></figure>
 <p>然后重名为：<em>my.ini</em> 即可。</p>
@@ -485,7 +485,7 @@
 </blockquote>
 <p>在一张表中，通过某个字段，可以把数据可另一张表联系起来，这种列称为外键。</p>
 <p>如，在下列有两张构成 <u><em>一对多</em></u> 关系表中：</p>
-<p>:warning: 一对一、一对多、多对多：描述的是两个表之间的关系，单个表不存在这种描述！</p>
+<p>⚠️ 一对一、一对多、多对多：描述的是两个表之间的关系，单个表不存在这种描述！</p>
 <p>如：下两表，<em>class</em> 表中 <u>每个</u> 班级可以对应 <em>student</em> 表中 <u>多</u> 个学生，那么这就是<u>一对多</u>关系；</p>
 <p>同理，如果存在一张 <em>studentID</em> 表，<u>每个</u>学号和 <em>student</em> 表 <u>每个</u>学生 一一对应，就是 <u>一对一</u>关系。</p>
 <p>​                                                                             <em><strong>student</strong></em></p>
@@ -745,8 +745,8 @@
 <p>设置 <em>student</em> 表外键</p>
 <p>我们可以进一步，为 <em>class_id</em> 字段设置为外键：</p>
 <blockquote>
-<p>:warning: 解析错误：下面其实是一条语句，加 <code>，</code>会出错！</p>
-<p>:warning:[3780]错误：<em>student</em> 表外键 <em>class_id</em> 与 <em>class</em>表中 <em>id</em>，<em>NULL</em> &amp; <em>UNSIGNED</em> 约束要一致！（为了方便删了这两个约束）</p>
+<p>⚠️ 解析错误：下面其实是一条语句，加 <code>，</code>会出错！</p>
+<p>⚠️[3780]错误：<em>student</em> 表外键 <em>class_id</em> 与 <em>class</em>表中 <em>id</em>，<em>NULL</em> &amp; <em>UNSIGNED</em> 约束要一致！（为了方便删了这两个约束）</p>
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER TABLE student  </span><br><span class="line">    -&gt; ADD CONSTRAINT fk_class_id</span><br><span class="line">    -&gt; FOREIGN KEY(class_id)</span><br><span class="line">    -&gt; REFERENCES class(id);</span><br></pre></td></tr></table></figure>
 </li>
@@ -793,7 +793,7 @@
 <p>下面插入表数据语法，是一条语句故没有<code>，</code></p>
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO &lt;表名&gt; ( &lt;字段1&gt;, &lt;字段2&gt;,...&lt;字段N&gt; )</span><br><span class="line">                   VALUES</span><br><span class="line">                   ( value1, value2,...valueN );</span><br></pre></td></tr></table></figure>
-<p>:warning: 如果数据字符类似，必须加上单/双引号，如 ：<em>“value”</em></p>
+<p>⚠️ 如果数据字符类似，必须加上单/双引号，如 ：<em>“value”</em></p>
 <ol>
 <li>
 <p><em>class</em>表插入数据</p>
@@ -862,7 +862,7 @@
 <p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/1562725211849.png" alt="1562725211849"></p>
 <h3 id="2-3-1-UPDATE">2.3.1 UPDATE</h3>
 <p>语法：<code>UPDATE &lt;表名&gt; SET &lt;字段1&gt; = &lt;新值1&gt; , ...  WHERE &lt;条件1&gt; [AND | OR] &lt;条件2&gt;..</code></p>
-<p>:warning: SET 设置多个值用 <u>，</u>分隔； WHERE 设置多个条件用 <u>AND 、OR</u> 分隔；</p>
+<p>⚠️ SET 设置多个值用 <u>，</u>分隔； WHERE 设置多个条件用 <u>AND 、OR</u> 分隔；</p>
 <ul>
 <li>
 <p>更新某行记录字段值</p>
@@ -901,7 +901,7 @@
 <blockquote>
 <p>修改 <em>xw</em> 类型为 <em>INT</em>，初始默认值 <em>B</em> ;</p>
 </blockquote>
-<p>:warning: <em>MODIFY 、CHANGE</em> 只能在没有默认值设置初始默认值，<strong>不能修改</strong>默认值！</p>
+<p>⚠️ <em>MODIFY 、CHANGE</em> 只能在没有默认值设置初始默认值，<strong>不能修改</strong>默认值！</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE student </span><br><span class="line">MODIFY xw INT DEFAULT 2;</span><br></pre></td></tr></table></figure>
 <p><u><em>ALTER</em> 命令 + <em>CHANGE</em> 子句</u> ：可用于修改 字段名 &amp; 类型、设置初始默认值</p>
 <blockquote>
@@ -1034,7 +1034,7 @@
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT id,name,score</span><br><span class="line">FROM student </span><br><span class="line">WHERE class_id = 1 </span><br><span class="line">ORDER BY score ;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>:warning: <em>WHERE</em> 要放在 <em>ORDER BY</em> 前，否则出错；</li>
+<li>⚠️ <em>WHERE</em> 要放在 <em>ORDER BY</em> 前，否则出错；</li>
 <li>如果要降序：查询语句末加上 <em>DESC</em> 即可。</li>
 </ul>
 </li>
@@ -1502,9 +1502,9 @@
 </tbody>
 </table>
 <blockquote>
-<p>:grey_question: <em>Read Committed</em>下为什么不会出现脏读呢？</p>
+<p>❔ <em>Read Committed</em>下为什么不会出现脏读呢？</p>
 </blockquote>
-<p>:thought_balloon: 我的理解是，<em>Read Committed</em> 下只能读取到已经 <em>COMMIT</em> 更新的数据，不能读取未 <em>COMMIT</em> 操作数据。</p>
+<p>💭 我的理解是，<em>Read Committed</em> 下只能读取到已经 <em>COMMIT</em> 更新的数据，不能读取未 <em>COMMIT</em> 操作数据。</p>
 <p>​      脏读是未 <em>COMMIT</em> 前更新操作然后撤回又读取导致，所以也就不会出现脏读。</p>
 </li>
 <li>
@@ -1571,14 +1571,14 @@
 </tbody>
 </table>
 <ul>
-<li>第6时刻：:warning: 此时没有出现不可重复读，第6时刻读取到 id = 99 数据<strong>还是空</strong>。</li>
+<li>第6时刻：⚠️ 此时没有出现不可重复读，第6时刻读取到 id = 99 数据<strong>还是空</strong>。</li>
 <li>第7时刻：但是发现可以更新数据，而且此时再去读取 id = 99 数据发现成功了！！<em>AMAZING!</em></li>
 </ul>
 <blockquote>
-<p>:grey_question:  如果第 4 步是 <em>UPDATE</em> 操作 ，会出现不可重复读吗？</p>
+<p>❔  如果第 4 步是 <em>UPDATE</em> 操作 ，会出现不可重复读吗？</p>
 </blockquote>
-<p>:thought_balloon: 我猜测不会，因为 INSERT 操作也是更新，但是第6时刻读取数据为空？</p>
-<p>:male_detective: <em>Repeatable Read</em> 在同一个事务内的查询与事务开始时刻一致，在B事务过程中不会读到期间A中更新值。</p>
+<p>💭 我猜测不会，因为 INSERT 操作也是更新，但是第6时刻读取数据为空？</p>
+<p>🕵 <em>Repeatable Read</em> 在同一个事务内的查询与事务开始时刻一致，在B事务过程中不会读到期间A中更新值。</p>
 </li>
 <li>
 <p><em>Serializable</em></p>
