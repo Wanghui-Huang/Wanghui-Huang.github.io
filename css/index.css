@@ -3275,7 +3275,7 @@ blockquote footer cite:before {
 }
 #footer {
   position: relative;
-  background: #fefefe;
+  background: rgba(255,255,255,0);
   background-attachment: local;
   background-position: bottom;
   -webkit-background-size: cover;
