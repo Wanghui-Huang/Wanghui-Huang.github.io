@@ -12,9 +12,11 @@ main {
   display: block
 }
 
+
 #footer-wrap > div.copyright
 {
   color: #7f7f7f;
+  
 }
 #footer-wrap > div.footer_custom_text
 {
