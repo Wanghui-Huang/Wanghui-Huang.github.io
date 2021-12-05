@@ -13,6 +13,19 @@ main {
 }
 
 
+div.site-card-group
+{
+  margin-bottom: 2px;
+}
+div.site-card-group > a
+{
+    margin:auto;
+}
+#article-container > div.site-card-group > a > div.info > a > img
+{
+    margin-right: 5% ;
+}
+
 #footer-wrap > div.copyright
 {
   color: #7f7f7f;
@@ -30,7 +43,7 @@ main {
 
 div.timeline   div.body
 {
-  background: #f8fef9;
+  background: white;
 }
 h1 {
   font-size: 2.5em;
