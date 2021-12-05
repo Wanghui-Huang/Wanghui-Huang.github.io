@@ -1,0 +1,606 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>校招笔记（九）_计算机基础_相关补充 | royhuang's blog</title><meta name="keywords" content="校招,计算机基础,分布式,设计模式"><meta name="author" content="Wanghui Huang"><meta name="copyright" content="Wanghui Huang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="我的校招记录：校招笔记（零）_写在前面 ，以下是校招笔记总目录。       备注     算法能力（“刷题”） 这部分就是耗时间多练习，Leetcode-Top100 是很好的选择。 补充练习：codeTop   计算机基础(上)（“八股”） 校招笔记（一）__Java_Java入门 C++后端后续更新    校招笔记（一）__Java_面对对象     校招笔记（一）__Java_集合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="校招笔记（九）_计算机基础_相关补充">
+<meta property="og:url" content="https://hwh.zone/p/5582/index.html">
+<meta property="og:site_name" content="royhuang&#39;s blog">
+<meta property="og:description" content="我的校招记录：校招笔记（零）_写在前面 ，以下是校招笔记总目录。       备注     算法能力（“刷题”） 这部分就是耗时间多练习，Leetcode-Top100 是很好的选择。 补充练习：codeTop   计算机基础(上)（“八股”） 校招笔记（一）__Java_Java入门 C++后端后续更新    校招笔记（一）__Java_面对对象     校招笔记（一）__Java_集合">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hwh.zone/img/about-bg.jpg">
+<meta property="article:published_time" content="2021-11-25T08:29:59.274Z">
+<meta property="article:modified_time" content="2021-12-03T03:55:16.961Z">
+<meta property="article:author" content="Wanghui Huang">
+<meta property="article:tag" content="校招">
+<meta property="article:tag" content="计算机基础">
+<meta property="article:tag" content="分布式">
+<meta property="article:tag" content="设计模式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hwh.zone/img/about-bg.jpg"><link rel="shortcut icon" href="/img/cat-modified.png"><link rel="canonical" href="https://hwh.zone/p/5582/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":"true# copy button","highlightLang":false,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":100,"languages":{"author":"作者: Wanghui Huang","link":"链接: ","source":"来源: royhuang's blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '校招笔记（九）_计算机基础_相关补充',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-03 11:55:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><meta name="google-site-verification" content="uO6C17u7YuZfMWvThEQ9nOGQS4GIN2zAM6hC4tH-RiM" /><script> var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?13a4aefcbad9616a1f5859538d0d882e"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); })(); </script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.min.css" media="defer" onload="this.media='all'"><script async src="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/carousel-touch.min.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/cat.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> aboutME</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">royhuang's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> aboutME</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">校招笔记（九）_计算机基础_相关补充</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-25T08:29:59.274Z" title="发表于 2021-11-25 16:29:59">2021-11-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-03T03:55:16.961Z" title="更新于 2021-12-03 11:55:16">2021-12-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%A0%A1%E6%8B%9B%E7%AC%94%E8%AE%B0/">校招笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%A0%A1%E6%8B%9B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>15分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="校招笔记（九）_计算机基础_相关补充"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="twikoo_visitors"></span></span></div></div></div><article class="post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
+<p>我的校招记录：<a target="_blank" rel="noopener" href="https://www.hwh.zone/p/29708/">校招笔记（零）_写在前面</a> ，以下是校招笔记总目录。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>算法能力（“刷题”）</strong></td>
+<td style="text-align:center">这部分就是耗时间多练习，<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problem-list/2cktkvj/">Leetcode-Top100</a> 是很好的选择。</td>
+<td style="text-align:center">补充练习：<a target="_blank" rel="noopener" href="https://codetop.cc/">codeTop</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>计算机基础(上)（“八股”）</strong></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/51787/">校招笔记（一）__Java_Java入门</a></td>
+<td style="text-align:center">C++后端后续更新</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/7257/">校招笔记（一）__Java_面对对象</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/21069/">校招笔记（一）__Java_集合</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/8959/">校招笔记（一）__Java_多线程</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/45493/">校招笔记（一）__Java_锁</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/42516/">校招笔记（一）__Java_JVM</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>计算机基础(下)（“八股”）</strong></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/44980/">校招笔记（二）__计算机基础_Linux&amp;Git</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/46361/">校招笔记（三）__计算机基础_计算机网络</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/15646/">校招笔记（四）__计算机基础_操作系统</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/56848/">校招笔记（五）__计算机基础_MySQL</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/31215/">校招笔记（六）__计算机基础_Redis</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/61434/">校招笔记（七）__计算机基础_数据结构</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="https://hwh.zone/p/31667/">校招笔记（八）__计算机基础_场景&amp;智力题</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/5582/">校招笔记（九）__计算机基础_相关补充</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>项目&amp;实习</strong></td>
+<td style="text-align:center">主要是怎么准备项目，后续更新</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<h1>九、相关补充</h1>
+<h2 id="9-1-（要扩充）设计模式">9.1 （要扩充）设计模式</h2>
+<blockquote>
+<p>没有足够实际代码经验，只好先写这些应付下面试。</p>
+</blockquote>
+<h4 id="1-说说什么是单例模式-手写一个？">1.说说什么是单例模式 ?手写一个？</h4>
+<p>单例模式是一种常用的软件设计模式，在应用这个模式时，单例对象的类必须保证只有一个实例存在，整个系统只能使用一个对象实例。</p>
+<ul>
+<li>
+<p><strong>手写单例模式</strong></p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.runoob.com/design-pattern/singleton-pattern.html">https://www.runoob.com/design-pattern/singleton-pattern.html</a></p>
+</blockquote>
+<blockquote>
+<p>记忆：“2private + 1public ”</p>
+</blockquote>
+<ol>
+<li>
+<p><strong>饿汉式</strong></p>
+<p>线程安全 ， 但：类加载时就初始化，浪费内存。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleObject</span> </span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">   <span class="comment">// 创建 SingleObject 的一个对象</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> SingleObject instance = <span class="keyword">new</span> SingleObject();</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// *让构造函数为 private，这样该类就不会被实例化</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="title">SingleObject</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// 获取唯一可用的对象</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingleObject <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> instance;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showMessage</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>懒汉式（不加锁）</strong></p>
+<p>只有真正调用获取实例对象时，才会创建一次。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span></span><br><span class="line"><span class="class"></span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="comment">// 调用时才判断</span></span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="keyword">null</span>) </span><br><span class="line">    &#123;  </span><br><span class="line">        instance = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> instance;  </span><br><span class="line">    &#125;  </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>懒汉式（加锁）</strong></p>
+<p>线程安全，但加锁性能不够高</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span></span><br><span class="line"><span class="class"></span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">    <span class="comment">// 就是多了个synchronized关键字</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </span><br><span class="line">        instance = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> instance;  </span><br><span class="line">    &#125;  </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>双检锁式</strong></p>
+<p>懒汉式（加锁）虽然可以保证只创建一个单例，但其性能不高，因为每次访问<strong>整个方法都加锁</strong>。</p>
+<p>因此出现双检索式，在<code>instance=new DoubleCheckSingleton();</code> 进行加锁 ， <code>return instance;</code><strong>不加锁</strong>！</p>
+<blockquote>
+<p><strong>为什么要进行两次检查instance==null？</strong></p>
+<ol>
+<li>
+<p>第一层检查作用</p>
+<p>主要为了提高性能。如果没有第一层，上来就要加锁比较耗费性能</p>
+</li>
+<li>
+<p>第二层检查作用</p>
+<p>解决多线程并发问题。假设是第一次开始执行<code>getInstance</code>方法：</p>
+<ol>
+<li>A，B两个线程，此时<code>instance==null</code> ，A，B都通过了第一层检查。</li>
+<li>假设A先拿到锁，往下执行创建一个实例，然后释放了锁；</li>
+<li>此时B也拿到了锁，<strong>如果没有第二层检查，B会进行重新new一个实例</strong>，违背单例模式！</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DoubleCheckSingleton</span></span></span><br><span class="line"><span class="class"></span>&#123;      </span><br><span class="line">     <span class="comment">// volitale 关键字修饰，避免指令重排，因为初始化操作是不原子化的 ：</span></span><br><span class="line">    <span class="comment">//  (1) 给DoubleCheckSingleton类的实例instance分配内存</span></span><br><span class="line">    <span class="comment">//  (2) 调用实例instance的构造函数来初始化成员变量</span></span><br><span class="line">    <span class="comment">//  (3) 将instance指向分配的内存地址</span></span><br><span class="line">    <span class="comment">//  在多线程中，A可能是 1→3→2的顺序，执行到1→3，此时另外一个线程看到instance不为null（因为前面线程执行了3）就直接返回实例。而此时并没有被分配内存故可能出现问题。</span></span><br><span class="line">    <span class="keyword">private</span>  <span class="keyword">volatile</span> <span class="keyword">static</span> DoubleCheckSingleton instance;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 私有的构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">DoubleCheckSingleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> DoubleCheckSingleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(instance==<span class="keyword">null</span>)&#123; <span class="comment">//第一层检查，是否存在实例</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">synchronized</span> (DoubleCheckSingleton.class)&#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span>(instance==<span class="keyword">null</span>)&#123; <span class="comment">//第二层检查，防止出现另外一个线程阻塞在synchronized，获得锁后重复创建实例</span></span><br><span class="line"></span><br><span class="line">                    instance=<span class="keyword">new</span> DoubleCheckSingleton();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="2-说说你对代理模式的理解？">2.<strong>说说你对代理模式的理解</strong>？</h4>
+<p>代理模式是给某一个对象提供一个代理，并由<strong>代理对象控制对原对象的引用</strong>。</p>
+<ul>
+<li><strong>优点</strong>：代理模式能够协调调用者和被调用者，<u>在一定程度上降低了系统的<strong>耦合度</strong></u>；可以<u>灵活地隐藏被代理对象的部分功能和服务，也增加额外的功能和服务</u>。</li>
+<li><strong>缺点</strong>：由于使用了代理模式，因此程序的性能<u>没有直接调用性能高</u>；使用代理模式<u>提高了代码的复杂度</u>。</li>
+</ul>
+<h4 id="3-说说简单工厂模式？">3.<strong>说说简单工厂模式</strong>？</h4>
+<p>简单工厂模式又叫静态工厂方法模式，就是建立一个工厂类，<strong>对实现了同一接口的一些类进行实例的创建</strong>。</p>
+<ul>
+<li>
+<p>比如，一台咖啡机就可以理解为一个工厂模式，你只需要按下想喝的咖啡品类的按钮（摩卡或拿铁），它就会给你生产一杯相应的咖啡，你不需要管它内部的具体实现，只要告诉它你的需求即可；</p>
+</li>
+<li>
+<p>【<strong>优点</strong>】<strong>工厂类含有必要的判断逻辑，可以决定在什么时候创建哪一个产品类的实例</strong>，客户端可以免除直接创建产品对象的责任，而仅仅“消费”产品；</p>
+</li>
+<li>
+<p>【<strong>缺点</strong>】 不易拓展，<u>一旦添加新的产品类型，就不得不修改工厂的创建逻辑</u>； 产品类型较多时，工厂的创建逻辑可能过于复杂，一旦出错可能造成所有产品的创建失败，不利于系统的维护。</p>
+</li>
+</ul>
+<h4 id="4-说说抽象工厂模式？">4.<strong>说说抽象工厂模式</strong>？</h4>
+<p>抽象工厂模式是在简单工厂的基础上将未来<strong>可能需要修改的代码抽象出来</strong>，通过继承的方式让子类去做决定。</p>
+<ul>
+<li>【<strong>简单工厂模式缺点</strong>】以上面的咖啡工厂为例，某天我的口味突然变了，<u>不想喝咖啡了想喝啤酒，这个时候如果直接修改简单工厂里面的代码</u>，这种做法不但不够优雅，也不符合软件设计的“开闭原则”，因为每次新增品类都要修改原来的代码。</li>
+<li>【<strong>抽象工厂</strong>】<strong>抽象工厂里只声明方法，具体的实现交给子类（子工厂）去实现</strong>，这个时候再有新增品类的需求，只需要新创建代码即可。如，创建一个啤酒工厂而不是咖啡工厂。</li>
+</ul>
+<h4 id="5-装饰器模式是什么？">5.<strong>装饰器模式是什么</strong>？</h4>
+<blockquote>
+<p>不够深入。</p>
+</blockquote>
+<p>装饰器模式是指<u>动态地给一个对象增加一些额外的功能</u>，同时<strong>又不改变其结构</strong>。</p>
+<h2 id="9-2-分布式问题【校招必问】">9.2 分布式问题【校招必问】</h2>
+<blockquote>
+<p>非常系统的总结文档：<a target="_blank" rel="noopener" href="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E9%9D%A2%E8%AF%95%E7%B2%BE%E8%AE%B2/03%20%20%E9%9D%A2%E8%AF%95%E5%AE%98%E5%A6%82%E4%BD%95%E8%80%83%E5%AF%9F%E4%B8%8E%20CAP%20%E6%9C%89%E5%85%B3%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E7%90%86%E8%AE%BA%EF%BC%9F.md">分布式相关：第一页</a></p>
+</blockquote>
+<p>CAP 理论指的是什么：C（Consistency）是数据一致性、A（Availability）是服务可用性、P（Partition tolerance）是分区容错性。</p>
+<ul>
+<li>
+<p><strong>问题引入</strong></p>
+<p>现在有一个分布式系统 A，它有一个副本 A1，在正常情况下，客户端 Client 写数据到系统 A，然后数据从 A 节点同步到 A1 节点，再返回给 Client 成功状态。</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E9%9D%A2%E8%AF%95%E7%B2%BE%E8%AE%B2/assets/CgqCHl_-eW2ALOs5AAFBvaYD4f8199.png" alt="6.png"></p>
+<p>但由于网络是不可靠的，节点 A 和 A1 的网络随时会因为中断而出现分区。所谓网络分区就是由于网络不通导致节点 A 和 A1 被隔离在不同的网络子集中，此时节点 A 的数据就不能及时同步到节点 A1 中了。</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E9%9D%A2%E8%AF%95%E7%B2%BE%E8%AE%B2/assets/Ciqc1F_-eXaAcu6nAAE3Pk18sD8666.png" alt="7.png"></p>
+</li>
+</ul>
+<h4 id="9-1-1-在CAP基础上讲讲BASE？举实例说说？">9.1.1 在CAP基础上讲讲BASE？举实例说说？</h4>
+<p>BASE 理论，它是 CAP 理论的延伸。BASE 是 Basically Available（基本可用）、Soft State（软状态）和 Eventually Consistent（最终一致性）三个单词的简写，作用是保证系统的可用性，然后通过<strong>最终一致性来代替强一致性</strong>，它是目前分布式系统设计中最具指导意义的经验总结。</p>
+<p>其实是做了“可用性”方面的妥协，比如：</p>
+<ul>
+<li>电商网站在双十一大促等访问压力较大的时候，关闭商品排行榜等次要功能的展示，从而保证商品交易主流程的可用性，这也是我们常说的<strong>服务降级；</strong></li>
+<li>为了错开双十一高峰期，电商网站会将<strong>预售商品的支付时间</strong>延后十到二十分钟，这就是<strong>流量削峰</strong>；</li>
+<li>在你抢购商品的时候，往往会在队列中等待处理，这也是常用的<strong>延迟队列</strong>。</li>
+</ul>
+<p>软状态和最终一致性指的是允许系统中的数据存在中间状态，这同样是<strong>为了系统可用性而牺牲一段时间窗内的数据一致性</strong>，从而保证最终的数据一致性的做法。</p>
+<h4 id="9-1-2-亿级商品分布式存储问题？">9.1.2 亿级商品分布式存储问题？</h4>
+<h5 id="1-如何设计一个支持海量商品存储的高扩展性架构？">1.如何设计一个支持海量商品存储的高扩展性架构？</h5>
+<p><strong>从这一点出发会考察你Hash（哈希）分片的具体实现原理</strong>。</p>
+<ol>
+<li>以商品 ID 作为关键字进行分片，系统会通过一个 Hash 函数计算商品 ID 的 Hash 值，然后取模，就能得到对应的分片；</li>
+</ol>
+<h5 id="2-在做分库分表时，基于-Hash-取模和一致性-Hash-的数据分片是如何实现的？">2.在做分库分表时，基于 Hash 取模和一致性 Hash 的数据分片是如何实现的？</h5>
+<ol>
+<li><strong>解决 Hash 分片的缺点，既保证数据均匀分布，又保证扩展性</strong> ，最终采用一致性 Hash ：它是指将存储节点和数据都映射到一个首尾相连的哈希环上。</li>
+<li>具体见前，一致性哈希相关算法描述</li>
+</ol>
+<h5 id="3-在电商大促时期，如何对热点商品数据做存储策略-？">3.在电商大促时期，如何对热点商品数据做存储策略 ？</h5>
+<ul>
+<li>
+<p><strong>问题</strong></p>
+<p>一致性 Hash 提升了稳定性，使节点的加入和退出不会造成大规模的数据迁移，但<strong>本质上 Hash 分片是一种静态的分片方式</strong>，必须要提前设定分片的最大规模，<strong>而且无法避免单一热点问题，</strong> 某一数据被海量并发请求后，不论如何进行 Hash，数据也只能存在一个节点上，这势必会带来热点请求问题。</p>
+</li>
+<li>
+<p><strong>解决</strong></p>
+<p><strong>做 Range（范围）分片</strong>。 与 Hash 分片不同的是，Range 分片能结合业务逻辑规则，例如，我们用 “Category（商品类目）” 作为关键字进行<strong>动态分片时</strong>，不是以统一的商品一级类目为标准，而是可以按照一、二、三级类目进行灵活分片。例如，对于京东强势的 3C 品类，可以按照 3C 的三级品类设置分片；对于弱势品类，可以先按照一级品类进行分片，这样会让分片间的数据更加平衡。</p>
+<p><img src="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E9%9D%A2%E8%AF%95%E7%B2%BE%E8%AE%B2/assets/CgpVE1_-ed6AfUBMAAFtDc6PlH4881.png" alt="15.png"></p>
+</li>
+</ul>
+<p><strong>4.强一致性和最终一致性的数据共识算法是如何实现的</strong>？</p>
+<h4 id="9-1-3-海量并发，分布式事务一致性问题？">9.1.3 海量并发，分布式事务一致性问题？</h4>
+<ul>
+<li>
+<p><strong>什么是分布式事务问题</strong>？</p>
+<p>一次大的操作由多个小操作组成，这些<strong>小的操作分布在不同的服务器上</strong>，分布式事务需要<strong>保证这些小操作要么全部成功，要么全部失败</strong>。</p>
+<p>举一个实例：</p>
+<ul>
+<li>京东旅行系统，拆分成多个子系统，如商品系统、促销系统、订单系统。用户下单时，<strong>订单系统生成订单，商品系统扣减库存，促销系统扣减优惠券</strong>，<strong>只有当三个系统的事务都提交之后，才认为此次下单成功</strong>，否则失败。</li>
+</ul>
+</li>
+<li>
+<p><strong>解决方案</strong></p>
+<p>有两阶段提交协议（Two-Phase Commit，2PC）、3PC 、TCC 和基于消息队列的实现方式。</p>
+<ul>
+<li>
+<p><strong>错误回答</strong>：方案很多，可以选择 2PC ，2PC 实现的流程是…</p>
+</li>
+<li>
+<p><strong>错误原因</strong>： 因为在实际工作中，<strong>很少采用前几种方案（互联网中落地方案代价大）</strong>，基本都是基于 MQ 的可靠消息投递的方式来实现。</p>
+</li>
+<li>
+<p><strong>正确回答</strong>：先介绍目前主流实现分布式系统事务一致性的方案（也就是基于 MQ 的可靠消息投递的机制）然后回答出可实现方案和关键知识点。另外，<strong>为了和面试官进一步交流，你可以提出 2PC 或 TCC</strong> （这是一种交流方案）。</p>
+</li>
+<li>
+<p><strong>回答一、基于 MQ 的可靠消息投递方案</strong></p>
+<ul>
+<li>
+<p><strong>什么是MQ</strong></p>
+<p>核心的五个概念：</p>
+<ol>
+<li><strong>Queue</strong>: 真正存储数据的地方</li>
+<li><strong>Exchange</strong>: 接收请求，转存数据</li>
+<li><strong>Bind:</strong> 收到请求后存储到哪里</li>
+<li><strong>消息生产者</strong>:发送数据的应用</li>
+<li><strong>消息消费者</strong>: 取出数据处理的应用</li>
+</ol>
+</li>
+<li>
+<p><strong>场景实例</strong></p>
+<blockquote>
+<p><strong>订单系统（1）完成订单后，（2）购物车系统减购物车中的商品</strong>。</p>
+</blockquote>
+<p><img src="https://i.loli.net/2021/09/05/B2uKDL8cyfhplis.png" alt="img"></p>
+<ol>
+<li>
+<p>订单系统在<strong>消息队列上</strong>开启一个事务（没有创建订单）；</p>
+</li>
+<li>
+<p>订单系统给消息服务器发送一个“半消息”；</p>
+<blockquote>
+<p>这个半消息不是说消息内容不完整，它包含的内容就是完整的消息内容，半消息和普通消息的唯一区别是，<strong>在事务提交之前，对于消费者来说，这个消息是不可见的</strong>。</p>
+</blockquote>
+</li>
+<li>
+<p>半消息发送成功后，<strong>订单系统就可以执行本地事务了</strong>，在订单库中创建一条订单记录，并提交订单库的数据库事务。</p>
+</li>
+<li>
+<p>然后<strong>根据本地事务的执行结果决定提交或者回滚事务消息</strong>。</p>
+<blockquote>
+<p>如果订单创建成功，那就提交事务消息，购物车系统就可以消费到这条消息继续后续的流程。如果订单创建失败，那就回滚事务消息，购物车系统就不会收到这条消息。</p>
+</blockquote>
+</li>
+<li>
+<p>购物系统消费这条拿到的订单系统消息（<strong>确认了订单系统事务执行完毕</strong>），这样就可以继续下一步购物操作</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="9-1-4-分布式锁问题">9.1.4 分布式锁问题</h4>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://learn.lianglianglee.com/%E4%B8%93%E6%A0%8F/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E9%9D%A2%E8%AF%95%E7%B2%BE%E8%AE%B2/06%20%20%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%EF%BC%8C%E5%A6%82%E4%BD%95%E5%9B%9E%E7%AD%94%E9%94%81%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%9F.md">06 分布式系统中，如何回答锁的实现原理？</a></p>
+</blockquote>
+<p>分布式锁是解决协调分布式系统之间，同步访问共享资源的一种方式。详细来讲：在分布式环境下，<strong>多个系统在同时操作共享资源</strong>（如写数据）时，发起操作的系统通常会通过一种方式去协调其他系统，然后获取访问权限，得到访问权限后才可以写入数据，其他系统必须等待权限释放。</p>
+<img src="https://i.loli.net/2021/09/05/f7Fh83wrnqvH6PK.png" alt="image-20210905232542573" style="zoom:80%;" />
+<ul>
+<li>
+<p><strong>基于redis的分布式锁</strong></p>
+<p><strong>使用setnx命令加锁</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">wrongGetLock1</span><span class="params">(Jedis jedis, String lockKey, String requestId, <span class="keyword">int</span> expireTime)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 第一步：加锁</span></span><br><span class="line">    Long result = jedis.setnx(lockKey, requestId);</span><br><span class="line">    <span class="keyword">if</span> (result == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// 第二步：设置过期时间</span></span><br><span class="line">        jedis.expire(lockKey, expireTime);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>setnx命令，意思就是 set if not exist，<strong>如果lockKey不存在，把key存入Redis</strong>，保存成功后如果result返回1，表示设置成功，如果非1，表示失败，别的线程已经设置过了。</p>
+</li>
+<li>
+<p>expire()，设置过期时间，防止死锁，假设，如果一个锁set后，一直不删掉，那这个锁相当于一直存在，产生死锁。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>解决setnx与expire不是一个原子操作</strong></p>
+<ul>
+<li>
+<p>加锁总共分两步，第一步jedis.setnx，第二步jedis.expire设置过期时间，setnx与expire不是一个原子操作，如果程序执行完第一步后异常了，第二步jedis.expire(lockKey, expireTime)没有得到执行，<strong>相当于这个锁没有过期时间，有产生死锁的可能</strong>。</p>
+</li>
+<li>
+<p>解决方案为：一步操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisLockDemo</span> </span></span><br><span class="line"><span class="class"></span>&#123;   </span><br><span class="line"> 		<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String SET_IF_NOT_EXIST = <span class="string">&quot;NX&quot;</span>;  </span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String SET_WITH_EXPIRE_TIME = <span class="string">&quot;PX&quot;</span>;   </span><br><span class="line">        <span class="comment">/**     </span></span><br><span class="line"><span class="comment">        * 获取分布式锁    </span></span><br><span class="line"><span class="comment">        * <span class="doctag">@param</span> jedis Redis客户端     </span></span><br><span class="line"><span class="comment">        * <span class="doctag">@param</span> lockKey 锁    </span></span><br><span class="line"><span class="comment">        * <span class="doctag">@param</span> requestId 请求标识     </span></span><br><span class="line"><span class="comment">        * <span class="doctag">@param</span> expireTime 超期时间     </span></span><br><span class="line"><span class="comment">        * <span class="doctag">@return</span> 是否获取功     */</span>   </span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">getLock</span><span class="params">(Jedis jedis, String lockKey, String requestId, <span class="keyword">int</span> expireTime)</span></span></span><br><span class="line"><span class="function">   </span>&#123;    </span><br><span class="line">           <span class="comment">// 两步合二为一，一行代码加锁并设置 + 过期时间。       </span></span><br><span class="line">     <span class="keyword">if</span> (<span class="number">1</span> == jedis.set(lockKey, requestId, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime))</span><br><span class="line">      &#123;           </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;<span class="comment">//加锁成功        </span></span><br><span class="line">      &#125;       </span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">false</span>;<span class="comment">//加锁失败   </span></span><br><span class="line">   &#125;</span><br><span class="line">    </span><br><span class="line">  <span class="comment">// 解锁：对应del删除key即可</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">unLock</span><span class="params">(Jedis jedis, String lockKey, String requestId)</span> </span></span><br><span class="line"><span class="function">  </span>&#123;           </span><br><span class="line">      <span class="comment">// 第一步： 使用 requestId 判断加锁与解锁是不是同一个客户端    </span></span><br><span class="line">      <span class="keyword">if</span> (requestId.equals(jedis.get(lockKey))) </span><br><span class="line">      &#123;       </span><br><span class="line">          <span class="comment">// 第二步： 若在此时，这把锁突然不是这个客户端的，则会误解锁     </span></span><br><span class="line">          jedis.del(lockKey);    </span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>​</p>
+<ul>
+<li>
+<p><strong>基于Zoopkeeper的分布式锁</strong></p>
+<blockquote>
+<p>sync，lock也只能保证你当前机器线程安全，这样分布式访问还是有问题。</p>
+<p>建议参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/aobing/p/12650036.html">https://www.cnblogs.com/aobing/p/12650036.html</a></p>
+</blockquote>
+<p>一个机器接收到了请求之后，先获取 zookeeper 上的一把分布式锁（zk会创建一个 znode），执行操作；然后另外一个机器也<strong>尝试去创建</strong>那个 znode，结果发现自己创建不了，因为被别人创建了，那只能等待，等第一个机器执行完了方可拿到锁。</p>
+<p>下面是创建临时顺序节点的情况：</p>
+<ol>
+<li>
+<p>客户端调用create()方法创建名为“/dlm-locks/lockname/lock-”的临时顺序节点。</p>
+</li>
+<li>
+<p>客户端调用getChildren(“lockname”)方法来获取所有已经创建的子节点。</p>
+</li>
+<li>
+<p>客户端获取到所有子节点path之后，如果发现<strong>自己在步骤1中创建的节点是所有节点中序号最小</strong>的，就是看自己创建的序列号是否排第一，如果是第一，那么<strong>就认为这个客户端获得了锁</strong>，在它前面没有别的客户端拿到锁。</p>
+</li>
+<li>
+<p>如果创建的节点不是所有节点中需要最小的，那么则<strong>监视比自己创建节点的序列号小的最大的节点，进入等待</strong>。直到下次监视的<strong>子节点变更的时候</strong>，再进行子节点的获取，判断是否获取锁。</p>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>基于关系型数据库 MySQL 实现分布式锁</strong></p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904137172189198">https://juejin.cn/post/6844904137172189198</a></p>
+</blockquote>
+<p>利用 Mysql 的锁表，创建一张表，设置一个 UNIQUE KEY（如，<strong>利用主键ID的唯一性</strong>） 这个 KEY 就是要锁的 KEY，所以同一个 KEY 在mysql表里只能插入一次了。</p>
+<blockquote>
+<p>这样对锁的竞争就交给了数据库，处理同一个 KEY 数据库保证了只有一个节点能插入成功，其他节点都会插入失败。</p>
+</blockquote>
+<p>定义加锁、解锁代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lock</span> ：  </span></span><br><span class="line"><span class="function">    <span class="title">exec</span> <span class="title">sql</span>:</span> ins	ert into lockedtable (xxx) values (xxx)    </span><br><span class="line">    <span class="keyword">if</span> result == true :       </span><br><span class="line">         <span class="keyword">return</span> true    </span><br><span class="line">    <span class="keyword">else</span> :        </span><br><span class="line">         <span class="keyword">return</span> falsedef </span><br><span class="line"> </span><br><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">unlock</span> ：   # 解锁就是删除</span></span><br><span class="line"><span class="function"> 	<span class="title">exec</span> <span class="title">sql</span>:</span> delete <span class="keyword">from</span> lockedOrder where order_id=<span class="string">&#x27;order_id&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="9-3-其它问题">9.3 其它问题</h2>
+<h4 id="1-【字节-懂车帝】什么是跨域？">1. 【字节-懂车帝】什么是跨域？</h4>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f049ac7e2220">https://www.jianshu.com/p/f049ac7e2220</a></p>
+</blockquote>
+<p>跨域，是指浏览器不能执行其他网站的脚本。它是由<strong>浏览器的同源策略</strong>造成的，是浏览器对JavaScript实施的安全限制。</p>
+<p>同源策略限制了一下行为：</p>
+<ol>
+<li>
+<p>Cookie、LocalStorage 和 IndexDB 无法读取</p>
+</li>
+<li>
+<p>DOM 和 JS 对象无法获取</p>
+</li>
+<li>
+<p>Ajax请求发送不出去</p>
+</li>
+</ol>
+<p>具体的一些实例：</p>
+<ol>
+<li>
+<p><strong>非跨域</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.yyy.cn/index.html 调用 http://www.xxxyyy.cn/server.php 非跨域</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>跨域：主域不同</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.xxxyyy.cn/index.html 调用  http://www.xxx.cn/server.php</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>跨域：子域名不同</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://abc.xxxyyy.cn/index.html 调用  http://def.xxx.cn/server.php</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>跨域：端口不同</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.xxx.cn:**8080**/index.html 调用  http://www.xxx.cn/server.php</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>跨域：协议不同</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**https**://www.xxx.cn/index.html 调用  **http**://www.xxx.cn/server.php</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Wanghui Huang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hwh.zone/p/5582/">https://hwh.zone/p/5582/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hwh.zone" target="_blank">royhuang's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%A0%A1%E6%8B%9B/">校招</a><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a><a class="post-meta__tags" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a><a class="post-meta__tags" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></div><div class="post_share"><div class="social-share" data-image="/img/about-bg.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatPay.png" target="_blank"><img class="post-qr-code-img" src="/img/wechatPay.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/img/alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/p/9336/"><img class="prev-cover" src="/img/about-bg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">数据库（二）Redis基础</div></div></a></div><div class="next-post pull-right"><a href="/p/64865/"><img class="next-cover" src="/img/about-bg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">深度学习基础（一）Numpy</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/p/61434/" title="校招笔记（七）_计算机基础_数据结构"><img class="cover" src="/img/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-26</div><div class="title">校招笔记（七）_计算机基础_数据结构</div></div></a></div><div><a href="/p/44980/" title="校招笔记（二）_计算机基础_Linux&Git"><img class="cover" src="/img/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-26</div><div class="title">校招笔记（二）_计算机基础_Linux&Git</div></div></a></div><div><a href="/p/46361/" title="校招笔记（三）_计算机基础_计算机网络"><img class="cover" src="/img/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-26</div><div class="title">校招笔记（三）_计算机基础_计算机网络</div></div></a></div><div><a href="/p/31667/" title="校招笔记（八）_计算机基础_场景&智力题"><img class="cover" src="/img/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-26</div><div class="title">校招笔记（八）_计算机基础_场景&智力题</div></div></a></div><div><a href="/p/56848/" title="校招笔记（五）_计算机基础_MySQL"><img class="cover" src="/img/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-26</div><div class="title">校招笔记（五）_计算机基础_MySQL</div></div></a></div><div><a href="/p/31215/" title="校招笔记（六）_计算机基础_Redis"><img class="cover" src="/img/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-26</div><div class="title">校招笔记（六）_计算机基础_Redis</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/cat.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wanghui Huang</div><div class="author-info__description">tech & life</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Wanghui-Huang"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Wanghui-Huang" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:hwh199601@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">royHuang's studio</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">九、相关补充</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#9-1-%EF%BC%88%E8%A6%81%E6%89%A9%E5%85%85%EF%BC%89%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-text">9.1 （要扩充）设计模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%AF%B4%E8%AF%B4%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F-%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%AA%EF%BC%9F"><span class="toc-text">1.说说什么是单例模式 ?手写一个？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%AF%B4%E8%AF%B4%E4%BD%A0%E5%AF%B9%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%9F"><span class="toc-text">2.说说你对代理模式的理解？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%AF%B4%E8%AF%B4%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%EF%BC%9F"><span class="toc-text">3.说说简单工厂模式？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E8%AF%B4%E8%AF%B4%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%EF%BC%9F"><span class="toc-text">4.说说抽象工厂模式？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">5.装饰器模式是什么？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-2-%E5%88%86%E5%B8%83%E5%BC%8F%E9%97%AE%E9%A2%98%E3%80%90%E6%A0%A1%E6%8B%9B%E5%BF%85%E9%97%AE%E3%80%91"><span class="toc-text">9.2 分布式问题【校招必问】</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9-1-1-%E5%9C%A8CAP%E5%9F%BA%E7%A1%80%E4%B8%8A%E8%AE%B2%E8%AE%B2BASE%EF%BC%9F%E4%B8%BE%E5%AE%9E%E4%BE%8B%E8%AF%B4%E8%AF%B4%EF%BC%9F"><span class="toc-text">9.1.1 在CAP基础上讲讲BASE？举实例说说？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-1-2-%E4%BA%BF%E7%BA%A7%E5%95%86%E5%93%81%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="toc-text">9.1.2 亿级商品分布式存储问题？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E6%94%AF%E6%8C%81%E6%B5%B7%E9%87%8F%E5%95%86%E5%93%81%E5%AD%98%E5%82%A8%E7%9A%84%E9%AB%98%E6%89%A9%E5%B1%95%E6%80%A7%E6%9E%B6%E6%9E%84%EF%BC%9F"><span class="toc-text">1.如何设计一个支持海量商品存储的高扩展性架构？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E5%9C%A8%E5%81%9A%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E6%97%B6%EF%BC%8C%E5%9F%BA%E4%BA%8E-Hash-%E5%8F%96%E6%A8%A1%E5%92%8C%E4%B8%80%E8%87%B4%E6%80%A7-Hash-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%9F"><span class="toc-text">2.在做分库分表时，基于 Hash 取模和一致性 Hash 的数据分片是如何实现的？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E5%9C%A8%E7%94%B5%E5%95%86%E5%A4%A7%E4%BF%83%E6%97%B6%E6%9C%9F%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AF%B9%E7%83%AD%E7%82%B9%E5%95%86%E5%93%81%E6%95%B0%E6%8D%AE%E5%81%9A%E5%AD%98%E5%82%A8%E7%AD%96%E7%95%A5-%EF%BC%9F"><span class="toc-text">3.在电商大促时期，如何对热点商品数据做存储策略 ？</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-1-3-%E6%B5%B7%E9%87%8F%E5%B9%B6%E5%8F%91%EF%BC%8C%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="toc-text">9.1.3 海量并发，分布式事务一致性问题？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-1-4-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E9%97%AE%E9%A2%98"><span class="toc-text">9.1.4 分布式锁问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-3-%E5%85%B6%E5%AE%83%E9%97%AE%E9%A2%98"><span class="toc-text">9.3 其它问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E3%80%90%E5%AD%97%E8%8A%82-%E6%87%82%E8%BD%A6%E5%B8%9D%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E8%B7%A8%E5%9F%9F%EF%BC%9F"><span class="toc-text">1. 【字节-懂车帝】什么是跨域？</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/2/" title="无题">无题</a><time datetime="2021-12-05T08:28:39.054Z" title="发表于 2021-12-05 16:28:39">2021-12-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/1/" title="无题">无题</a><time datetime="2021-12-05T08:24:40.924Z" title="发表于 2021-12-05 16:24:40">2021-12-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/62712/" title="C++从零开始（零）">C++从零开始（零）</a><time datetime="2021-12-05T08:22:28.029Z" title="发表于 2021-12-05 16:22:28">2021-12-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/56326/" title="Hexo快速打造属于自己的网站">Hexo快速打造属于自己的网站</a><time datetime="2021-11-29T12:10:54.202Z" title="发表于 2021-11-29 20:10:54">2021-11-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/31667/" title="校招笔记（八）_计算机基础_场景&amp;智力题">校招笔记（八）_计算机基础_场景&amp;智力题</a><time datetime="2021-11-26T13:37:19.761Z" title="发表于 2021-11-26 21:37:19">2021-11-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 By Wanghui Huang</div><div class="footer_custom_text">Support By <a target="_blank" rel="noopener" href="https://cloud.tencent.com/" style="text-decoration:underline; color:#476679;"> Tencent Cloud </a> |  <a target="_blank" rel="noopener" href="https://hexo.io/" style="text-decoration:underline; color:#476679;">Hexo</a> | <a target="_blank" rel="noopener" href="https://butterfly.js.org/" style="text-decoration:underline; color:#476679;">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'blog-comments-5g2cfsved8c0de34',
+      region: 'ap-shanghai'
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'blog-comments-5g2cfsved8c0de34',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

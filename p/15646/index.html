@@ -1,0 +1,1552 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>校招笔记（四）_计算机基础_操作系统 | royhuang's blog</title><meta name="keywords" content="校招,计算机基础,操作系统"><meta name="author" content="Wanghui Huang"><meta name="copyright" content="Wanghui Huang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="我的校招记录：校招笔记（零）_写在前面 ，以下是校招笔记总目录。       备注     算法能力（“刷题”） 这部分就是耗时间多练习，Leetcode-Top100 是很好的选择。 补充练习：codeTop   计算机基础(上)（“八股”） 校招笔记（一）__Java_Java入门 C++后端后续更新    校招笔记（一）__Java_面对对象     校招笔记（一）__Java_集合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="校招笔记（四）_计算机基础_操作系统">
+<meta property="og:url" content="https://hwh.zone/p/15646/index.html">
+<meta property="og:site_name" content="royhuang&#39;s blog">
+<meta property="og:description" content="我的校招记录：校招笔记（零）_写在前面 ，以下是校招笔记总目录。       备注     算法能力（“刷题”） 这部分就是耗时间多练习，Leetcode-Top100 是很好的选择。 补充练习：codeTop   计算机基础(上)（“八股”） 校招笔记（一）__Java_Java入门 C++后端后续更新    校招笔记（一）__Java_面对对象     校招笔记（一）__Java_集合">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hwh.zone/img/about-bg.jpg">
+<meta property="article:published_time" content="2021-11-26T12:55:27.544Z">
+<meta property="article:modified_time" content="2021-12-03T03:56:06.218Z">
+<meta property="article:author" content="Wanghui Huang">
+<meta property="article:tag" content="校招">
+<meta property="article:tag" content="计算机基础">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hwh.zone/img/about-bg.jpg"><link rel="shortcut icon" href="/img/cat-modified.png"><link rel="canonical" href="https://hwh.zone/p/15646/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":"true# copy button","highlightLang":false,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":100,"languages":{"author":"作者: Wanghui Huang","link":"链接: ","source":"来源: royhuang's blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '校招笔记（四）_计算机基础_操作系统',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-03 11:56:06'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><meta name="google-site-verification" content="uO6C17u7YuZfMWvThEQ9nOGQS4GIN2zAM6hC4tH-RiM" /><script> var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?13a4aefcbad9616a1f5859538d0d882e"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); })(); </script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.min.css" media="defer" onload="this.media='all'"><script async src="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/carousel-touch.min.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/cat.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> aboutME</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">royhuang's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> aboutME</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">校招笔记（四）_计算机基础_操作系统</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-26T12:55:27.544Z" title="发表于 2021-11-26 20:55:27">2021-11-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-03T03:56:06.218Z" title="更新于 2021-12-03 11:56:06">2021-12-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%A0%A1%E6%8B%9B%E7%AC%94%E8%AE%B0/">校招笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%A0%A1%E6%8B%9B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">17.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>52分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="校招笔记（四）_计算机基础_操作系统"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="twikoo_visitors"></span></span></div></div></div><article class="post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
+<p>我的校招记录：<a target="_blank" rel="noopener" href="https://www.hwh.zone/p/29708/">校招笔记（零）_写在前面</a> ，以下是校招笔记总目录。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>算法能力（“刷题”）</strong></td>
+<td style="text-align:center">这部分就是耗时间多练习，<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problem-list/2cktkvj/">Leetcode-Top100</a> 是很好的选择。</td>
+<td style="text-align:center">补充练习：<a target="_blank" rel="noopener" href="https://codetop.cc/">codeTop</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>计算机基础(上)（“八股”）</strong></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/51787/">校招笔记（一）__Java_Java入门</a></td>
+<td style="text-align:center">C++后端后续更新</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/7257/">校招笔记（一）__Java_面对对象</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/21069/">校招笔记（一）__Java_集合</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/8959/">校招笔记（一）__Java_多线程</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/45493/">校招笔记（一）__Java_锁</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/42516/">校招笔记（一）__Java_JVM</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>计算机基础(下)（“八股”）</strong></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/44980/">校招笔记（二）__计算机基础_Linux&amp;Git</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/46361/">校招笔记（三）__计算机基础_计算机网络</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/15646/">校招笔记（四）__计算机基础_操作系统</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/56848/">校招笔记（五）__计算机基础_MySQL</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/31215/">校招笔记（六）__计算机基础_Redis</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/61434/">校招笔记（七）__计算机基础_数据结构</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="https://hwh.zone/p/31667/">校招笔记（八）__计算机基础_场景&amp;智力题</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/5582/">校招笔记（九）__计算机基础_相关补充</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>项目&amp;实习</strong></td>
+<td style="text-align:center">主要是怎么准备项目，后续更新</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<h1>四、操场系统</h1>
+<h2 id="4-1-操作系统基础">4.1 操作系统基础</h2>
+<h4 id="0-（百度安全一面）-冯诺依曼结构有哪几个模块？分别对应现代计算机的哪几个部分？">0. （百度安全一面） 冯诺依曼结构有哪几个模块？分别对应现代计算机的哪几个部分？</h4>
+<ul>
+<li>存储器：内存</li>
+<li><strong>控制器：南桥北桥</strong></li>
+<li>运算器：CPU</li>
+<li>输入设备：键盘</li>
+<li>输出设备：显示器、网卡</li>
+</ul>
+<h4 id="1-什么是操作系统？">1. 什么是操作系统？</h4>
+<ol>
+<li>操作系统（Operating System，简称 OS）是管理计算机硬件与软件资源的程序，是计算机系统的内核与基⽯；</li>
+<li>操作系统本质上是运行在计算机上的软件程序 ；</li>
+<li>操作系统为用户提供⼀个与系统交互的操作界面 ；</li>
+<li>操作系统分内核与外壳（我们可以把外壳理解成围绕着内核的应用程序，而内核就是能操作硬件的程序）。</li>
+</ol>
+<h4 id="2-什么是系统调用呢？-能不能详细介绍⼀下？">2. 什么是系统调用呢？ 能不能详细介绍⼀下？</h4>
+<p>根据进程访问资源的特点，我们可以把进程在系统上的运行分为两个级别：</p>
+<ol>
+<li><strong>用户态(user mode) :</strong> 用户态运行的进程或可以直接读取用户程序的数据。</li>
+<li><strong>系统态(kernel mode)</strong>：可以简单的理解系统态运行的进程或程序⼏乎可以访问计算机的任何资源，不受限制。</li>
+</ol>
+<p>我们运行的程序基本都是运行在<strong>用户态</strong>，如果我们调用操作系统提供的系统态级别的子功能咋办呢？那就需要系统调用了！</p>
+<p>这些系统调用按功能大致可分为如下⼏类：</p>
+<ul>
+<li><strong>设备管理</strong>。完成设备的请求或释放，以及设备启动等功能。</li>
+<li><strong>⽂件管理</strong>。完成⽂件的读、写、创建及删除等功能。</li>
+<li><strong>进程控制</strong>。完成进程的创建、撤销、阻塞及唤醒等功能。</li>
+<li><strong>进程通信</strong>。完成进程之间的消息传递或信号传递等功能。</li>
+<li><strong>内存管理</strong>。完成内存的分配、回收以及获取作业占用内存区大小及地址等功能。</li>
+</ul>
+<h4 id="3-CentOS-和-Linux的关系？">3. <strong>CentOS 和 Linux的关系？</strong></h4>
+<p>Linux意思较广广义的范围，多指是Linux内核。CentOS是RedHat的一个分支，RedHat是Linux的一个发行版本，RedHat与CentOS的区别在于，RedHat收费，CentOS免费。</p>
+<h4 id="4-什么是分布式，优缺点？集群？">4. 什么是分布式，优缺点？集群？</h4>
+<ul>
+<li>
+<p><strong>分布式</strong></p>
+<p>根据业务需求进行拆<strong>分成N个子系统</strong>，多个子系统相互协作才能完成业务流程<strong>子系统之间通讯</strong>使用<strong>RPC</strong>远程通讯技术。</p>
+</li>
+<li>
+<p><strong>集群</strong></p>
+<p>同一个工程部署在多个不同的服务器上。</p>
+</li>
+<li>
+<p><strong>分布式优点</strong></p>
+<p>1.把模块拆分，使用接口通信，降低模块之间的耦合度。</p>
+<p>2.把项目拆分成若干个子项目，不同的团队负责不同的子项目。</p>
+<p>3.增加功能时只需要再增加一个子项目，调用其它系统的接口就可以。</p>
+<p>4.可以灵活的进行分布式部署。</p>
+</li>
+<li>
+<p><strong>分布式缺点</strong></p>
+<p>1.系统之间交互需要使用远程通信，接口开发增加工作量。</p>
+<p>2.各个模块有一些通用的业务逻辑无法共用。</p>
+</li>
+</ul>
+<h4 id="5-在Linux-windows栈空间的大小？">5. 在Linux/windows栈空间的大小？</h4>
+<ul>
+<li>
+<p><strong>Linux环境下由操作系统决定</strong>，一般是<code>8KB</code> ， 通过ulimit命令查看以及修改</p>
+<blockquote>
+<p>在Linux下通过如下命令可查看和设置栈的大小：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">ulimit</span> -a            <span class="comment"># 显示当前栈的大小 （ulimit为系统命令，非编译器命令）</span></span>       </span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">ulimit</span> -s 32768      <span class="comment"># 设置当前栈的大小为32MCopy to clipboardErrorCopied</span></span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li>
+<p><strong>Windows环境下由编译器决定</strong>，VC++6.0一般是<code>1M</code> \</p>
+<blockquote>
+<p>Windows平台下栈的大小是被记录在可执行文件中的（由编译器来设置)，即：windows下可以由编译器决定栈大小，而在Linux下是由系统环境变量来控制栈的大小的。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="6-ASCII、Unicode和UTF-8编码的区别？">6. ASCII、Unicode和UTF-8编码的区别？</h4>
+<ul>
+<li>
+<p><strong>ASCII :</strong>  ASCII 只有127个字符，表示英文字母的大小写、数字和一些符号 ；</p>
+<blockquote>
+<p>常用中文需要两个字节，且不能和ASCII冲突，中国定制了<code>GB2312</code>编码格式。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Unicode：</strong> Unicode就是将<strong>不同语言统一到一套编码格式中</strong>，通常<strong>两个</strong>字节表示一个字符，而<strong>ASCII是一个</strong>字节表示一个字符 ；</p>
+<blockquote>
+<p>如果你编译的文本是全英文的，用Unicode编码比ASCII编码需要多一倍的存储空间，在存储和传输上就十分不划算。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>UTF-8 :</strong>  把Unicode编码转化为 “<strong>可变长编码</strong>” UTF-8编码，UTF-8编码将Unicode字符按数字大小编码为<strong>1-6</strong>个字节，英文字母被编码成<strong>1</strong>个字节，常用汉字被编码成<strong>2</strong>个字节。</p>
+</li>
+</ul>
+<h5 id="6-1-三者区别和联系">6.1 三者区别和联系</h5>
+<ul>
+<li>
+<p>在<strong>计算机内存</strong>中，统一使用<strong>Unicode</strong>编码 ；</p>
+</li>
+<li>
+<p>当需要<strong>保存到硬盘或者需要传输</strong>的时候，就转换为<strong>UTF-8</strong>编码</p>
+</li>
+</ul>
+<p>举例说明：</p>
+<blockquote>
+<p>例1 ：记事本编辑（内存）→保存（磁盘）。</p>
+</blockquote>
+<p>用记事本编辑的时候，从文件读取的UTF-8字符被转换为Unicode字符到内存里，编辑完成后，保存的时候再把Unicode转换为UTF-8保存到文件。</p>
+<p><img src="https://i.loli.net/2021/06/11/9IjWniLHqrwRd2s.png" alt="image-20210611131935690"></p>
+<blockquote>
+<p>例2：网络传输服务器→浏览器。</p>
+</blockquote>
+<p>浏览网页的时候，服务器会把动态生成的Unicode内容转换为UTF-8再传输到浏览器。</p>
+<p><img src="https://i.loli.net/2021/06/11/hZFaKbezvQEsxko.png" alt="image-20210611132058826"></p>
+<h4 id="7-什么是并发和并行？同步和异步？">7. 什么是并发和并行？同步和异步？</h4>
+<ul>
+<li><strong>并发和并行</strong>
+<ul>
+<li><strong>并发</strong>： 是指宏观上在<strong>一段时间</strong>内能同时运行多个<strong>程序</strong>；</li>
+<li><strong>并行</strong> ：则指<strong>同一时刻</strong>能运行多个<strong>指令</strong>。</li>
+</ul>
+</li>
+<li><strong>同步和异步</strong>
+<ul>
+<li>
+<p><strong>同步</strong>：可以理解为在执行完一个函数或方法之后，<strong>一直等待系统返回值或消息，这时程序是出于阻塞的</strong>，只有接收到返回的值或消息后才往下执行其他的命令。</p>
+</li>
+<li>
+<p><strong>异步</strong>：执行完函数或方法后，<strong>不必阻塞性地等待返回值或消息，只需要向系统委托一个异步过程</strong>，那么当系统接收到返回值或消息时，系统会<strong>自动触发委托的异步过程</strong>，从而完成一个完整的流程。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="8-什么是共享？">8. 什么是共享？</h4>
+<ul>
+<li>
+<p><strong>共享定义</strong>： 系统中的资源可以被多个并发进程共同使用 ；</p>
+</li>
+<li>
+<p><strong>共享方式</strong>：<u>互斥</u>共享和<u>同时</u>共享：</p>
+<ul>
+<li><strong>互斥共享</strong>： 在<strong>同一时刻只允许一个进程访问</strong>，需要用同步机制来实现互斥访问 ，如：打印机。</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-2-进程和线程">4.2 进程和线程</h2>
+<h4 id="1-请问64位和32位的区别？">1.<strong>请问64位和32位的区别</strong>？</h4>
+<ol>
+<li><strong>运行能力不同</strong>：64位可以一次性可以处理8个字节的数据量，而32位一次性只可以处理4个字节的数据量，因此64位比32位的运行能力提高了一倍。</li>
+<li><strong>内存寻址不同</strong>：64位最大寻址空间为2的64次方，理论值直接达到了16TB，而32位的最大寻址空间为2的32次方，为4GB，换而言之，就是说32位系统的处理器最大只支持到4G内存，而64位系统最大支持的内存高达亿位数。</li>
+<li><strong>运行软件不同</strong>：由于32位和64位<u>CPU的指令集是不同</u>的。所以需要区分32位和64位版本的软件。<br>
+为了保证兼容性，64位CPU上也能运行老的32位指令，但反过来32位系统不可以运行64位的软件。</li>
+</ol>
+<h4 id="2-介绍一下线程和进程的区别？">2.<strong>介绍一下线程和进程的区别？</strong></h4>
+<ol>
+<li>
+<p><strong>根本区别</strong>：进程是操作系统<strong>资源分配</strong>的基本单位，而线程是处理器<strong>任务调度</strong>和执行的基本单位</p>
+</li>
+<li>
+<p><strong>资源开销：每个进程都有独立的代码和数据空间（程序上下文）</strong>，程序之间的切换会有较大的开销；线程可以看做轻量级的进程，同一类线程共享代码和数据空间，<strong>每个线程都有自己独立的运行栈和程序计数器</strong>（PC），线程之间切换的开销小</p>
+</li>
+<li>
+<p><strong>包含关系</strong>：如果一个进程内有多个线程，则执行过程不是一条线的，而是多条线（线程）共同完成的；线程是进程的一部分，所以线程也被称为轻权进程或者轻量级进程</p>
+</li>
+<li>
+<p><strong>内存分配</strong>：同一进程的线程<strong>共享本进程的【地址空间和资源】</strong>，而进程之间的地址空间和资源是相互独立的</p>
+</li>
+<li>
+<p><strong>影响关系</strong>：一个进程崩溃后，在保护模式下不会对其他进程产生影响，<strong>但是一个线程崩溃整个进程都死掉</strong>，<strong>所以多进程要比多线程健壮</strong>。</p>
+<blockquote>
+<p>线程没有独立的地址空间，如果崩溃，会发信号，如果没有错误处理的handler，OS一般直接杀死进程。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>能否独立</strong>：每个独立的进程有程序运行的入口、顺序执行序列和程序出口。但是线程不能独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制，两者均可并发执行</p>
+</li>
+</ol>
+<h5 id="2-1-线程和协程之间的区别？">2.1 线程和协程之间的区别？</h5>
+<blockquote>
+<p><strong>进程是资源调度的基本单位</strong>，<strong>运行一个可执行程序会创建一个或多个进程</strong>，进程就是运行起来的可执行程序 ;</p>
+<p><strong>线程是程序执行的基本单位</strong>，是轻量级的进程。<strong>每个进程中都有唯一的主线程，和多个线程</strong>，且只能有一个，主线程和进程是相互依存的关系，主线程结束进程也会结束；</p>
+<p><strong>协程</strong>是用户态的<strong>轻量级线程</strong>，<strong>也是线程内部调度的基本单位</strong> 。</p>
+</blockquote>
+<p>协程和线程的区别如下（补充了和进程的区别，方便对比）。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left">进程</th>
+<th style="text-align:left">线程</th>
+<th>协程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">定义</td>
+<td style="text-align:left">资源分配和拥有的基本单位</td>
+<td style="text-align:left">程序执行的基本单位</td>
+<td>用户态的轻量级线程，线程内部调度的基本单位</td>
+</tr>
+<tr>
+<td style="text-align:left">切换情况</td>
+<td style="text-align:left">进程CPU环境(栈、寄存器、页表和文件句柄等)的保存以及新调度的进程CPU环境的设置</td>
+<td style="text-align:left">保存和设置程序计数器、少量寄存器和栈的内容</td>
+<td>先将寄存器上下文和栈保存，等切换回来的时候再进行恢复</td>
+</tr>
+<tr>
+<td style="text-align:left">切换者</td>
+<td style="text-align:left">操作系统</td>
+<td style="text-align:left">操作系统</td>
+<td>用户</td>
+</tr>
+<tr>
+<td style="text-align:left">切换过程</td>
+<td style="text-align:left">用户态-&gt;内核态-&gt;用户态</td>
+<td style="text-align:left">用户态-&gt;内核态-&gt;用户态</td>
+<td>用户态(没有陷入内核)</td>
+</tr>
+<tr>
+<td style="text-align:left">调用栈</td>
+<td style="text-align:left">内核栈</td>
+<td style="text-align:left">内核栈</td>
+<td>用户栈</td>
+</tr>
+<tr>
+<td style="text-align:left">拥有资源</td>
+<td style="text-align:left"><strong>CPU资源、内存资源、文件资源和句柄等</strong></td>
+<td style="text-align:left"><strong>程序计数器、寄存器、栈和状态字</strong></td>
+<td><strong>拥有自己的寄存器上下文和栈</strong></td>
+</tr>
+<tr>
+<td style="text-align:left">并发性</td>
+<td style="text-align:left">不同进程之间切换实现并发，各自占有CPU实现并行</td>
+<td style="text-align:left">一个进程内部的多个线程并发执行</td>
+<td>同一时间只能执行一个协程，而其他协程处于休眠状态，适合对任务进行分时处理</td>
+</tr>
+<tr>
+<td style="text-align:left">系统开销</td>
+<td style="text-align:left">切换虚拟地址空间，切换内核栈和硬件上下文，CPU高速缓存失效、页表切换，开销很大</td>
+<td style="text-align:left">切换时只需保存和设置少量寄存器内容，因此开销很小</td>
+<td>直接操作栈则基本没有内核切换的开销，可以不加锁的访问全局变量，所以上下文的切换非常快</td>
+</tr>
+<tr>
+<td style="text-align:left">通信方面</td>
+<td style="text-align:left">进程间通信需要借助操作系统</td>
+<td style="text-align:left">线程间可以直接读写进程数据段(如全局变量)来进行通信</td>
+<td>共享内存、消息队列</td>
+</tr>
+</tbody>
+</table>
+<h5 id="2-2-一个进程可以创建多少个线程，和什么有关？">2.2 一个进程可以创建多少个线程，和什么有关？</h5>
+<p>一个进程可用虚拟空间是（C++）2G，默认情况下，（假设）<strong>线程的栈的大小是1MB</strong>（Linux是8kb），则理论上最多只能创建2048个线程。如果要创建多于2048的话，必须修改编译器的设置。</p>
+<h5 id="2-3-进程之间的同步方式？（区分通信方式）">2.3 进程之间的同步方式？（区分通信方式）</h5>
+<ol>
+<li>
+<p><strong>临界区</strong>。 对临界资源进行访问的那段代码称为临界区。</p>
+<p>为了互斥访问临界资源，每个进程在进入临界区之前，需要先进行检查。</p>
+</li>
+<li>
+<p><strong>同步和互斥</strong>。</p>
+<ul>
+<li>同步：多个进程因为合作产生的直接制约关系，使得进程有一定的先后执行关系。</li>
+<li>互斥：多个进程在同一时刻<strong>只有一个进程</strong>能进入临界区。</li>
+</ul>
+</li>
+<li>
+<p><strong>信号量</strong>。 常见的 P 和 V 操作。</p>
+<ul>
+<li>特别的，<u>如果信号量的取值只能为 0 或者 1</u>，那么就成为了<strong>互斥量（Mutex）</strong> ，0 表示临界区已经加锁，1 表示临界区解锁。</li>
+</ul>
+</li>
+<li>
+<p><strong>条件变量</strong>。</p>
+<blockquote>
+<p>使用信号量机制实现的生产者消费者问题需要客户端代码做很多控制，而管程把控制的代码独立出来，不仅不容易出错，也使得客户端代码调用更容易。</p>
+</blockquote>
+<p>管程引入了<strong>条件变量</strong> 以及相关的操作：<strong>wait()</strong> 和 <strong>signal()</strong> 来实现同步操作。对条件变量执行 wait() 操作会导致调用进程阻塞，把管程让出来给另一个进程持有。signal() 操作用于唤醒被阻塞的进程。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 管程：解决生产者、消费者问题</span></span><br><span class="line">monitor ProducerConsumer</span><br><span class="line">    condition full, empty;</span><br><span class="line">    integer count := <span class="number">0</span>;</span><br><span class="line">    condition c;</span><br><span class="line"></span><br><span class="line">    <span class="function">procedure <span class="title">insert</span><span class="params">(item: integer)</span></span>;</span><br><span class="line">    begin</span><br><span class="line">        <span class="keyword">if</span> count = N then wait(full);</span><br><span class="line">        insert_item(item);</span><br><span class="line">        count := count + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> count = <span class="number">1</span> then signal(empty);</span><br><span class="line">    end;</span><br><span class="line"></span><br><span class="line">    function remove: integer;</span><br><span class="line">    begin</span><br><span class="line">        <span class="keyword">if</span> count = <span class="number">0</span> then wait(empty);</span><br><span class="line">        remove = remove_item;</span><br><span class="line">        count := count - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> count = N <span class="number">-1</span> then signal(full);</span><br><span class="line">    end;</span><br><span class="line">end monitor;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生产者客户端</span></span><br><span class="line">procedure producer</span><br><span class="line">begin</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">    begin</span><br><span class="line">        item = produce_item;</span><br><span class="line">        ProducerConsumer.insert(item);</span><br><span class="line">    end</span><br><span class="line">end;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 消费者客户端</span></span><br><span class="line">procedure consumer</span><br><span class="line">begin</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">    begin</span><br><span class="line">        item = ProducerConsumer.remove;</span><br><span class="line">        consume_item(item);</span><br><span class="line">    end</span><br><span class="line">end;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="3-请问【进程】之间如何进行通信？">3.<strong>请问【进程】之间如何进行通信</strong>？</h4>
+<p>可以分为如下两个方面：</p>
+<ol>
+<li>本地进程之间的通信方式</li>
+<li>远程进程之间的通信方式</li>
+</ol>
+<p><strong>1. 本地进程之间的通信方式（没有同步互斥！！</strong>）</p>
+<ul>
+<li>
+<p><strong>无名管道</strong> ：半双工通信方式，<strong>数据(消息)单向流动</strong>，只能是字节流格式的消息。</p>
+<ul>
+<li><strong>优点</strong>：简单方便</li>
+<li><strong>缺点</strong>：单向通信、只能用于<strong>具有亲缘关系（一般指父子</strong>）的进程之间、<strong>缓冲区有限</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>有名管道：半双工通信</strong>方式，数据也称为命名管道：是一种文件类型，以一种特殊设备文件形式存在于文件系统中。</p>
+<ul>
+<li><strong>优点</strong>：可以实现<strong>任意关系的进程</strong>间的通信（无法同步）</li>
+<li><strong>缺点</strong>： 长期存于系统中，使用不当容易出错、<strong>缓冲区有限</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>消息队列</strong>：消息队列是消息的<strong>链表</strong>,存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少,管道只能承载无格式字节流以及缓冲区大小受限等特点。</p>
+<ul>
+<li><strong>优点</strong>：<u>可以实现任意进程间的通信</u>，并通过系统调用函数来实现消息发送和接收之间的同步<u>，无需考虑同步</u>问题</li>
+<li><strong>缺点</strong>：信息的复制需要<u>额外消耗CPU的时间</u>，不适宜于信息量大或操作频繁的场合</li>
+</ul>
+</li>
+<li>
+<p><strong>共享内存</strong></p>
+<p>直接对内存存取，<u>通信快</u>，但是多个进程可以同时操作，<u>需要用信号量进行同步</u>。</p>
+</li>
+<li>
+<p><strong>信号量</strong></p>
+<p>信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生。</p>
+<ul>
+<li>
+<p><strong>优点</strong>：可以同步进程；</p>
+</li>
+<li>
+<p><strong>缺点</strong>：信号量有限</p>
+<blockquote>
+<p>注解：P操作就是对S减一，V操作就是对S加一</p>
+</blockquote>
+<ul>
+<li><strong>同步</strong>：S = 0，进程A执行完进行V操作，进程B执行前执行P操作，这样B就可以等A执行完再执行；</li>
+<li><strong>互斥</strong>：S = 1，进程执行前进行P操作，执行后进行V操作。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>2.远程进程之间的通信方式</strong></p>
+<p>首要解决的问题是如何唯一标识一个进程？本地上采用PID即可，但是网络中 <u>TCP/IP五层网络模型中传输层的 “<strong>套接字：IP+端口</strong>”</u></p>
+<ul>
+<li>
+<p><strong>套接字交互</strong></p>
+<ul>
+<li><strong>优点</strong>：1）传输数据为字节级，传输数据可自定义，数据量小效率高；2）传输数据时间短，性能高；3) 适合于客户端和服务器端之间信息实时交互；4) 可以加密,数据安全性强</li>
+<li><strong>缺点</strong>：1) 需对传输的数据进行解析，转化成应用级的数据。</li>
+</ul>
+</li>
+<li>
+<p><strong>远程过程调用（RPC）</strong></p>
+</li>
+</ul>
+<h4 id="4-请问【线程】间同步方式（通信方式）？">4. 请问【线程】间同步方式（通信方式）？</h4>
+<p><img src="https://i.loli.net/2021/06/11/38AqLbJEZnhSPC9.png" alt="image-20210611000107784"></p>
+<p>【<strong>1. Linux下线程通知方式</strong>】</p>
+<ol>
+<li><strong>互斥量(Mutex)</strong>：采用互斥对象机制，只有拥有互斥对象的线程才有访问公共资源的权限。因为互斥对象只有⼀个，所以可以保证公共资源不会被多个线程同时访问。
+<ul>
+<li>⽐如 Java 中的<strong>synchronized 关键词和各种 Lock锁</strong> 都是这种机制。</li>
+</ul>
+</li>
+<li><strong>信号量(Semphares)</strong> ：它允许同⼀时刻多个线程访问同⼀资源，但是需要控制同⼀时刻访问此资源的最大线程数量</li>
+<li><strong>条件变量</strong> : 通过通知操作的方式来保持多线程同步，还可以方便的实现多线程优先级
+<ul>
+<li>比如Wait/Notify</li>
+</ul>
+</li>
+</ol>
+<p>【<strong>2. Windows下线程通知方式</strong>】</p>
+<ol>
+<li><strong>全局变量</strong>：需要有多个线程来访问一个全局变量时，通常我们会在这个全局变量前加上volatile声明，以防编译器对此变量进行优化 ；</li>
+<li><strong>CEvent对象</strong>：CEvent为MFC中的一个对象，可以通过对CEvent的触发状态进行改变，从而实现线程间的通信和同步，这个主要是实现线程直接同步的一种方法；</li>
+<li><strong>Message消息机制</strong>：常用的Message通信的接口主要有两个：PostMessage和PostThreadMessage，PostMessage为线程向主窗口发送消息。而PostThreadMessage是任意两个线程之间的通信接口。</li>
+</ol>
+<h4 id="5-什么时候用多线程-多进程？">5.<strong>什么时候用多线程 / 多进程</strong>？</h4>
+<ul>
+<li><strong>需要<u>频繁创建销毁</u>的优先用线程</strong> ：创建和销毁的代价是很难承受的 ；</li>
+<li><strong>需要进行<u>大量计算</u>的优先使用线程</strong> ：此时<strong>耗费很多CPU，切换频繁</strong>，用线程更轻量；</li>
+<li><strong>任务间相关性比较强的用多线程</strong>，相关性比较弱的用多进程。因为线程之间的数据共享和同步比较简单；</li>
+</ul>
+<p>考虑多进程：</p>
+<ul>
+<li>扩展到<strong>多机分布</strong>的用<strong>多进程</strong>，多核分布的用<strong>多线程</strong> ；</li>
+<li>其它一般用多线程比较好</li>
+</ul>
+<h4 id="6-【线程】调度算法？">6.<strong>【线程】调度算法？</strong></h4>
+<p>在资源一定的情况下，调度算法需要在<strong>吞吐量（Throughput）、平均响应时间（延迟，Average Response Time）、公平性、调度引起的额外开销（overhead</strong>）等几个方面做权衡。</p>
+<ol>
+<li>
+<p><strong>先进先出算法（FIFO，First-In-First-Out）</strong></p>
+<ul>
+<li><strong>优点</strong>：
+<ul>
+<li><strong>最少的任务切换开销</strong>（因为没有在任务执行过程中发生切换，故任务切换开销为0）</li>
+<li><strong>最大的吞吐量</strong>（因没有任务切换开销，在其他一定的情况下，吞吐量肯定是最大的）</li>
+<li><strong>最朴实的公平性</strong>（先来先做）</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：
+<ul>
+<li><strong>平均响应时间高</strong>：耗时只需10毫秒的任务若恰巧在耗时1000毫秒的任务后到来，他则需要1010毫秒才能执行完成，绝大部分时间都花在等待被调度。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>最短耗时任务优先算法</strong></p>
+<p>优先调度耗时短的任务，需要预先知道每个任务的耗时情况，这在实际情况中是不大现实的。</p>
+<ul>
+<li>（<strong>优点</strong>）<strong>平均响应时间较低</strong>：这里有一点，因为将时间长的任务无限往后推移，实际计算的平均响应时间的任务都是执行较快的任务，统计出来的平均响应时间必然较低的。</li>
+<li><strong>（缺点</strong>）<strong>耗时长任务饥饿</strong>：耗时长的任务迟迟得不到调度，不公平，容易形成饥饿 。</li>
+<li><strong>（缺点</strong>）<strong>开销大</strong>：<u>频繁的任务切换</u>，调度的额外开销大。</li>
+</ul>
+</li>
+<li>
+<p><strong>时间片轮转算法</strong></p>
+<p>给队列中的每个任务一个时间片，第一个任务先执行，时间片到了之后，将此任务放到队列尾部，切换到下个任务执行，<u>解决最短耗时任务优先算法中耗时长任务饥饿的问题</u> 。</p>
+<ul>
+<li><strong>（特点）时间片设置问题</strong>： 算法介于FIFO和SJF之间，若时间片足够<strong>大</strong>，则退化到FIFO ；若分片足够小（假设不考虑任务切换的开销），则任务的完成时间顺序是以耗时从小到大排列。</li>
+<li>（<strong>优点）公平调度</strong>：每个任务都能够得到公平的调度
+<ul>
+<li>（<strong>优点）不会饥饿</strong>：耗时短的任务即使落在耗时长的任务后面，也能够较快的得到调度执行</li>
+</ul>
+</li>
+<li><strong>（缺点）开销大</strong>：<u>任务切换引起的调度开销较大</u>，需要多次切换任务上下文
+<ul>
+<li><strong>（缺点</strong>）时间片不太好设置</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>最大最小公平算法</strong></p>
+</li>
+</ol>
+<h4 id="7-【进程】调度算法？">7.<strong>【进程】调度算法？</strong></h4>
+<ul>
+<li>先来先服务调度算法</li>
+<li>短作业(进程)优先调度算法</li>
+<li>时间片轮转法</li>
+<li><strong>多级反馈队列调度算法</strong></li>
+<li>优先权调度算法</li>
+</ul>
+<h4 id="8-CPU上下文切换？有什么类型？线程发生在什么地方？">8. <strong>CPU上下文切换？有什么类型？线程发生在什么地方？</strong></h4>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/52845869">https://zhuanlan.zhihu.com/p/52845869</a></p>
+</blockquote>
+<ul>
+<li>
+<p><strong>什么是 CPU 上下文</strong> ？</p>
+<p><u>CPU 寄存器和程序计数器</u> 就是 CPU 上下文，因为它们都是 CPU 在运行任何任务前，<strong>必须的依赖环境</strong>。</p>
+<blockquote>
+<ul>
+<li><u>CPU 寄存器</u> 是 CPU 内置的容量小、但速度极快的内存。</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p><strong>什么是 CPU 上下文切换?</strong></p>
+<p>通常指以下过程：</p>
+<ol>
+<li>前一个任务的 CPU 上下文（也就是 <strong>CPU 寄存器和程序计数器</strong>）保存起来;</li>
+<li>然后加载新任务的上下文到这些寄存器和程序计数器;</li>
+<li>最后再跳转到程序计数器所指的新位置，运行新任务。</li>
+</ol>
+</li>
+<li>
+<p><strong>CPU 上下文切换的类型</strong>？</p>
+<p>根据任务的不同，可以分为以下三种类型 : <strong>进程上下文切换 - 线程上下文切换 - 中断上下文切换</strong> 。</p>
+<ol>
+<li>
+<p><strong>进程上下文切换</strong></p>
+<p>进程在用户空间运行时，被称为进程的用户态，而陷入内核空间的时候，被称为进程的内核态。</p>
+<blockquote>
+<ul>
+<li>
+<p>内核空间（Ring 0）具有最高权限，可以直接访问所有资源；</p>
+</li>
+<li>
+<p>用户空间（Ring 3）只能访问受限资源，不能直接访问内存等硬件设备，必须通过系统调用陷入到内核中，才能访问这些特权资源。</p>
+</li>
+</ul>
+</blockquote>
+<p>从用户态到内核态的转变，需要通过<strong>系统调用</strong>来完成，在<u>这个过程中就发生了 <strong>CPU</strong> 上下文切换（<strong>两</strong>次，用户态-内核态-用户态））</u>。</p>
+<blockquote>
+<p><strong>系统调用</strong> : 查看文件时read()、wirte() 操作就发生了系统调用。</p>
+<p>但是，系统调用过程中，<strong>并不会涉及到虚拟内存等进程用户态的资源，也不会切换进程</strong>。</p>
+</blockquote>
+<p><img src="https://pic3.zhimg.com/80/v2-440bb1699b2fa0f0340b38eabcbd7452_720w.jpg" alt="img"></p>
+<p>而<u><strong>进程</strong>上下文切换</u> ，比系统调用时多了一步：在<strong>保存内核态资源</strong>（当前进程的<u>内核状态和 CPU 寄存器</u>）之前，需要先把该进程的<strong>用户态资源</strong>（<u>虚拟内存、栈等</u>）保存下来。</p>
+</li>
+<li>
+<p><strong>线程上下文调用</strong></p>
+<p>线程是调度的基本单位，而进程则是资源拥有的基本单位。</p>
+<p>【面试高频】发生线程上下文切换的场景</p>
+<ul>
+<li><strong>前后两个线程属于不同进程</strong>。此时，因为资源不共享，所以切换过程就跟进程上下文切换是一样。</li>
+<li><strong>前后两个线程属于同一个进程</strong>。此时，因为虚拟内存是共享的，所以在切换时，<u>虚拟内存</u>这些资源就保持不动，只需要切换<strong>线程的私有数据（栈、寄存器等</strong>)不共享的数据</li>
+</ul>
+</li>
+<li>
+<p><strong>中断上下文切换</strong></p>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="9-如何杀死一个进程？进程终止的方式？">9.<strong>如何杀死一个进程</strong>？进程终止的方式？</h4>
+<ol>
+<li>linux命令：<code>kill -9 &lt;pid&gt;</code></li>
+<li>接受能导致进程终止的信号：ctrl+c (^C)、SIGINT(SIGINT中断进程)</li>
+<li>main函数的自然返回，<code>return</code></li>
+<li>调用<code>exit</code>函数，属于c的函数库 3、调用<code>_exit</code>函数，属于系统调用</li>
+<li>调用<code>abort</code>函数，异常程序终止，同时发送SIGABRT信号给调用进程</li>
+</ol>
+<h5 id="9-1-终端退出，终端运行的进程会怎么样？">9.1 终端退出，终端运行的进程会怎么样？</h5>
+<ol>
+<li>
+<p>终端在退出时会发送<code>SIGHUP</code>给对应的bash进程，</p>
+</li>
+<li>
+<p>bash进程收到这个信号后首先将它发给session下面的进程</p>
+<blockquote>
+<p>一个session就是一个shell终端会话窗口。</p>
+</blockquote>
+</li>
+<li>
+<p>如果程序没有对SIGHUP信号做特殊处理，那么进程就会随着终端关闭而退出</p>
+</li>
+</ol>
+<h5 id="9-2-怎么让进程后台运行？">9.2 怎么让进程后台运行？</h5>
+<ol>
+<li><code>命令 + &amp;</code> 即可，实际上，这样是将命令放入到一个作业队列中了</li>
+<li><code>ctrl + z</code> 挂起进程，使用jobs查看序号，在使用bg %序号后台运行进程</li>
+<li><code>nohup + &amp;</code>，将标准输出和标准错误缺省会被重定向到 nohup.out 文件中，忽略所有挂断（SIGHUP）信号</li>
+<li><code>setsid + 命令</code>，使其父进程编程init进程，不受HUP信号的影响</li>
+<li>将<code>命令+ &amp;</code>放在()括号中，也可以是进程不受HUP信号的影响</li>
+</ol>
+<h4 id="10-外中断和异常的区别？">10. 外中断和异常的区别？</h4>
+<ul>
+<li>
+<p><strong>外中断是指由 CPU 执行指令以外的事件引起</strong>，如 I/O 完成中断，表示设备输入/输出处理已经完成，处理器能够发送下一个输入/输出请求。此外还有时钟中断、控制台中断等。</p>
+</li>
+<li>
+<p><strong>异常时由 CPU 执行指令的内部事件引起</strong>，如非法操作码、地址越界、算术溢出等。</p>
+</li>
+</ul>
+<h4 id="11-什么是父进程、子进程、进程组、作业和会话？">11. 什么是父进程、子进程、进程组、作业和会话？</h4>
+<ul>
+<li>
+<p><strong>父进程</strong>： 已创建一个或多个子进程的进程 ；</p>
+</li>
+<li>
+<p><strong>子进程</strong>： 由<strong>fork</strong>创建的新进程被称为子进程（child process），函数被调用一次，但返回两次；</p>
+<p>fork之后，操作系统会<strong>复制一个与父进程完全相同的子进程</strong>，虽说是父子关系，但是在操作系统看来，他们更像兄弟关系：</p>
+<ul>
+<li>（1）它们共<strong>享代码空间</strong>，（2）<strong>数据空间是互相独立</strong>的，但<strong>子进程数据空间中的内容是父进程的完整拷贝</strong>，（3）<strong>指令指针也完全相同</strong>，（4）子进程拥有父进程当前运行到的位置（两进程的程序计数器pc值相同）。</li>
+</ul>
+<p>除了：fork成功，<strong>子进程中fork的返回值是0，父进程中fork的返回值是子进程的进程号pid</strong> 。</p>
+</li>
+<li>
+<p><strong>进程组</strong>： 进程组就是多个进程的集合，其中肯定有一个组长，其进程PID等于进程组的PGID ；</p>
+</li>
+<li>
+<p><strong>作业</strong>： shell<strong>分前后台</strong>来控制的不是进程而是作业（job）或者进程组（Process Group）。</p>
+<blockquote>
+<p>一个前台作业可以由多个进程组成，一个后台也可以由多个进程组成，shell可以运行一个前台作业和任意多个后台作业，这称为作业控制。、</p>
+</blockquote>
+</li>
+<li>
+<p><strong>会话</strong>。 一个或多个<strong>进程组的集合</strong>，<strong>一个会话可以有一个控制终端</strong>。在xshell或者WinSCP中打开一个窗口就是新建一个会话。</p>
+</li>
+</ul>
+<h4 id="12-什么是守护进程、僵尸进程、孤儿进程？">12. 什么是守护进程、僵尸进程、孤儿进程？</h4>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://liubigbin.github.io/2016/03/11/Linux-%E4%B9%8B%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E3%80%81%E5%83%B5%E6%AD%BB%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B/">Linux 之守护进程、僵死进程与孤儿进程</a></p>
+</blockquote>
+<ul>
+<li>
+<p><strong>守护进程</strong></p>
+<p><strong>在后台运行的，没有控制终端与之相连</strong>的进程。它<strong>独立于控制终端</strong>，周期性地执行某种任务。它不需要用户输入就能运行而且提供某种服务，不是<strong>对整个系统就是对某个用户程序</strong>提供服务。</p>
+<ul>
+<li>举例：常见的守护进程包括系统日志进程syslogd、 web服务器httpd、邮件服务器sendmail和数据库服务器mysqld等。</li>
+</ul>
+<p>一个守护进程的父进程是init进程，也是一个<u>孤儿进程</u> ，一般在系统启动时开始运行，除非强行终止，否则直到系统关机都保持运行。</p>
+</li>
+<li>
+<p><strong>孤儿进程</strong></p>
+<p>一个<strong>父进程退出，而它的一个或多个子进程还在运行</strong>，那么那些子进程将成为孤儿进程。孤儿进程将被init进程(进程号为1)所收养，并由init进程对它们完成状态收集工作。</p>
+</li>
+<li>
+<p><strong>僵尸进程</strong></p>
+<p>一个进程使用fork创建子进程，如果<strong>子进程退出</strong>，而父进程并没有调用wait或waitpid获取子进程的状态信息（子进程必须<strong>等到父进程捕获到了子进程的退出状态才真正结束</strong>），那么<strong>子进程的进程描述符仍然保存在系统中</strong>。这种进程称之为僵死进程。</p>
+</li>
+</ul>
+<h5 id="11-1-如何避免僵尸进程？">11.1 如何避免僵尸进程？</h5>
+<ul>
+<li>
+<p>通过<strong>signal(SIGCHLD, SIG_IGN</strong>)通知内核对子进程的结束不关心，由内核回收；</p>
+<blockquote>
+<p>如果不想让父进程挂起，可以在父进程中加入一条语句：signal(SIGCHLD,SIG_IGN); 表示父进程忽略SIGCHLD信号，该信号是子进程退出的时候向父进程发送的。</p>
+</blockquote>
+</li>
+<li>
+<p>父进程调用wait/waitpid等函数等待子进程结束，如果尚无子进程退出wait会导致父进程阻塞；</p>
+<blockquote>
+<p>waitpid可以通过传递WNOHANG使父进程不阻塞立即返回。</p>
+</blockquote>
+</li>
+<li>
+<p>如果父进程很忙可以用signal注册信号处理函数，在信号处理函数调用wait/waitpid等待子进程退出;</p>
+</li>
+<li>
+<p>通过两次调用fork。父进程首先调用fork创建一个子进程然后waitpid等待子进程退出，子进程再fork一个孙进程后退出。这样子进程退出后会被父进程等待回收，而对于孙子进程其父进程已经退出所以孙进程成为一个孤儿进程，孤儿进程由init进程接管，孙进程结束后，init会等待回收。</p>
+</li>
+</ul>
+<h2 id="4-3-socket编程">4.3 socket编程</h2>
+<p>暂略</p>
+<h2 id="4-4-内存管理">4.4 内存管理</h2>
+<h4 id="1-介绍一下操作系统的堆和栈？">1.<strong>介绍一下操作系统的堆和栈？</strong></h4>
+<ul>
+<li>
+<p><strong>栈内存</strong>：栈内存首先是一片内存区域，存储的都是<u>局部变量</u>，栈内存的<u>更新速度很快</u>，因为局部变量的生命周期都很短。</p>
+<blockquote>
+<p>局部变量：方法内的变量，for循环内部定义的也是局部变量等。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>堆内存</strong>：存储的是<u><strong>数组</strong></u>和<strong>对象</strong>（其实数组就是对象），凡是new建立的都是在堆中，堆中存放的都是实体（对象）。堆里的实体虽然不会被释放，但是会被当成垃圾，Java有垃圾回收机制不定时的收取。</p>
+</li>
+</ul>
+<h5 id="1-1-什么时候会栈溢出？">1.1 什么时候会栈溢出？</h5>
+<p>栈能使用的内存是有限的，一般是 1M~8M，这在编译时就已经决定了，程序运行期间不能再改变。</p>
+<ul>
+<li>如果程序使用的栈内存超出最大值，就会发生栈溢出（Stack Overflow）错误，程序就崩溃了；</li>
+<li>一般常见的情况，如<strong>递归过深</strong></li>
+</ul>
+<h4 id="2-介绍一下什么内存管理？常用的内存管理机制？">2. 介绍一下什么内存管理？常用的内存管理机制？</h4>
+<ul>
+<li>
+<p><strong>内存管理</strong></p>
+<p>操作系统的内存管理主要负责内存的（1）<strong>分配与回收（<strong>malloc 函数：申请内存，free 函数：释放内存），（2）另外地址转换也就是将</strong>逻辑地址转换成相应的物理地址</strong>等功能也是操作系统内存管理做的事情。</p>
+</li>
+<li>
+<p><strong>常用内存管理机制</strong></p>
+<p>简单分为<strong>连续分配管理方式</strong>和<strong>非连续分配管理方式</strong>这两种。连续分配管理方式是指为⼀个用户程序分配⼀个连续的内存空间，常见的如<strong>块式管理</strong> 。同样地，非连续分配管理方式允许⼀个程序使用的内存分在离散或者说不相邻的内存中，常见的如<strong>页式管理 和 段式管理</strong>。</p>
+<ol>
+<li>
+<p><strong>块式管理</strong> ： 远古时代的计算机操系统的内存管理方式。<strong>将内存分为⼏个固定大小的块</strong>，每个块中只包含⼀个进程。如果程序运行需要内存的话，操作系统就分配给它⼀块，如果程序运行只需<br>
+要很小的空间的话，分配的这块内存很大⼀部分⼏乎被浪费了。这些在每个块中未被利用的空间，我们称之为碎片。</p>
+</li>
+<li>
+<p><strong>页式管理</strong> ：把主存分为大小相等且固定的⼀页⼀页的形式，<strong>页较小，相对相⽐于块式管理的划分⼒度更大</strong>，提高了内存利用率，减少了碎片。页式管理通过<u>页表对应逻辑地址和物理地址</u>。</p>
+</li>
+<li>
+<p><strong>段式管理</strong> ： 页式管理虽然提高了内存利用率，但是页式管理其中的页实际并无任何实际意义。段式管理把主存分为⼀段段的，<strong>每⼀段的空间⼜要⽐⼀页的空间小很多</strong> 。</p>
+</li>
+</ol>
+<blockquote>
+<p>但是，最重要的是段是有实际意义的，每个段定义了⼀组逻辑信息，例如，有主程段 MAIN、子程序段 X、数据段 D及栈段 S 等。 段式管理通过段表对应逻辑地址和物理地址。</p>
+</blockquote>
+<ol start="4">
+<li><strong>段页式管理机制</strong> 。段页式管理机制结合了段式管理和页式管理的优点。简单来说段页式管理机制就是把主存先分成若⼲段，每个段⼜分成若⼲页，也就是说 段页式管理机制中段与段之间以及段的内部的都是离散的。</li>
+</ol>
+</li>
+</ul>
+<h5 id="2-1-介绍一下逻辑地址和物理地址？">2.1 介绍一下逻辑地址和物理地址？</h5>
+<ul>
+<li>我们编程⼀般只有可能和逻辑地址打交道，⽐如在 C 语⾔中，指针⾥面存储的数值就可以理解成为<strong>内存⾥的⼀个地址</strong>，这个地址也就是我们说的逻辑地址，逻辑地址由操作系统决定。</li>
+<li>物理地址指的是<strong>真实物理内存中地址</strong>，更具体⼀点来说就是内存地址寄存器中的地址。</li>
+</ul>
+<h5 id="2-2-操作系统在内存管理需要做什么？">2.2 操作系统在内存管理需要做什么？</h5>
+<ul>
+<li>内存空间的分配与回收；</li>
+<li>从逻辑上对内存空间进行扩充；</li>
+<li>逻辑地址与物理地址的转换；</li>
+<li>操作系统需要提供内存保护功能。保证各进程在各自存储空间内运行，互不干扰。</li>
+</ul>
+<h4 id="3-介绍一下快表和多级页表？">3. 介绍一下快表和多级页表？</h4>
+<p>在分页内存管理中，很重要的两点是：</p>
+<ol>
+<li>虚拟地址到物理地址的转换要快。</li>
+<li>解决虚拟地址空间大，<strong>页表也会很大</strong>的问题。</li>
+</ol>
+<h5 id="快表介绍">快表介绍</h5>
+<p>快表理解为⼀种<strong>特殊的高速缓冲存储器</strong>（Cache），其中的<strong>内容是页表的⼀部分或者全部内容</strong>。作为页表的 Cache，它的作用与页表相似，但是提高了访问速率。</p>
+<blockquote>
+<p>但有时快表不命中要访问两次缓存，不过总体还是提高了性能。</p>
+</blockquote>
+<h5 id="多级页表介绍">多级页表介绍</h5>
+<p>引⼊多级页表的主要⽬的是为了 <u><strong>避免把全部页表⼀直放在内存中占用过多空间</strong></u>，特别是那些根本就不需要的页表就不需要保留在内存中。多级页表<strong>属于时间换空间</strong>的典型场景。</p>
+<h4 id="4-分页机制和分段机制的共同点和区别-？">4. 分页机制和分段机制的共同点和区别 ？</h4>
+<ol>
+<li>共同点 ：
+<ul>
+<li>分页机制和分段机制都是为了<strong>提高内存利用率，较少内存碎片</strong>。</li>
+<li>页和段都是<strong>离散存储</strong>的，所以两者都是离散分配内存的方式。但是，每个页和段中的内存是连续的。</li>
+</ul>
+</li>
+<li>区别 ：
+<ul>
+<li><strong>页的大小是固定的</strong>，由操作系统决定；<strong>而段的大小不固定</strong>，取决于我们当前运行的程序。</li>
+<li>分页仅仅是为了<strong>满⾜操作系统内存管理</strong>的需求，而<strong>段是逻辑信息的单位，在程序中可以体现为代码段，数据段</strong>，能够更好满⾜用户的需要。</li>
+</ul>
+</li>
+</ol>
+<h4 id="5-【待扩充】CPU-寻址了解吗-为什么需要虚拟地址空间">5. 【待扩充】CPU 寻址了解吗?为什么需要虚拟地址空间?</h4>
+<ul>
+<li>
+<p>现代处理器使用的是⼀种称为 虚拟寻址(Virtual Addressing) 的寻址⽅式。使用虚拟寻址，<strong>CPU 需要虚拟地址翻译成物理地址</strong>，这样才能访问到真实的物理内存。</p>
+<blockquote>
+<p>实际上完成虚拟地址转换为物理地址转换的硬件是 CPU 中含有⼀个被称为 内存管理单元（Memory Management Unit, MMU） 的硬件。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>如果直接把物理地址暴露出来的话会带来严重问题</strong>，⽐如可能对操作系统造成伤害以及给同时运行多个程序造成困难。</p>
+</li>
+</ul>
+<h4 id="6-如果系统中具有快表后，那么地址的转换过程变成什么样了？">6. 如果系统中具有快表后，那么地址的转换过程变成什么样了？</h4>
+<blockquote>
+<p>简单来说：cup计算页号 → 快表查询是否有该页号 → 否则页表查询</p>
+</blockquote>
+<ol>
+<li><strong>计算页号和页偏移量</strong>。 CPU给出逻辑地址，由某个硬件算得页号、页内偏移量；</li>
+<li><strong>快表中查找内存块号</strong>。 将页号与快表中的所有页号进行比较，如果找到匹配的页号，则直接从中取出该页对应的内存块号，再<strong>将内存块号与页内偏移量拼接形成物理地址</strong>；</li>
+<li><strong>页表中查找内存块号</strong>。 如果快表中查找不存在，访问内存中的页表，找到对应页表项，得到页面存放的内存块号，再将内存块号与页内偏移量拼接形成物理地址，最后，访问该物理地址对应的内存单元。</li>
+</ol>
+<h4 id="7-进程内存分配动态分区算法？">7. 进程内存分配动态分区算法？</h4>
+<ol>
+<li>
+<p><strong>首次适应法</strong>。</p>
+<ul>
+<li>
+<p><strong>算法思想</strong>：每次都从低地址开始查找，找到第一个能满足大小的空闲分区；</p>
+</li>
+<li>
+<p><strong>实现方式</strong>：空闲分区以<strong>地址递增</strong>的次序排列。每次分配内存时顺序查找空闲分区链( 或空闲分[表)，找到大小能满足要求的第-一个空闲分区。</p>
+</li>
+<li>
+<p><strong>优点</strong>： 综合性能最好，开销小。</p>
+<p><img src="https://i.loli.net/2021/06/10/PEpjmDW52eqGl4f.png" alt="image-20210610231604639"></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>最佳适应法</strong>。</p>
+<ul>
+<li><strong>算法思想</strong>：为了保证当“大进程”到来时能有连续的大片空间，可以尽可能多地留下大片的空闲区,即，优先使用更小的空闲区；</li>
+<li><strong>实现方式</strong>： 空闲分区按<strong>容量递增</strong>次序链接。每次分配内存时顺序查找空闲分区链(或空闲分区表)，找到大小能满足要求的第一个空闲分区。</li>
+<li><strong>优点</strong>： 会有更多的大分区被保留下来，<u>更能满足大进程需求</u></li>
+<li><strong>缺点</strong>： 产生很多太小的、难以利用的碎片，算法开销大</li>
+</ul>
+</li>
+<li>
+<p><strong>最坏适应法</strong>。</p>
+<ul>
+<li><strong>算法思想</strong>： 为了解决最佳适应算法的问题—即留下太多难以利用的小碎片，可以在每次分配时优先使用最大的连续空闲区，这样分配后剩余的空闲区就不会太小，更方便使用。</li>
+<li><strong>实现方式</strong>：空闲分区按<strong>容量递减</strong>次序链接。每次分配内存时顺序查找空闲分区链(或空闲分区表)，找到大小能满足要求的第一个空闲分区。</li>
+<li><strong>优点</strong>： 可以减少难以利用的小碎片</li>
+<li><strong>缺点</strong>： 大分区容易被用完，不利于大进程，算法开销大</li>
+</ul>
+</li>
+<li>
+<p><strong>领近适应法</strong>。</p>
+<ul>
+<li><strong>算法思想</strong>： 首次适应算法每次都从链头开始查找的。这可能会导致低地址部分出现很多小的空闲分区，而每次分配查找时，都要经过这些分区，因此也增加了查找的开销。</li>
+<li><strong>实现方式</strong>：空闲分区以<strong>地址递增</strong>的顺序排列(可排成一个<strong>循环链表</strong>)。每次分配内存时<u>从上次查找结束的位置开始</u> ，查找空闲分区链(或空闲分区表)，找到大小能满足要求的第一个空闲分区。</li>
+<li><strong>优点</strong>： 算法开销小</li>
+</ul>
+</li>
+</ol>
+<h4 id="8-什么是内存覆盖和内存交换？">8. 什么是内存覆盖和内存交换？</h4>
+<ul>
+<li><strong>内存覆盖</strong>
+<ul>
+<li><strong>思想</strong>： 把用户空间分成为一个<strong>固定区</strong>和<strong>若干个覆盖区</strong>。将经常活跃的部分放在固定区，其余部分按照调用关系分段，首先将那些即将要访问的段放入覆盖区，其他段放在外存中，在需要调用前，系统将其调入覆盖区，替换覆盖区中原有的段。</li>
+<li><strong>特点</strong>：<strong>打破</strong>了必须将<strong>一个进程的全部信息装入内存后才能运行</strong>的限制 。</li>
+</ul>
+</li>
+<li><strong>内存交换</strong>
+<ul>
+<li><strong>思想</strong>： <u>内存空间紧张</u> 时，系统将内存中<strong>某些进程暂时换出外存</strong>，把外存中某些已<strong>具备运行条件的进程换入内存</strong>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-5-虚拟内存">4.5 虚拟内存</h2>
+<h4 id="0-什么是虚拟技术-？从时间和空间两方面来说。">0. 什么是虚拟技术 ？从时间和空间两方面来说。</h4>
+<p>虚拟技术<strong>把一个物理实体转换为多个逻辑实体</strong> ：</p>
+<ul>
+<li><strong>时分复用技术</strong> ： 如多个进程能在同一个处理器上并发执行使用了时分复用技术，让<u>每个进程轮流占用处理器，每次只执行一小个时间片并快速切换</u> ；</li>
+<li><strong>空分复用技术</strong>： <u>物理内存抽象为地址空间，每个进程都有各自的地址空间</u>。地址空间的页被映射到物理内存，地址空间的页并不需要全部在物理内存中，当使用到一个没有在物理内存的页时，执行页面置换算法，将该页置换到内存中。</li>
+</ul>
+<h4 id="1-介绍一下局部性原理吧？">1. 介绍一下局部性原理吧？</h4>
+<p>局部性原理是虚拟内存技术的基础，正是因为程序运行具有局部性原理，才可以只装⼊部分程序到内存就开始运行。</p>
+<p>局部性原理表现在以下两个⽅面：</p>
+<ol>
+<li><strong>时间局部性</strong>：如果程序中的<strong>某条指令</strong>⼀旦执行，不久以后<strong>该指令可能再次执</strong>行；如果某数据被访问过，不久以后该数据可能再次被访问。产⽣时间局部性的典型原因，是由于在程序中存在着大量的循环操作。</li>
+</ol>
+<blockquote>
+<p>时间局部性是通过将近来使用的指令和数据保存到高速缓存存储器中，并使用高速缓存的层次结构实现。</p>
+</blockquote>
+<ol start="2">
+<li><strong>空间局部性</strong>：⼀旦程序访问了<strong>某个存储单元</strong>，在不久之后，其<strong>附近的存储单</strong>元也将被访问，即程序在⼀段时间内所访问的地址，可能集中在⼀定的范围之内，这是因为指令通常是顺序存放、顺序执行的，数据也⼀般是以向量、数组、表等形式簇聚存储的。</li>
+</ol>
+<blockquote>
+<p>空间局部性通常是使用教大的高速缓存，并将预取机制集成到高速缓存控制逻辑中实现。</p>
+</blockquote>
+<p>虚拟内存技术实际上就是建⽴了 “内存⼀外存”的两级存储器的结构，利用局部性原理实现髙速缓存。</p>
+<h4 id="2-介绍一下，什么是虚拟内存？页式存储？">2.<strong>介绍一下，什么是虚拟内存？页式存储</strong>？</h4>
+<ul>
+<li>
+<p><strong>虚拟内存</strong></p>
+<p>虚拟内存是一种存储机制，可为用户提供一个拥有很大主内存的错觉。<strong>通过将辅存的一部分作为主存</strong>来完成。在虚拟内存中，用户可以存储比可用主内存更大的进程。</p>
+<blockquote>
+<p>每个进程创建加载的时候，会被分配一个大小为4G的连续的虚拟地址空间，仅仅是每个进程“认为”自己拥有4G的内存。等到进程真正运行的时候，<strong>需要某些数据并且数据不在物理内存中，才会触发缺页异常，进行磁盘数据拷贝到物理内存中</strong></p>
+</blockquote>
+<p><img src="https://i.loli.net/2021/04/20/NO5zyG824P9FSHs.jpg" alt="img"></p>
+</li>
+<li>
+<p><strong>页式存储</strong></p>
+<p>大部分虚拟存储系统采用的是一种称为<strong>分页（paging</strong>）的技术。这种方式叫做虚拟页式存储管理。</p>
+<ul>
+<li>
+<p>物理内存空间划分为固定大小的内存块，称为物理页面，或者是<strong>页框</strong>（page frame）</p>
+</li>
+<li>
+<p>虚拟地址空间也划分成大小相同的块，称为虚拟页面，或者简称<strong>页面</strong>（page）</p>
+<blockquote>
+<p>页表：将<strong>虚拟页面映射为</strong>相应的<strong>物理页面</strong>。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-虚拟内存的技术实现-？">3. 虚拟内存的技术实现 ？</h4>
+<p>虚拟内存的实现需要建⽴在离散分配的内存管理⽅式的基础上。 虚拟内存的实现有以下三种⽅式：</p>
+<ol>
+<li><strong>请求分页存储管理</strong> ：建⽴在分页管理之上，为了支持虚拟存储器功能而增加了<strong>请求调页功能和页面置换功能</strong>。请求分页是⽬前最常用的⼀种实现虚拟存储器的⽅法。请求分页存储管理系统中，在作业开始运行之前，仅装⼊当前要执行的部分页即可运行。假如在作业运行的过程中发现要访问的页面不在内存，则由处理器通知操作系统按照对应的页面置换算法将相应的页面调⼊到主存，同时操作系统也可以将暂时不用的页面置换到外存中。</li>
+<li><strong>请求分段存储管理</strong>：建⽴在分段存储管理之上，增加了<strong>请求调段功能、分段置换功能</strong>。请求分段储存管理⽅式就如同请求分页储存管理⽅式⼀样，在作业开始运行之前，仅装⼊当前要执行的部分段即可运行；在执行过程中，可使用请求调⼊中断动态装⼊要访问但⼜不在内存的程序段；当内存空间已满，而⼜需要装⼊新的段时，根据置换功能适当调出某个段，以便腾出空间而装⼊新的段。</li>
+<li><strong>请求段页式存储管理</strong></li>
+</ol>
+<h4 id="4-请你介绍一下页面置换算法？">4. 请你介绍一下页面置换算法？</h4>
+<p>当发⽣缺页中断时，如果当前内存中并没有空闲的页面，操作系统就必须在内存选择⼀个页面将其移出内存，以便为即将调⼊的页面让出空间。用来选择淘汰哪⼀页的规则叫做页面置换算法，我们可以把页<br>
+⾯置换算法看成是淘汰页面的规则。</p>
+<ul>
+<li>
+<p><strong>OPT （最佳页面置换算法）</strong>：最佳(Optimal, OPT)置换算法所选择的被淘汰页面将是以后永不使用的，或者是在最⻓时间内不再被访问的页面,这样可以保证获得最低的缺页率。</p>
+<blockquote>
+<p>但由于⼈们⽬前无法预知进程在内存下的若千页面中哪个是未来最⻓时间内不再被访问的，因⽽该算法无法实现。⼀般作为衡量其他置换算法的⽅法。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>FIFO（First In First Out） （先进先出页面置换算法</strong>）: 总是淘汰最先进⼊内存的页面，即选择在内存中驻留时间最久的页面进行淘汰。</p>
+</li>
+<li>
+<p><strong>LRU （Least Currently Used）（最近最久未使用页面置换算法</strong>）：LRU算法赋予每个页面⼀个访问字段，用来记录⼀个页面⾃上次被访问以来所经历的时间 T，当须淘汰⼀个页面时，选择现有页面中其 T 值最大的，即最近最久未使用的页面予以淘汰。</p>
+</li>
+<li>
+<p><strong>LFU （Least Frequently Used）（最少使用页面置换算法</strong>）: 该置换算法选择在前时期使用最少的页面作为淘汰页。</p>
+</li>
+</ul>
+<h4 id="5-你怎么理解操作系统里的内存碎片，有什么解决办法？">5.<strong>你怎么理解操作系统里的内存碎片，有什么解决办法</strong>？</h4>
+<p>内存碎片分为：内部碎片和外部碎片。</p>
+<ul>
+<li>
+<p><strong>内部碎片</strong>： 已经<strong>被分配</strong>出去（能明确指出属于哪个进程）却<strong>不能被利用</strong>的内存空间；</p>
+<blockquote>
+<p><strong>内存泄漏</strong>：不再会被使用的<strong>对象</strong>的内存不能被<strong>回收</strong> 。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>外部碎片</strong>： 还<strong>没有被分配</strong>出去（不属于任何进程），但由于<strong>太小了无法分配</strong>，给申请内存空间的新进程的内存空闲区域。</p>
+</li>
+</ul>
+<h4 id="6-什么是内存抖动？">6. 什么是内存抖动？</h4>
+<ul>
+<li><strong>现象</strong>：刚刚换出的页面马上又要换入内存，刚刚换入的页面马上又要换出外存，这种<strong>频繁的页面调度行为</strong>称为抖动，或颠簸；</li>
+<li><strong>原因</strong>： 程频繁访问的页面数目高于可用的物理块数(分配给进程的物理块不够) ；</li>
+<li><strong>解决</strong>： 分配更多的物理块</li>
+</ul>
+<h2 id="4-6-并发和死锁">4.6 并发和死锁</h2>
+<h4 id="0-介绍几种典型的锁？">0. 介绍几种典型的锁？</h4>
+<ol>
+<li><strong>读写锁</strong>。 可以同时读，但写必须互斥，只允许一个写；</li>
+<li><strong>互斥锁</strong>。 一次只能一个线程拥有锁，其它只能等待；</li>
+<li><strong>条件变量</strong>：  互斥锁一个明显的缺点是他只有两种状态：锁定和非锁定；而条件变量<strong>通过允许线程阻塞和等待另一个线程发送信号</strong>的方法弥补了互斥锁的不足；</li>
+<li><strong>自旋锁</strong>。 如果进线程无法取得锁，进线程不会立刻放弃CPU时间片，而是一直循环尝试获取锁，直到获取为止。</li>
+</ol>
+<h4 id="1-【重点】什么是线程死锁？什么情况下会发生死锁？解决死锁的策略有哪些？">1. 【<strong>重点</strong>】<strong>什么是线程死锁？什么情况下会发生死锁？解决死锁的策略有哪些</strong>？</h4>
+<ul>
+<li>
+<p><strong>什么是死锁</strong></p>
+<p>死锁是指<u>两个或两个以上的进程（线程）在执行过程中，由于竞争资源或者由于彼此通信而造成的一种阻塞的现象</u>，若无外力作用，它们都将无法推进下去。此时称系统处于死锁状态或系统产生了死锁，这些永远在互相等待的进程（线程）称为死锁进程（线程）。</p>
+</li>
+<li>
+<p><strong>发生死锁的条件</strong></p>
+<ol>
+<li><strong>互斥</strong>：一个资源只能给一个进程使用；</li>
+<li><strong>占有并等待</strong>：进程持有资源并申请新资源，在申请到需要的资源之前，<u>已有的资源不释放</u>；</li>
+<li><strong>不可剥夺</strong>：进程申请到的资源在使用完之前，不可以被其他进程使用；</li>
+<li><strong>循环等待</strong>：各个进程的资源请求形成首尾连接循环等待。</li>
+</ol>
+</li>
+<li>
+<p><strong>解决方法：预防，避免，检测与恢复三种</strong></p>
+<ol>
+<li><strong>预防：破坏死锁会发生的四个条件</strong>
+<ul>
+<li>破坏互斥：这个条件我们没有办法破坏，因为我们用锁本来就是想让他们互斥的</li>
+<li><strong>破坏请求和保持</strong>：实行资源预先分配策略。即进程在运行前一次性地向系统申请它所需要的全部资源；</li>
+<li><strong>破坏不剥夺条件</strong> ：占用部分资源的线程进⼀步申请其他资源时，<strong>如果申请不到</strong>，可以<strong>主动释放它占有的资源</strong>；</li>
+<li><strong>破坏循环等待</strong>：资源分类标号，进行有序分配。</li>
+</ul>
+</li>
+<li><strong>避免</strong>： <u>它不限制进程有关申请资源的命令</u>，而是对进程所发出的每一个申请资源命令加以<strong>动态地检查</strong>，并根据检查结果决定是否进行资源分配
+<ul>
+<li><strong>安全序列</strong>：找到一种能让进程安全执行完的有序序列<code>&#123;P1，P2，...，Pn&#125;</code></li>
+<li><strong>银行家算法</strong>：系统在为进程分配资源之前，首先计算此次资源分配的安全性，<strong>如果是安全的，则进行分配</strong>；如果这次分配会导致进入不安全状态，不进行分配。</li>
+</ul>
+</li>
+<li><strong>恢复</strong>： 用<u>资源分配图、进程等待图</u>来协助这种检测出死锁，然后进行恢复。
+<ul>
+<li>系统重新启动，但代价很大</li>
+<li><strong>撤消参与死锁的全部或部分进程，剥夺资源</strong></li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h5 id="1-1-什么时候需要使用分布式锁？">1.1 <strong>什么时候需要使用分布式锁</strong>？</h5>
+<ul>
+<li>在<strong>单体应用的</strong>时候，如果<strong>多个线程要访问共享资源的时候，我们通常线程间加锁的机制</strong>，在某一个时刻，只有一个线程可以对这个资源进行操作，其他线程需要等待锁的释放，Java中也有一些处理锁的机制，比如synchronized。</li>
+<li>而到了<strong>分布式的环境</strong>中，当<strong>某个资源可以被多个系统访问使用到的时候（例如，有多个客户端需要访问并操作同一个资源，还需要保持这个资源一致性的时候，就需要使用【分布式锁）</strong>，为了保证大家访问这个数据是一致性的，那么就要求再同一个时刻，只能被一个系统使用，这时候<strong>线程之间的锁机制就无法起到作用</strong>了，因为分布式环境中，系统是会部署到不同的机器上面的，那么就需要【分布式锁】了。</li>
+</ul>
+<h4 id="2-（待补充）请你解释一下，通常系统CPU比较高是什么原因？">2. （待补充）<strong>请你解释一下，通常系统CPU比较高是什么原因</strong>？</h4>
+<ol>
+<li>首先查看是哪些进程的CPU占用率最高</li>
+</ol>
+<h4 id="3-说一下NIO，BIO，AIO区别">3.<strong>说一下NIO，BIO，AIO区别?</strong></h4>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/basis/IO%E6%A8%A1%E5%9E%8B.md">JAVaGuide</a></p>
+</blockquote>
+<p>【<strong>BIO（同步阻塞）</strong>】</p>
+<ul>
+<li>
+<p><strong>BIO</strong>：同步阻塞 IO 模型中，应用程序发起 read 调用后，会一直阻塞，直到在内核把<u> </u>。</p>
+<img src="https://i.loli.net/2021/05/06/HqJyg2Ykxtm6Wba.png" alt="图源：《深入拆解Tomcat & Jetty》" style="zoom: 67%;" />
+</li>
+</ul>
+<p>【<strong>NIO（同步非阻塞）</strong>】</p>
+<p>NIO 本身是基于 <u>事件驱动</u> 的思想来实现的，其目的就是解决 BIO 的大并发问题：</p>
+<ul>
+<li>BIO 模型中，<strong>如果需要并发处理多个 I/O 请求，那就需要多线程来支持</strong>；</li>
+<li><strong>IO 多路复用模型</strong>中，线程首先发起 <u>select 调用，询问内核数据是否准备就绪</u>，等内核把数据准备好了，用户线程再发起 <strong>read 调用</strong>。<strong>read 调用的过程（数据从内核空间-&gt;用户空间）还是阻塞的</strong>。</li>
+</ul>
+<img src="https://i.loli.net/2021/05/06/9iJE3IaVOW2xAwh.png" alt="img" style="zoom:67%;" />
+<p>【<strong>AIO（异步非阻塞）</strong>】</p>
+<blockquote>
+<p>Java 7 中引入了 NIO 的改进版 NIO 2,它是异步 IO 模型 。</p>
+</blockquote>
+<p><strong>AIO：</strong> 异步非阻塞无需一个线程去轮询所有IO操作的状态改变，在相应的状态改变后，系统会通知对应的线程来处理。</p>
+<blockquote>
+<p>异步 IO 是基于事件和<strong>回调机制</strong>实现的，也就是应用操作之后会直接返回，不会堵塞在那里，当后台处理完成，操作系统会通知相应的线程进行后续的操作。</p>
+</blockquote>
+<p><img src="https://i.loli.net/2021/05/06/uIcCQeBUliqT2gk.png" alt="img" style="zoom:67%;" />0.</p>
+<h4 id="4-【重点】介绍一下select，poll，epoll-原理？">4. 【重点】<strong>介绍一下select，poll，epoll 原理？</strong></h4>
+<blockquote>
+<p><strong>参考</strong></p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/jiejiemcu/article/details/107083724">select、poll、epoll的原理与区别</a></li>
+</ol>
+</blockquote>
+<h5 id="4-1-从阻塞I-O-非阻塞I-O说起">4.1 从阻塞I/O &amp; 非阻塞I/O说起</h5>
+<ul>
+<li>
+<p><strong>阻塞I/O</strong></p>
+<blockquote>
+<p>在linux中，默认情况下所有的socket都是阻塞的。</p>
+</blockquote>
+<p><img src="https://i.loli.net/2021/05/17/aJFOtPvy4xiMKkI.png" alt="image-20210517125922790"></p>
+<ol>
+<li>当用户进程调用了<code>read()/recvfrom()</code>等系统调用函数，它会进入内核空间中；</li>
+<li>当这个网络I/O没有数据的时候，内核就要等待数据的到来，此时<strong>用户进程被阻塞</strong>；</li>
+<li>当内核空间的数据准备好了，它就会将数据从<strong>内核空间中拷贝到用户空间</strong>；</li>
+<li>用户进程才解除阻塞的的状态，重新运行读取数据。</li>
+</ol>
+</li>
+<li>
+<p><strong>非阻塞I/O</strong></p>
+<blockquote>
+<p>linux下，可以通过设置socket使其变为非阻塞模式，这种情况下，当内核空间并无数据的时候，它会<u>马上返回结果而不会阻塞</u>。</p>
+</blockquote>
+<p><img src="https://i.loli.net/2021/05/17/hW2DtsGBiU8AnHN.png" alt="image-20210517130232559"></p>
+<ol>
+<li>当用户进程调用了<code>read()/recvfrom()</code>等系统调用函数，它会进入内核空间中；</li>
+<li>如果内核空间中的数据还没有准备好，那么它并不会阻塞用户进程，而是<strong>立刻返回一个error</strong>；</li>
+<li>对于应用进程来说，它发起一个<code>read()</code>操作后，并不需要等待，那么它可以再次调用read()/recvfrom()等函数；</li>
+<li>当内核空间的数据准备好了，它就会将数据从内核空间中拷贝到用户空间；</li>
+<li>用户进程才解除阻塞的的状态，重新运行读取数据。</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>多路复用I/O就是我们说的<code>select，poll，epoll</code>等操作，复用的好处就在于<strong>单个进程</strong>就可以同时处理<strong>多个</strong>网络连接的I/O，能实现这种功能的原理就是<code>select、poll、epoll</code>等函数会不断的<strong>轮询</strong>它们所负责的所有<code>socket</code>，当某个<code>socket</code>有数据到达了，就通知用户进程。</p>
+</blockquote>
+<h5 id="4-2-select原理">4.2 select原理</h5>
+<blockquote>
+<p>更加深刻对比理解：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/skyfsm/p/7079458.html">Linux编程之select</a></p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span> <span class="params">(<span class="keyword">int</span> n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>select函数监视的文件socket描述符分3类，分别是writefds、readfds、和exceptfds；</li>
+<li>调用后select<strong>函数会阻塞（不是线程）</strong>，直到有描述符就绪（有数据 <u>可read、可write、except、超时timeout</u>），函数返回。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	select(socket);</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>) </span><br><span class="line">	&#123;</span><br><span class="line">		sockets = select(); <span class="comment">// 还是要从内核拷贝到用户</span></span><br><span class="line">		<span class="keyword">for</span>(socket in sockets) </span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(can_read(socket)) </span><br><span class="line">			&#123;</span><br><span class="line">				read(socket, buffer);</span><br><span class="line">				process(buffer);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>详细执行原理如下：</p>
+<ol>
+<li>
+<p>用户首先将需要进行IO操作的<strong>socket添加到select</strong>中，然后<strong>阻塞函数select（不是线程）等待系统调用返回</strong>；</p>
+</li>
+<li>
+<p><strong>当数据到达时，socket被激活，select函数返回</strong>，会唤醒其等待队列上睡眠的内核进程，即在<strong>socket可读写时唤醒</strong>，或者在<strong>超时</strong>后唤醒；</p>
+<blockquote>
+<p>每次调用<code>select</code>查看fd，都需要把fd集合拷贝进行系统调用<strong>陷入内核态</strong> 。</p>
+</blockquote>
+</li>
+<li>
+<p>返回<code>select()</code>函数的调用结果给用户进程，<strong>返回就绪socket描述符的数目</strong>，超时返回0，出错返回-1；</p>
+</li>
+<li>
+<p>在select()函数返回后<strong>还是需要轮询</strong>去找到就绪的socket描述符的（<u>将此前传入内核空间的<code>fd_set</code>拷贝到用户空间</u>），此时用户进程才可以去操作socket；</p>
+</li>
+<li>
+<p>进程调用<code>read() / recvfrom()</code> 读取数据 。</p>
+</li>
+</ol>
+<p><strong>select优点</strong>：</p>
+<blockquote>
+<p>从流程上来看，使用select函数进行IO请求和<strong>同步阻塞模型</strong>没有太大的区别，甚至还多了添加监视socket，以及调用select函数的额外操作，效率更差。</p>
+<p><strong>那为什么还要使用select？</strong></p>
+</blockquote>
+<ul>
+<li>使用select以后最大的优势是用户可以在一<strong>个线程内同时处理多个socket</strong>的IO请求。用户可以注册多个socket，然后不断地调用select读取被激活的socket，即可达到在同一个线程内同时处理多个IO请求的目的；</li>
+<li>而在<strong>同步阻塞模型</strong>中，必须通过<strong>多线程的方式才能达到这个目的</strong>。</li>
+</ul>
+<p><strong>select缺点</strong>：</p>
+<ol>
+<li>
+<p><strong>描述符数量</strong>：<code>select</code>支持的文件描述符数量太小了，默认是<code>1024</code>  ；</p>
+</li>
+<li>
+<p><strong>系统开销</strong>：每次调用<code>select</code>都需要把fd集合拷贝进行系统调用<strong>陷入内核态</strong>，这个开销在fd很多时会很大 ；</p>
+</li>
+<li>
+<p><strong>二次轮询</strong>：<code>select</code>需要二次查询拷贝所有文件描述fd_set进行遍历查看是否有描述符准备就绪。</p>
+</li>
+</ol>
+<h5 id="4-3-poll原理">4.3 poll原理</h5>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">poll</span> <span class="params">(struct pollfd *fds, <span class="keyword">unsigned</span> <span class="keyword">int</span> nfds, <span class="keyword">int</span> timeout)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">pollfd</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> fd; <span class="comment">/* file descriptor */</span></span><br><span class="line">    <span class="keyword">short</span> events; <span class="comment">/* requested events to watch */</span></span><br><span class="line">    <span class="keyword">short</span> revents; <span class="comment">/* returned events witnessed */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>不同与select使用三个位图来表示三个fdset的方式，poll使用一个 <strong>pollfd指针</strong>实现。</p>
+<blockquote>
+<p>poll使用<strong>链表</strong>维护这些socket描述符，而select使用的是<strong>数组</strong>（位图）。</p>
+</blockquote>
+<p>其他的都差不多和select()函数一样，poll()函数返回后，需要轮询pollfd来获取就绪的描述符，根据描述符的状态进行处理，<u>但是poll没有最大文件描述符数量的限制</u>。</p>
+<p><strong>poll缺点</strong>：</p>
+<p>解决了selec第一个缺点（文件描述符数量太少），但是依旧存在后面两个缺点。</p>
+<ol start="2">
+<li>
+<p><strong>系统开销</strong>：每次调用<code>poll</code>都需要把fd集合拷贝进行系统调用<strong>陷入内核态</strong>，这个开销在fd很多时会很大 ；</p>
+</li>
+<li>
+<p><strong>二次轮询</strong>：<code>poll</code>需要二次查询拷贝所有文件描述fd_set进行遍历查看是否有描述符准备就绪。</p>
+</li>
+</ol>
+<h5 id="4-3-epoll原理">4.3 epoll原理</h5>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// epoll只有epoll_create()、epoll_ctl()、epoll_wait() 3个系统调用函数。</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_create</span><span class="params">(<span class="keyword">int</span> size)</span></span>; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_ctl</span><span class="params">(<span class="keyword">int</span> epfd, <span class="keyword">int</span> op, <span class="keyword">int</span> fd, struct epoll_event *event)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">epoll_wait</span><span class="params">(<span class="keyword">int</span> epfd, struct epoll_event *events,</span></span></span><br><span class="line"><span class="params"><span class="function">               <span class="keyword">int</span> maxevents, <span class="keyword">int</span> timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p><code>epoll_create</code></p>
+<p>创建一个epoll文件描述符的epfd（或者称之为句柄）, <strong>epoll使用一个epfd文件描述符管理多个socket描述符</strong>。</p>
+<blockquote>
+<p>当创建好epoll句柄后，它就是会占用一个fd值，必须调用close()关闭，否则可能导致fd被耗尽 。</p>
+</blockquote>
+</li>
+<li>
+<p><code>epoll_ctl</code></p>
+<p>该函数用于控制某个epoll文件描述符上的事件，可以注册事件，修改事件，以及删除事件。相关参数：</p>
+<blockquote>
+<p>使用<strong>红黑树</strong>对监视的文件描述符进行：添加、修改、删除等。</p>
+</blockquote>
+<ul>
+<li>
+<p><code>epdf</code>：由epoll_create()函数返回的epoll文件描述符（句柄）；</p>
+</li>
+<li>
+<p><code>op</code> ： op是操作的选项，注册要监听的目标socket描述符fd到epoll句柄中 ；修改epoll句柄已经注册的fd的监听事件；从epoll句柄删除已经注册的socket描述符 ；</p>
+</li>
+<li>
+<p><code>fd</code>：指定监听的socket描述符；</p>
+</li>
+<li>
+<p><code>event</code>：事件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">union</span> <span class="title">epoll_data</span> &#123;</span></span><br><span class="line">    <span class="keyword">void</span>        *ptr;</span><br><span class="line">    <span class="keyword">int</span>          fd;</span><br><span class="line">    <span class="keyword">uint32_t</span>     u32;</span><br><span class="line">    <span class="keyword">uint64_t</span>     u64;</span><br><span class="line">&#125; <span class="keyword">epoll_data_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">epoll_event</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span>     events;      <span class="comment">/* Epoll events */</span></span><br><span class="line">    <span class="keyword">epoll_data_t</span> data;        <span class="comment">/* User data variable */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p><code>epoll_wait()</code></p>
+<p>epoll_wait()函数的作用就是等待监听的事件的发生，<strong>类似于调用select()函数</strong>。 相关参数如下：</p>
+<blockquote>
+<p>函数的返回值表示需要处理的事件数目，如返回0表示已超时。</p>
+</blockquote>
+<ul>
+<li><code>events</code>：用来从内核得到事件的集合。</li>
+<li><code>maxevents</code> ：告之内核这个events有多大，这个 maxevents的值不能大于创建epoll_create()时的指定的size。</li>
+<li><code>timeout</code>：超时时间。</li>
+</ul>
+</li>
+</ul>
+<p><strong>epoll高效运行过程</strong></p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/31cdfd6f5a48">彻底搞懂epoll高效运行的原理</a></p>
+</blockquote>
+<ol>
+<li>
+<p>执行<code>epoll_create</code>会在内核的高速cache区中建立一颗红黑树以及就绪链表(该链表存储已经就绪的文件描述符)。接着用户执行<code>epoll_ctl</code> 函数添加文件描述符会在红黑树上增加相应的结点。</p>
+<blockquote>
+<p>select：创建3个文件描述符集并<u>拷贝到内核</u>中 ; poll：将传入的struct pollfd结构体数组<u>拷贝到内核</u>中进行监听。</p>
+</blockquote>
+</li>
+<li>
+<p>调用<code>epoll_wait</code> <strong>阻塞，等待可读事件</strong>；</p>
+</li>
+<li>
+<p>内核在检测到满足条件的socket描述符会调用<strong>回调函数</strong> ，回调函数将文件描述符<strong>放在就绪链表</strong>中 ；</p>
+<blockquote>
+<p>而select/poll 都需要 ，遍历所有文件描述符fd_set 。</p>
+<p>而执行epoll_ctl的add操作时，不仅将文件描述符放到红黑树上，而且也注册了回调函数，只需调用回调函数。</p>
+</blockquote>
+</li>
+<li>
+<p>epoll_wait只用观察就绪链表中有无数据即可，最后将链表的数据<strong>返回给读写事件数组events</strong> &amp;<strong>返回就绪的数量</strong>，只用<strong>遍历events</strong>依次处理即可。</p>
+<blockquote>
+<p>这里返回的文件描述符是通过<strong>mmap让内核和用户空间共享同一块内存</strong>实现传递的，减少了不必要的拷贝。</p>
+<p>而select/poll <u>只返回socket就绪数目</u>， 还需要将<strong>所有的文件描述符再次从内核→用户</strong>，遍历就绪的socket文件描述符。</p>
+</blockquote>
+</li>
+</ol>
+<h5 id="4-4-select，poll，epoll-各自区别？">4.4 select，poll，epoll 各自区别？</h5>
+<blockquote>
+<p>不错的文章：<a target="_blank" rel="noopener" href="https://www.codenong.com/cs105364662/">https://www.codenong.com/cs105364662/</a></p>
+</blockquote>
+<p><strong>相同点</strong>：</p>
+<ul>
+<li>
+<p>select，poll，epoll 都是 IO 多路复用的机制（NIO？yes）；</p>
+<blockquote>
+<p>IO 多路复用的本质是通过一种机制，让<strong>单个进程可以监视多个描述符</strong>，当发现某个描述符就绪之后，能够通知程序进行相应的操作。</p>
+</blockquote>
+</li>
+<li>
+<p>select，poll，epoll 都是同步 IO 。</p>
+</li>
+</ul>
+<p><strong>不同点</strong>：</p>
+<img src="https://i.loli.net/2021/05/17/xj2ncf8VLbAGrwh.png" alt="image-20210517125057917" style="zoom: 80%;" />
+<ol>
+<li><strong>IO 效率</strong>：（1）select 只知道<u>有 IO 事件发生，却不知道是哪几个流</u>，只能采取轮询所有流（ fd_set 集合）的方式，故其具有 O(n) 的无差别轮询复杂度，处理的流越多，无差别轮询时间就越长；（2）poll 与 select 并无区别，它的时间复杂度也是O(n)；（3）epoll 会将哪个流发生了怎样的 IO 事件通知我们（当描述符就绪时，<u>系统注册的回调函数会被调用</u>，将就绪描述符放到 readyList 里面），<strong>它是事件驱动的</strong>，其时间复杂度为 O(1)；</li>
+<li><strong>操作方式</strong>：select 和 poll 都是采取遍历的方式，而 epoll 则是采取了回调的方式；</li>
+<li><strong>底层实现</strong>：select 的底层实现为数组，poll 的底层实现为链表；而 epoll 的底层实现为红黑树；</li>
+<li><strong>最大连接数</strong>：select 的最大连接数为 1024 或 2048；而 poll 和 epoll 是无上限的；</li>
+<li><strong>对描述符的拷贝</strong>：select 和 poll 每次被调用时都会把描述符集合从用户态拷贝到内核态，而 epoll 在调用 epoll_ctl 时会拷贝进内核并保存，之后每次 epoll_wait 时不会拷贝；</li>
+<li><strong>性能</strong>：<u>epoll 在绝大多数情况下性能远超 select 和 poll</u>，但在连接数少并且连接都十分活跃的情况下，select 和 poll 的性能可能比 epoll 好，因为 epoll 的通知机制需要很多函数回调 。</li>
+</ol>
+<h5 id="4-5-ET-LT-模式介绍？各自优缺点？">4.5 ET , LT 模式介绍？各自优缺点？</h5>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1636224">https://cloud.tencent.com/developer/article/1636224</a></p>
+</blockquote>
+<ul>
+<li>
+<p><strong>边缘触发模式</strong>（<strong>E</strong>dge <strong>T</strong>rigger，ET），只有一个事件从无到有才会触发；</p>
+<blockquote>
+<ol>
+<li>低电平 =&gt; 高电平 。</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p><strong>水平触发模式</strong>（<strong>L</strong>evel <strong>T</strong>rigger，LT），一个事件只要有，就会一直触发。</p>
+<blockquote>
+<ol>
+<li>低电平 =&gt; 高电平 ; 2. 处于高电平状态</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p><strong>举例说明</strong></p>
+<ul>
+<li><strong>socket 的读事件</strong>
+<ul>
+<li><strong>LT模式</strong>，只要 socket 上有未读完的数据，就会一直产生 EPOLLIN 事件；</li>
+<li><strong>ET模式</strong>，socket 上每新来一次数据就会触发一次，如果上一次触发后，<strong>未将 socket 上的数据读完，也不会再触发</strong>，除非再新来一次数据。</li>
+</ul>
+</li>
+<li><strong>对于 socket 写事件</strong>
+<ul>
+<li><strong>LT模式</strong>，如果 socket 的 TCP 窗口一直不饱和，会一直触发 EPOLLOUT 事件；</li>
+<li><strong>ET模式</strong>，只会触发一次，除非 TCP 窗口由不饱和变成饱和再一次变成不饱和，才会再次触发 EPOLLOUT 事件。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>优缺点</strong></p>
+<ul>
+<li>使用 LT 模式，我们可以自由决定<strong>每次收取多少字节（对于普通 socket）或何时接收连接</strong>（对于侦听 socket），但是可能会<strong>导致多次触发</strong>；</li>
+<li>使用 ET 模式，我们必须<strong>每次都要将数据收完</strong>（对于普通 socket）或必须理解调用 accept 接收连接（对于侦听socket），其<strong>优点是触发次数少</strong>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-操作系统底层是怎么实现原子操作的？">5. 操作系统底层是怎么实现原子操作的？</h4>
+<p>处理器使用基于对<strong>缓存加锁</strong>或<strong>总线加锁</strong>的方式，来实现多处理器之间的原子操作。</p>
+<ol>
+<li>
+<p><strong>总线锁</strong>： 处理器提供的一个LOCK＃信号，当一个处理器在总线上输出此信号时，其他处理器的请求将被阻塞住，那么该处理器<strong>可以独占共享内存</strong>；</p>
+<blockquote>
+<p><strong>总线锁定把CPU和内存之间的通信锁住了</strong>，这使得锁定期间，其他处理器不能操作其他内存地址的数据</p>
+</blockquote>
+</li>
+<li>
+<p><strong>缓存锁</strong>：相比总线锁，缓存锁即降低了锁的力度。核心机制是基于<u>缓存一致性协议</u>来实现的。</p>
+<blockquote>
+<p>详细参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/06717ac8312c">JMM基础（总线锁、缓存锁、MESI缓存一致性协议、CPU 层面的内存屏障）</a></p>
+</blockquote>
+</li>
+</ol>
+<h2 id="4-7-其它">4.7 其它</h2>
+<h4 id="1-常见的磁盘调度算法？">1. 常见的磁盘调度算法？</h4>
+<p>读写一个磁盘块的时间的影响因素有：</p>
+<ul>
+<li>旋转时间（主轴转动盘面，使得磁头移动到适当的扇区上）</li>
+<li>寻道时间（制动手臂移动，使得磁头移动到适当的磁道上）</li>
+<li>实际的数据传输时间</li>
+</ul>
+<p>其中，<strong>寻道时间最长</strong>，因此磁盘调度的主要目标是使磁盘的平均寻道时间最短。</p>
+<ol>
+<li>
+<p><strong>先来先服务</strong>。 按照磁盘请求的顺序进行调度。</p>
+<ul>
+<li><strong>优点</strong>：公平、简单；</li>
+<li><strong>缺点</strong>：未对寻道做任何优化，使平均寻道时间可能较长。</li>
+</ul>
+</li>
+<li>
+<p><strong>最短寻道优先</strong>。 优先调度与当前磁头所在磁道距离最近的磁道。</p>
+<ul>
+<li><strong>优点</strong>： 平均寻道时间比较低；</li>
+<li><strong>缺点</strong>：不公平，如果新到达的磁道请求总是比一个在等待的磁道请求近，那么在等待的磁道请求会一直等待下去。</li>
+</ul>
+</li>
+<li>
+<p><strong>电梯扫描算法</strong>。 电梯总是保持一个方向运行，直到该方向没有请求为止，然后改变运行方向。</p>
+<ul>
+<li><strong>优点</strong>： 性能较好，同时不会存在饥饿现象。</li>
+</ul>
+</li>
+</ol>
+<h4 id="2-服务器高并发的解决方案你知道多少？">2. 服务器高并发的解决方案你知道多少？</h4>
+<ul>
+<li><strong>应用数据与静态资源分离</strong>：将静态资源（图片，视频，js，css等）单独保存到专门的静态资源服务器中，在客户端访问的时候从<strong>静态资源服务器中返回静态资源</strong>，从<strong>主服务器中返回应用数据</strong>；</li>
+<li><strong>客户端缓存</strong> ：例如先生成静态页面，然后用ajax异步请求获取动态数据；</li>
+<li><strong>集群和分布式</strong> ：使用服务器集群和分布式架构，使得原本属于一个服务器的计算压力分散到多个服务器上。同时加快请求处理的速度；</li>
+<li><strong>反向代理</strong>： 在访问服务器的时候，服务器通过别的服务器获取资源或结果返回给客户端。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Wanghui Huang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hwh.zone/p/15646/">https://hwh.zone/p/15646/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hwh.zone" target="_blank">royhuang's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%A0%A1%E6%8B%9B/">校招</a><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a><a class="post-meta__tags" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></div><div class="post_share"><div class="social-share" data-image="/img/about-bg.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatPay.png" target="_blank"><img class="post-qr-code-img" src="/img/wechatPay.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/img/alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/p/46361/"><img class="prev-cover" src="/img/about-bg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">校招笔记（三）_计算机基础_计算机网络</div></div></a></div><div class="next-post pull-right"><a href="/p/56848/"><img class="next-cover" src="/img/about-bg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">校招笔记（五）_计算机基础_MySQL</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/p/61434/" title="校招笔记（七）_计算机基础_数据结构"><img class="cover" src="/img/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-26</div><div class="title">校招笔记（七）_计算机基础_数据结构</div></div></a></div><div><a href="/p/5582/" title="校招笔记（九）_计算机基础_相关补充"><img class="cover" src="/img/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-25</div><div class="title">校招笔记（九）_计算机基础_相关补充</div></div></a></div><div><a href="/p/44980/" title="校招笔记（二）_计算机基础_Linux&Git"><img class="cover" src="/img/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-26</div><div class="title">校招笔记（二）_计算机基础_Linux&Git</div></div></a></div><div><a href="/p/46361/" title="校招笔记（三）_计算机基础_计算机网络"><img class="cover" src="/img/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-26</div><div class="title">校招笔记（三）_计算机基础_计算机网络</div></div></a></div><div><a href="/p/31667/" title="校招笔记（八）_计算机基础_场景&智力题"><img class="cover" src="/img/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-26</div><div class="title">校招笔记（八）_计算机基础_场景&智力题</div></div></a></div><div><a href="/p/56848/" title="校招笔记（五）_计算机基础_MySQL"><img class="cover" src="/img/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-26</div><div class="title">校招笔记（五）_计算机基础_MySQL</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/cat.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wanghui Huang</div><div class="author-info__description">tech & life</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Wanghui-Huang"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Wanghui-Huang" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:hwh199601@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">royHuang's studio</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">四、操场系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80"><span class="toc-text">4.1 操作系统基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#0-%EF%BC%88%E7%99%BE%E5%BA%A6%E5%AE%89%E5%85%A8%E4%B8%80%E9%9D%A2%EF%BC%89-%E5%86%AF%E8%AF%BA%E4%BE%9D%E6%9B%BC%E7%BB%93%E6%9E%84%E6%9C%89%E5%93%AA%E5%87%A0%E4%B8%AA%E6%A8%A1%E5%9D%97%EF%BC%9F%E5%88%86%E5%88%AB%E5%AF%B9%E5%BA%94%E7%8E%B0%E4%BB%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E5%93%AA%E5%87%A0%E4%B8%AA%E9%83%A8%E5%88%86%EF%BC%9F"><span class="toc-text">0. （百度安全一面） 冯诺依曼结构有哪几个模块？分别对应现代计算机的哪几个部分？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9F"><span class="toc-text">1. 什么是操作系统？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%BB%80%E4%B9%88%E6%98%AF%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E5%91%A2%EF%BC%9F-%E8%83%BD%E4%B8%8D%E8%83%BD%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D%E2%BC%80%E4%B8%8B%EF%BC%9F"><span class="toc-text">2. 什么是系统调用呢？ 能不能详细介绍⼀下？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-CentOS-%E5%92%8C-Linux%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%9F"><span class="toc-text">3. CentOS 和 Linux的关系？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E4%BB%80%E4%B9%88%E6%98%AF%E5%88%86%E5%B8%83%E5%BC%8F%EF%BC%8C%E4%BC%98%E7%BC%BA%E7%82%B9%EF%BC%9F%E9%9B%86%E7%BE%A4%EF%BC%9F"><span class="toc-text">4. 什么是分布式，优缺点？集群？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%9C%A8Linux-windows%E6%A0%88%E7%A9%BA%E9%97%B4%E7%9A%84%E5%A4%A7%E5%B0%8F%EF%BC%9F"><span class="toc-text">5. 在Linux&#x2F;windows栈空间的大小？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-ASCII%E3%80%81Unicode%E5%92%8CUTF-8%E7%BC%96%E7%A0%81%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-text">6. ASCII、Unicode和UTF-8编码的区别？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#6-1-%E4%B8%89%E8%80%85%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB"><span class="toc-text">6.1 三者区别和联系</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E4%BB%80%E4%B9%88%E6%98%AF%E5%B9%B6%E5%8F%91%E5%92%8C%E5%B9%B6%E8%A1%8C%EF%BC%9F%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5%EF%BC%9F"><span class="toc-text">7. 什么是并发和并行？同步和异步？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E4%BB%80%E4%B9%88%E6%98%AF%E5%85%B1%E4%BA%AB%EF%BC%9F"><span class="toc-text">8. 什么是共享？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B"><span class="toc-text">4.2 进程和线程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%AF%B7%E9%97%AE64%E4%BD%8D%E5%92%8C32%E4%BD%8D%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-text">1.请问64位和32位的区别？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E7%BA%BF%E7%A8%8B%E5%92%8C%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-text">2.介绍一下线程和进程的区别？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%8D%8F%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-text">2.1 线程和协程之间的区别？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-%E4%B8%80%E4%B8%AA%E8%BF%9B%E7%A8%8B%E5%8F%AF%E4%BB%A5%E5%88%9B%E5%BB%BA%E5%A4%9A%E5%B0%91%E4%B8%AA%E7%BA%BF%E7%A8%8B%EF%BC%8C%E5%92%8C%E4%BB%80%E4%B9%88%E6%9C%89%E5%85%B3%EF%BC%9F"><span class="toc-text">2.2 一个进程可以创建多少个线程，和什么有关？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%90%8C%E6%AD%A5%E6%96%B9%E5%BC%8F%EF%BC%9F%EF%BC%88%E5%8C%BA%E5%88%86%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="toc-text">2.3 进程之间的同步方式？（区分通信方式）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%AF%B7%E9%97%AE%E3%80%90%E8%BF%9B%E7%A8%8B%E3%80%91%E4%B9%8B%E9%97%B4%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E9%80%9A%E4%BF%A1%EF%BC%9F"><span class="toc-text">3.请问【进程】之间如何进行通信？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E8%AF%B7%E9%97%AE%E3%80%90%E7%BA%BF%E7%A8%8B%E3%80%91%E9%97%B4%E5%90%8C%E6%AD%A5%E6%96%B9%E5%BC%8F%EF%BC%88%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F%EF%BC%89%EF%BC%9F"><span class="toc-text">4. 请问【线程】间同步方式（通信方式）？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B-%E5%A4%9A%E8%BF%9B%E7%A8%8B%EF%BC%9F"><span class="toc-text">5.什么时候用多线程 &#x2F; 多进程？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E3%80%90%E7%BA%BF%E7%A8%8B%E3%80%91%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%EF%BC%9F"><span class="toc-text">6.【线程】调度算法？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E3%80%90%E8%BF%9B%E7%A8%8B%E3%80%91%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%EF%BC%9F"><span class="toc-text">7.【进程】调度算法？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-CPU%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2%EF%BC%9F%E6%9C%89%E4%BB%80%E4%B9%88%E7%B1%BB%E5%9E%8B%EF%BC%9F%E7%BA%BF%E7%A8%8B%E5%8F%91%E7%94%9F%E5%9C%A8%E4%BB%80%E4%B9%88%E5%9C%B0%E6%96%B9%EF%BC%9F"><span class="toc-text">8. CPU上下文切换？有什么类型？线程发生在什么地方？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-%E5%A6%82%E4%BD%95%E6%9D%80%E6%AD%BB%E4%B8%80%E4%B8%AA%E8%BF%9B%E7%A8%8B%EF%BC%9F%E8%BF%9B%E7%A8%8B%E7%BB%88%E6%AD%A2%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%9F"><span class="toc-text">9.如何杀死一个进程？进程终止的方式？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#9-1-%E7%BB%88%E7%AB%AF%E9%80%80%E5%87%BA%EF%BC%8C%E7%BB%88%E7%AB%AF%E8%BF%90%E8%A1%8C%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%BC%9A%E6%80%8E%E4%B9%88%E6%A0%B7%EF%BC%9F"><span class="toc-text">9.1 终端退出，终端运行的进程会怎么样？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#9-2-%E6%80%8E%E4%B9%88%E8%AE%A9%E8%BF%9B%E7%A8%8B%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%EF%BC%9F"><span class="toc-text">9.2 怎么让进程后台运行？</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-%E5%A4%96%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-text">10. 外中断和异常的区别？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-%E4%BB%80%E4%B9%88%E6%98%AF%E7%88%B6%E8%BF%9B%E7%A8%8B%E3%80%81%E5%AD%90%E8%BF%9B%E7%A8%8B%E3%80%81%E8%BF%9B%E7%A8%8B%E7%BB%84%E3%80%81%E4%BD%9C%E4%B8%9A%E5%92%8C%E4%BC%9A%E8%AF%9D%EF%BC%9F"><span class="toc-text">11. 什么是父进程、子进程、进程组、作业和会话？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-%E4%BB%80%E4%B9%88%E6%98%AF%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E3%80%81%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E3%80%81%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B%EF%BC%9F"><span class="toc-text">12. 什么是守护进程、僵尸进程、孤儿进程？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#11-1-%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%EF%BC%9F"><span class="toc-text">11.1 如何避免僵尸进程？</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-socket%E7%BC%96%E7%A8%8B"><span class="toc-text">4.3 socket编程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-text">4.4 内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%A0%86%E5%92%8C%E6%A0%88%EF%BC%9F"><span class="toc-text">1.介绍一下操作系统的堆和栈？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E6%A0%88%E6%BA%A2%E5%87%BA%EF%BC%9F"><span class="toc-text">1.1 什么时候会栈溢出？</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E4%BB%80%E4%B9%88%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%EF%BC%9F%E5%B8%B8%E7%94%A8%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6%EF%BC%9F"><span class="toc-text">2. 介绍一下什么内存管理？常用的内存管理机制？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80%E5%92%8C%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80%EF%BC%9F"><span class="toc-text">2.1 介绍一下逻辑地址和物理地址？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9C%A8%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E9%9C%80%E8%A6%81%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">2.2 操作系统在内存管理需要做什么？</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E5%BF%AB%E8%A1%A8%E5%92%8C%E5%A4%9A%E7%BA%A7%E9%A1%B5%E8%A1%A8%EF%BC%9F"><span class="toc-text">3. 介绍一下快表和多级页表？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BF%AB%E8%A1%A8%E4%BB%8B%E7%BB%8D"><span class="toc-text">快表介绍</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%9A%E7%BA%A7%E9%A1%B5%E8%A1%A8%E4%BB%8B%E7%BB%8D"><span class="toc-text">多级页表介绍</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%88%86%E9%A1%B5%E6%9C%BA%E5%88%B6%E5%92%8C%E5%88%86%E6%AE%B5%E6%9C%BA%E5%88%B6%E7%9A%84%E5%85%B1%E5%90%8C%E7%82%B9%E5%92%8C%E5%8C%BA%E5%88%AB-%EF%BC%9F"><span class="toc-text">4. 分页机制和分段机制的共同点和区别 ？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E3%80%90%E5%BE%85%E6%89%A9%E5%85%85%E3%80%91CPU-%E5%AF%BB%E5%9D%80%E4%BA%86%E8%A7%A3%E5%90%97-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4"><span class="toc-text">5. 【待扩充】CPU 寻址了解吗?为什么需要虚拟地址空间?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%A6%82%E6%9E%9C%E7%B3%BB%E7%BB%9F%E4%B8%AD%E5%85%B7%E6%9C%89%E5%BF%AB%E8%A1%A8%E5%90%8E%EF%BC%8C%E9%82%A3%E4%B9%88%E5%9C%B0%E5%9D%80%E7%9A%84%E8%BD%AC%E6%8D%A2%E8%BF%87%E7%A8%8B%E5%8F%98%E6%88%90%E4%BB%80%E4%B9%88%E6%A0%B7%E4%BA%86%EF%BC%9F"><span class="toc-text">6. 如果系统中具有快表后，那么地址的转换过程变成什么样了？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E7%AE%97%E6%B3%95%EF%BC%9F"><span class="toc-text">7. 进程内存分配动态分区算法？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E4%BB%80%E4%B9%88%E6%98%AF%E5%86%85%E5%AD%98%E8%A6%86%E7%9B%96%E5%92%8C%E5%86%85%E5%AD%98%E4%BA%A4%E6%8D%A2%EF%BC%9F"><span class="toc-text">8. 什么是内存覆盖和内存交换？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="toc-text">4.5 虚拟内存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#0-%E4%BB%80%E4%B9%88%E6%98%AF%E8%99%9A%E6%8B%9F%E6%8A%80%E6%9C%AF-%EF%BC%9F%E4%BB%8E%E6%97%B6%E9%97%B4%E5%92%8C%E7%A9%BA%E9%97%B4%E4%B8%A4%E6%96%B9%E9%9D%A2%E6%9D%A5%E8%AF%B4%E3%80%82"><span class="toc-text">0. 什么是虚拟技术 ？从时间和空间两方面来说。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E5%B1%80%E9%83%A8%E6%80%A7%E5%8E%9F%E7%90%86%E5%90%A7%EF%BC%9F"><span class="toc-text">1. 介绍一下局部性原理吧？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%EF%BC%8C%E4%BB%80%E4%B9%88%E6%98%AF%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%EF%BC%9F%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8%EF%BC%9F"><span class="toc-text">2.介绍一下，什么是虚拟内存？页式存储？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%9A%84%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0-%EF%BC%9F"><span class="toc-text">3. 虚拟内存的技术实现 ？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E8%AF%B7%E4%BD%A0%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95%EF%BC%9F"><span class="toc-text">4. 请你介绍一下页面置换算法？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E4%BD%A0%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%87%8C%E7%9A%84%E5%86%85%E5%AD%98%E7%A2%8E%E7%89%87%EF%BC%8C%E6%9C%89%E4%BB%80%E4%B9%88%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%EF%BC%9F"><span class="toc-text">5.你怎么理解操作系统里的内存碎片，有什么解决办法？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E4%BB%80%E4%B9%88%E6%98%AF%E5%86%85%E5%AD%98%E6%8A%96%E5%8A%A8%EF%BC%9F"><span class="toc-text">6. 什么是内存抖动？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-6-%E5%B9%B6%E5%8F%91%E5%92%8C%E6%AD%BB%E9%94%81"><span class="toc-text">4.6 并发和死锁</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#0-%E4%BB%8B%E7%BB%8D%E5%87%A0%E7%A7%8D%E5%85%B8%E5%9E%8B%E7%9A%84%E9%94%81%EF%BC%9F"><span class="toc-text">0. 介绍几种典型的锁？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E3%80%90%E9%87%8D%E7%82%B9%E3%80%91%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B%E6%AD%BB%E9%94%81%EF%BC%9F%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E4%BC%9A%E5%8F%91%E7%94%9F%E6%AD%BB%E9%94%81%EF%BC%9F%E8%A7%A3%E5%86%B3%E6%AD%BB%E9%94%81%E7%9A%84%E7%AD%96%E7%95%A5%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="toc-text">1. 【重点】什么是线程死锁？什么情况下会发生死锁？解决死锁的策略有哪些？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%9C%80%E8%A6%81%E4%BD%BF%E7%94%A8%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%EF%BC%9F"><span class="toc-text">1.1 什么时候需要使用分布式锁？</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%EF%BC%88%E5%BE%85%E8%A1%A5%E5%85%85%EF%BC%89%E8%AF%B7%E4%BD%A0%E8%A7%A3%E9%87%8A%E4%B8%80%E4%B8%8B%EF%BC%8C%E9%80%9A%E5%B8%B8%E7%B3%BB%E7%BB%9FCPU%E6%AF%94%E8%BE%83%E9%AB%98%E6%98%AF%E4%BB%80%E4%B9%88%E5%8E%9F%E5%9B%A0%EF%BC%9F"><span class="toc-text">2. （待补充）请你解释一下，通常系统CPU比较高是什么原因？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%AF%B4%E4%B8%80%E4%B8%8BNIO%EF%BC%8CBIO%EF%BC%8CAIO%E5%8C%BA%E5%88%AB"><span class="toc-text">3.说一下NIO，BIO，AIO区别?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E3%80%90%E9%87%8D%E7%82%B9%E3%80%91%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8Bselect%EF%BC%8Cpoll%EF%BC%8Cepoll-%E5%8E%9F%E7%90%86%EF%BC%9F"><span class="toc-text">4. 【重点】介绍一下select，poll，epoll 原理？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-%E4%BB%8E%E9%98%BB%E5%A1%9EI-O-%E9%9D%9E%E9%98%BB%E5%A1%9EI-O%E8%AF%B4%E8%B5%B7"><span class="toc-text">4.1 从阻塞I&#x2F;O &amp; 非阻塞I&#x2F;O说起</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2-select%E5%8E%9F%E7%90%86"><span class="toc-text">4.2 select原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-3-poll%E5%8E%9F%E7%90%86"><span class="toc-text">4.3 poll原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-3-epoll%E5%8E%9F%E7%90%86"><span class="toc-text">4.3 epoll原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-4-select%EF%BC%8Cpoll%EF%BC%8Cepoll-%E5%90%84%E8%87%AA%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-text">4.4 select，poll，epoll 各自区别？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-5-ET-LT-%E6%A8%A1%E5%BC%8F%E4%BB%8B%E7%BB%8D%EF%BC%9F%E5%90%84%E8%87%AA%E4%BC%98%E7%BC%BA%E7%82%B9%EF%BC%9F"><span class="toc-text">4.5 ET , LT 模式介绍？各自优缺点？</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%BA%95%E5%B1%82%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C%E7%9A%84%EF%BC%9F"><span class="toc-text">5. 操作系统底层是怎么实现原子操作的？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-7-%E5%85%B6%E5%AE%83"><span class="toc-text">4.7 其它</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%B8%B8%E8%A7%81%E7%9A%84%E7%A3%81%E7%9B%98%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%EF%BC%9F"><span class="toc-text">1. 常见的磁盘调度算法？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%AB%98%E5%B9%B6%E5%8F%91%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BD%A0%E7%9F%A5%E9%81%93%E5%A4%9A%E5%B0%91%EF%BC%9F"><span class="toc-text">2. 服务器高并发的解决方案你知道多少？</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/2/" title="无题">无题</a><time datetime="2021-12-05T08:28:39.054Z" title="发表于 2021-12-05 16:28:39">2021-12-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/1/" title="无题">无题</a><time datetime="2021-12-05T08:24:40.924Z" title="发表于 2021-12-05 16:24:40">2021-12-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/62712/" title="C++从零开始（零）">C++从零开始（零）</a><time datetime="2021-12-05T08:22:28.029Z" title="发表于 2021-12-05 16:22:28">2021-12-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/56326/" title="Hexo快速打造属于自己的网站">Hexo快速打造属于自己的网站</a><time datetime="2021-11-29T12:10:54.202Z" title="发表于 2021-11-29 20:10:54">2021-11-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/31667/" title="校招笔记（八）_计算机基础_场景&amp;智力题">校招笔记（八）_计算机基础_场景&amp;智力题</a><time datetime="2021-11-26T13:37:19.761Z" title="发表于 2021-11-26 21:37:19">2021-11-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 By Wanghui Huang</div><div class="footer_custom_text">Support By <a target="_blank" rel="noopener" href="https://cloud.tencent.com/" style="text-decoration:underline; color:#476679;"> Tencent Cloud </a> |  <a target="_blank" rel="noopener" href="https://hexo.io/" style="text-decoration:underline; color:#476679;">Hexo</a> | <a target="_blank" rel="noopener" href="https://butterfly.js.org/" style="text-decoration:underline; color:#476679;">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'blog-comments-5g2cfsved8c0de34',
+      region: 'ap-shanghai'
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'blog-comments-5g2cfsved8c0de34',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>校招笔记（七）_计算机基础_数据结构 | royhuang's blog</title><meta name="keywords" content="校招,计算机基础,数据结构"><meta name="author" content="Wanghui Huang"><meta name="copyright" content="Wanghui Huang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="我的校招记录：校招笔记（零）_写在前面 ，以下是校招笔记总目录。       备注     算法能力（“刷题”） 这部分就是耗时间多练习，Leetcode-Top100 是很好的选择。 补充练习：codeTop   计算机基础(上)（“八股”） 校招笔记（一）__Java_Java入门 C++后端后续更新    校招笔记（一）__Java_面对对象     校招笔记（一）__Java_集合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="校招笔记（七）_计算机基础_数据结构">
+<meta property="og:url" content="https://hwh.zone/p/61434/index.html">
+<meta property="og:site_name" content="royhuang&#39;s blog">
+<meta property="og:description" content="我的校招记录：校招笔记（零）_写在前面 ，以下是校招笔记总目录。       备注     算法能力（“刷题”） 这部分就是耗时间多练习，Leetcode-Top100 是很好的选择。 补充练习：codeTop   计算机基础(上)（“八股”） 校招笔记（一）__Java_Java入门 C++后端后续更新    校招笔记（一）__Java_面对对象     校招笔记（一）__Java_集合">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hwh.zone/img/about-bg.jpg">
+<meta property="article:published_time" content="2021-11-26T13:20:04.945Z">
+<meta property="article:modified_time" content="2021-12-03T03:55:43.335Z">
+<meta property="article:author" content="Wanghui Huang">
+<meta property="article:tag" content="校招">
+<meta property="article:tag" content="计算机基础">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hwh.zone/img/about-bg.jpg"><link rel="shortcut icon" href="/img/cat-modified.png"><link rel="canonical" href="https://hwh.zone/p/61434/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":"true# copy button","highlightLang":false,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":100,"languages":{"author":"作者: Wanghui Huang","link":"链接: ","source":"来源: royhuang's blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '校招笔记（七）_计算机基础_数据结构',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-03 11:55:43'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><meta name="google-site-verification" content="uO6C17u7YuZfMWvThEQ9nOGQS4GIN2zAM6hC4tH-RiM" /><script> var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?13a4aefcbad9616a1f5859538d0d882e"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); })(); </script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.min.css" media="defer" onload="this.media='all'"><script async src="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/carousel-touch.min.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/cat.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> aboutME</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">royhuang's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> aboutME</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">校招笔记（七）_计算机基础_数据结构</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-26T13:20:04.945Z" title="发表于 2021-11-26 21:20:04">2021-11-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-03T03:55:43.335Z" title="更新于 2021-12-03 11:55:43">2021-12-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%A0%A1%E6%8B%9B%E7%AC%94%E8%AE%B0/">校招笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%A0%A1%E6%8B%9B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="校招笔记（七）_计算机基础_数据结构"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="twikoo_visitors"></span></span></div></div></div><article class="post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
+<p>我的校招记录：<a target="_blank" rel="noopener" href="https://www.hwh.zone/p/29708/">校招笔记（零）_写在前面</a> ，以下是校招笔记总目录。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>算法能力（“刷题”）</strong></td>
+<td style="text-align:center">这部分就是耗时间多练习，<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problem-list/2cktkvj/">Leetcode-Top100</a> 是很好的选择。</td>
+<td style="text-align:center">补充练习：<a target="_blank" rel="noopener" href="https://codetop.cc/">codeTop</a></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>计算机基础(上)（“八股”）</strong></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/51787/">校招笔记（一）__Java_Java入门</a></td>
+<td style="text-align:center">C++后端后续更新</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/7257/">校招笔记（一）__Java_面对对象</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/21069/">校招笔记（一）__Java_集合</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/8959/">校招笔记（一）__Java_多线程</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/45493/">校招笔记（一）__Java_锁</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/42516/">校招笔记（一）__Java_JVM</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>计算机基础(下)（“八股”）</strong></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/44980/">校招笔记（二）__计算机基础_Linux&amp;Git</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/46361/">校招笔记（三）__计算机基础_计算机网络</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/15646/">校招笔记（四）__计算机基础_操作系统</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/56848/">校招笔记（五）__计算机基础_MySQL</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/31215/">校招笔记（六）__计算机基础_Redis</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/61434/">校招笔记（七）__计算机基础_数据结构</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="https://hwh.zone/p/31667/">校招笔记（八）__计算机基础_场景&amp;智力题</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="http://hwh.zone/p/5582/">校招笔记（九）__计算机基础_相关补充</a></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>项目&amp;实习</strong></td>
+<td style="text-align:center">主要是怎么准备项目，后续更新</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<h1>七、数据结构和算法</h1>
+<h4 id="1-如何对快排进行优化？">1. 如何对快排进行优化？</h4>
+<ul>
+<li>
+<p><strong>三数取中法和随机交换法</strong></p>
+<blockquote>
+<p>快排将选取的基准点经过调整放到合适的位置，之后将这个基准点左右两边的区间分别递归的进行快排。</p>
+<p>如果基准点的数据比较小，将会导致调整后基准点处于靠近两侧的位置，那么两边的区间长度将会严重失去平衡.</p>
+</blockquote>
+<p><strong>三数取中法：指的是选取基准点之前</strong>我们可以拿出数列中间位置元素的值，将它和首尾的元素进行比较，之后将这三个数中的<strong>中间数</strong>交换到<strong>数列首位</strong>的位置，之后将这个数作为基准点，<u>尽量减小之后的分区后左右两边的区间长度之差</u>。</p>
+</li>
+<li>
+<p><strong>三路分割法</strong></p>
+<p><strong>三路法同样是针对含有大量【重复数列】的优化</strong>。</p>
+<p>3路法的思想是将数列分成3个区间，分别是<strong>小于、等于和大于基准点的区间</strong>。那么分区之后，对于等于基准点的区间内的元素，我们就不需要对其做任何处理了，只需要递归的处理小于和大于基准点的元素即可。</p>
+</li>
+<li>
+<p><strong>结合插入排序</strong></p>
+<p>当待排序序列的长度分割到一定大小后，使用<strong>插入排序</strong>。</p>
+<ul>
+<li><strong>对于很小和部分有序的数组，快排不如插排好</strong>。当待排序序列的长度分割到一定大小后，继续分割的效率比插入排序要差，此时可以使用插排而不是快排。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-快排和堆排的区别？什么时候使用快排和堆排？">2.<strong>快排和堆排的区别</strong>？<strong>什么时候使用快排和堆排</strong>？</h4>
+<ul>
+<li>
+<p><strong>快排和堆排区别</strong>？</p>
+<ul>
+<li>
+<p><strong>综合性能</strong>：实际应用中，虽然<u>堆排序的时间复杂度要比快速排序稳定</u>（快排最差退化成O(N^2)） ，但是统计意义上这种情况较少，所以综合性能还是快排更优；</p>
+</li>
+<li>
+<p><strong>交换次数</strong>： 对于同样的数据，在排序过程中，堆排序算法的数据交换次数要多于快速排序；</p>
+</li>
+<li>
+<p><strong>访问友好</strong>： 堆排序数据访问的方式没有快速排序友好。</p>
+<blockquote>
+<p><strong>对于快速排序来说，数据是顺序访问的；而堆排序来说，数据是跳着访问的</strong>。比如，堆排序中，最重要的一个操作就是数据的堆化。对堆顶节点进行堆化，会一次访问<strong>数组下标1，2，4，8</strong>的元素，而不是像快排那样，局部顺序访问，<u>所以对<strong>CPU缓存</strong>是不友好的</u>。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>快排和堆排使用场景</strong>？</p>
+<ul>
+<li>
+<p><strong>快排</strong>： 绝大多数场合。</p>
+</li>
+<li>
+<p><strong>堆排</strong>： topK问题、优先队列（需要在一组不停更新的数据中不停地找最大/小元素）</p>
+<blockquote>
+<p>在N个元素中找到top K，时间复杂度是O(N log K)，空间复杂的是O(K)，而快速排序的空间复杂度是O(N)。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-【面试重点】有哪些排序算法，各算法的时间复杂度-哪些是稳定的？为什么是稳定的？">3. 【面试重点】有哪些排序算法，各算法的时间复杂度 ? 哪些是稳定的？为什么是稳定的？</h4>
+<p><img src="https://i.loli.net/2021/05/01/K3s7DFEvyhHkwI9.png" alt="image-20210501224258097"></p>
+<h5 id="3-1-如果数据大致有序的，用什么排序比较好？">3.1 如果数据大致有序的，用什么排序比较好？</h5>
+<p>如果是<strong>大致有序</strong>，用 <u>插入排序</u> 比较好：</p>
+<ul>
+<li><u>直接插入排序</u>是将第i个元素插入到已经排序好的前i-1个元素中 ，当元素基本有序时。和前i-1个元素<strong>末尾比较一次</strong>就可以直接插入。</li>
+</ul>
+<p>在相比使用其它排序：</p>
+<ul>
+<li>
+<p><u>归并排序：</u> 归并排序和数组是否有序无关，都是O(nlgn)。</p>
+<blockquote>
+<p>归并排序是把一个有n个记录的无序文件看成由<strong>n个长度为1</strong>的有序子文件组成的文件，然后进行两两归并，得到[n/2]个长度为2或1的有序文件，再两两归并 。</p>
+</blockquote>
+</li>
+<li>
+<p><u>快速排序：</u> 数组基本有序时，此时如果使用基点是最后一个元素，划分的两个子数组极为不平衡，每次划分比较次数都很多。所以不推荐。</p>
+</li>
+</ul>
+<h4 id="4-二叉查找树，红黑树和平衡二叉树的区别？（有了二叉查找树、平衡树（AVL）为啥还需要红黑树？）">4. 二叉查找树，红黑树和平衡二叉树的区别？（有了二叉查找树、平衡树（AVL）为啥还需要红黑树？）</h4>
+<blockquote>
+<p>总结来说：平衡树是为了解决二叉查找树退化为链表的情况；而红黑树是为了解决平衡树在插入、删除等操作需要频繁调整的情况。</p>
+</blockquote>
+<ul>
+<li>
+<p><strong>二叉查找树退化成单链表</strong></p>
+<p>正常使用二叉查找树是类似于<u>二分查找 O（logn）</u>，但是极端情况：</p>
+<ul>
+<li>
+<p>构建的二叉树所有节点都只有右子树或左子树，此时时间复杂度退化成O(N)</p>
+<p><img src="https://i.loli.net/2021/05/01/38TASb1DB7sYN5k.jpg" alt="preview"></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>平衡二叉树频繁左右旋</strong></p>
+<p>平衡二叉树就是为了解决二叉查找树退化成一颗链表而诞生了，平衡树具有如下特点：</p>
+<ol>
+<li>
+<p>具有二叉查找树的全部特性；</p>
+</li>
+<li>
+<p><strong>每个节点的左子树和右子树的高度差至多等于1</strong>。</p>
+</li>
+</ol>
+<p>避免了二叉查找树极端情况产生，但是：</p>
+<ul>
+<li>每次进行插入/删除节点的时候，几乎都会破坏平衡树的第二个规则，进而我们都需要通过<strong>左旋</strong>和<strong>右旋</strong>来进行调整，使之再次成为一颗符合要求的平衡树。</li>
+</ul>
+<p>平衡树性能大打折扣。</p>
+</li>
+<li>
+<p><strong>红黑树规不需要频繁着调整</strong></p>
+<p>红黑树具有如下特点：</p>
+<blockquote>
+<p>最坏情况下，也能在 O(logn) 的时间复杂度查找到某个节点。</p>
+<ul>
+<li>与平衡树不同的是，红黑树在插入、删除等操作，（🚩*1）<strong>不会像平衡树那样，频繁着破坏红黑树的规则，所以不需要频繁着调整</strong>，这也是我们为什么大多数情况下使用红黑树的原因；</li>
+<li>但是，单单在查找方面的效率的话，平衡树比红黑树快。</li>
+</ul>
+</blockquote>
+<p><img src="https://i.loli.net/2021/05/01/sFSaG9POEi73hdo.jpg" alt="img"></p>
+<ol>
+<li>具有二叉查找树的特点；</li>
+<li>根节点是黑色的；</li>
+<li>每个叶子节点都是黑色的空节点（NIL），也就是说，叶子节点不存数据；</li>
+<li><strong>任何相邻的节点都不能同时为红色</strong>，也就是说，红色节点是被黑色节点隔开的；</li>
+<li>每个节点，<strong>从该节点到达其可达的叶子节点是所有路径，都包含相同数目的黑色节点</strong>。</li>
+</ol>
+</li>
+</ul>
+<h5 id="4-1-为什么红黑树不需要频繁调整？">4.1 为什么红黑树不需要频繁调整？</h5>
+<blockquote>
+<p>详细理解红黑树一篇不错的文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/97523789">百图详解红黑树，想不理解都难</a></p>
+</blockquote>
+<p>平衡二叉树这种高度差为 1 的要求太严格了，尤其是对于频繁删除、插入的场景非常浪费时间。</p>
+<p>但是由于红黑树：</p>
+<ul>
+<li>具有二叉树所有特点。</li>
+<li>每个节点只能是红色或者是黑色。</li>
+<li><strong>根节点只能是黑色</strong>，且黑色根节点不存储数据。</li>
+<li><strong>任何相邻的节点都不能同时为红色</strong>。</li>
+<li>红色的节点，它的子节点只能是黑色。</li>
+<li>从任一节点到其每个叶子的所有路径都包含<strong>相同数目的黑色节点</strong>。</li>
+</ul>
+<p><strong>不追求插入、删除等操作绝对平衡</strong>，只需满足上述条件即可。它的旋转次数少，<strong>插入最多两次旋转</strong>，<strong>删除最多三次旋转</strong>。</p>
+<p>所以在搜索、插入、删除操作较多的情况下，红黑树的效率是优于平衡二叉树的。</p>
+<h4 id="5-快速排序的过程-？">5.快速排序的过程 ？</h4>
+<ul>
+<li>
+<p>手撕一个<a href="">二分查找</a> 和快排？</p>
+<ul>
+<li>
+<p><strong>二分查找</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// binary search</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> value)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>,right = arr.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> mid ;</span><br><span class="line">        <span class="keyword">while</span> (left&lt;=right) <span class="comment">//*&lt;= 而不是&lt; </span></span><br><span class="line">        &#123;</span><br><span class="line">            mid = (left+right)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(value == arr[mid])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> mid; <span class="comment">// 如果数组存在待查找元素，按照逻辑一定会是mid</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>  <span class="keyword">if</span>(value &lt; arr[mid])</span><br><span class="line">            &#123;</span><br><span class="line"></span><br><span class="line">                right = mid-<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>  <span class="comment">// value &gt; arr[mid]</span></span><br><span class="line">            &#123;</span><br><span class="line">                left = mid+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>快速排序</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] quick_sort(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> left,<span class="keyword">int</span> right)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(right&lt;=left)&#123;<span class="keyword">return</span> <span class="keyword">null</span>;&#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 选择基准：数组最右数字</span></span><br><span class="line">        <span class="comment">// *如果选择最左，思考交换过程</span></span><br><span class="line">        <span class="comment">// *partition 左侧始终是比pivot小的数</span></span><br><span class="line">        <span class="keyword">int</span> pivot = arr[right];</span><br><span class="line">        <span class="keyword">int</span> partition = left;</span><br><span class="line">        <span class="comment">// 遍历分区元素</span></span><br><span class="line">        <span class="comment">// 小于基准的放基准左边，大于的放基准右边</span></span><br><span class="line">        <span class="comment">// * 终止条件：i &lt; right 而非 right-1！</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=left; i&lt; right;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(arr[i]&lt;pivot) <span class="comment">// 实际只交换小于到左边即可</span></span><br><span class="line">            &#123;</span><br><span class="line">                swap(arr,i,partition);</span><br><span class="line">                partition++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// *基准插入位置partition位置</span></span><br><span class="line">        swap(arr,partition,right);</span><br><span class="line">        <span class="comment">//递归的排序</span></span><br><span class="line">        quick_sort(arr,left,partition-<span class="number">1</span>);</span><br><span class="line">        quick_sort(arr,partition+<span class="number">1</span>,right);</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-布隆过滤器原理？为什么使用多个哈希函数？其它相关应用？">6. 布隆过滤器原理？为什么使用多个哈希函数？其它相关应用？</h4>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/43263751">详解布隆过滤器的原理，使用场景和注意事项</a></p>
+</blockquote>
+<blockquote>
+<p>“布隆说：<strong>不存在</strong>的那么<strong>一定不存在</strong>”</p>
+<p>“布隆说：<strong>存在</strong>的那么<strong>只是可能存在</strong>”</p>
+</blockquote>
+<h5 id="7-1-从HashMap说起—当你判断某个元素时候你在想什么？">7.1 从HashMap说起—当你判断某个元素时候你在想什么？</h5>
+<blockquote>
+<p>通常我们怎么判断一个数组，是否存在某个元素呢？</p>
+</blockquote>
+<p>聪明的你一定想到HashMap：（1）HashMap将数组所有元素使用哈希函数，映射到HashMap上（HashMap本身也是一个数组）（2）然后就可以在O(1)级别判断某个元素是否存在。</p>
+<p>但是这种做法通常会导致以下问题：</p>
+<ol>
+<li><strong>一旦数组很大</strong>，比如上亿，HashMap将会占据非常大的内存；</li>
+<li>数组很大，不大可能一次性能在内存构建HashMap；</li>
+<li>而且HashMap，通常存在负载因子，是不能充分利用内存的。</li>
+</ol>
+<p>为此，我们可以从以下方向优化：</p>
+<ul>
+<li>
+<p><strong>只存储key。<strong>但是，因为我们</strong>只要判断某个元素（key）是否存在</strong>， 不需要取出对应key的value—也就是<strong>不需要存储value</strong>。</p>
+</li>
+<li>
+<p><strong>key映射为bit数组索引。<strong>key映射为<code>bit</code>数组索引，即</strong>位图对应索引</strong>，  索引对应数值用 <code>0/1</code> 就可以标识为是否存在该key。</p>
+</li>
+</ul>
+<p>为此，我们可以【第一阶段优化】如下：</p>
+<p><img src="https://i.loli.net/2021/05/28/acoknPGdU3DVMEw.png" alt="img"></p>
+<p>看样子似乎是满足我们要求了，但是依旧存在以下问题：</p>
+<ol>
+<li>只使用一个<code>hash</code>函数，<strong>空间利用率低</strong>。</li>
+</ol>
+<p>一个<code>hash</code>函数只能<strong>将key散列到一个位置</strong> ，虽然hash尽量优良映射均匀，但是空间利用率依然不算高。</p>
+<p>因此，我们可以多个函数，将<strong>key同时映射到多个位置</strong>，即使发生哈希冲突，某个位置被覆盖，其它依旧存在，<strong>变相的降低了哈希冲突</strong>。</p>
+<h5 id="7-2-数据结构及原理">7.2 数据结构及原理</h5>
+<p>布隆过滤器，最终结构如下：一个<code>bit</code>数组，采用<strong>多个hash函数</strong>进行映射。</p>
+<p><img src="https://i.loli.net/2021/05/28/zIxX9WcwUoT2lGK.png" alt="img"></p>
+<h5 id="7-3-布隆函数优缺点">7.3 布隆函数优缺点</h5>
+<ul>
+<li><strong>优点</strong>
+<ol>
+<li><code>存储/插入/查询</code>时间复杂度，都是常数级别<code>O(1)</code></li>
+<li><strong>保密性好</strong>，因为不需要存储数据本身</li>
+<li><strong>存储数据大</strong>，可以存储非常大的数据本身</li>
+</ol>
+</li>
+<li><strong>缺点</strong>
+<ol>
+<li>随着元素数量增加，<strong>误算率</strong>会增加</li>
+<li><strong>不能删除</strong>元素，因为删除某个元素，要把其对应所有hash函数散列的位置如A,B，置为<code>0</code> 。其它元素的可能散列到位置A，再去判断这个元素是否存在就会出现<strong>误判</strong>。</li>
+</ol>
+</li>
+</ul>
+<h5 id="7-4-应用场景">7.4 应用场景</h5>
+<ol>
+<li>
+<p><strong>解决缓存穿透</strong>，防止<strong>不存在</strong>的元素去查询数据库</p>
+</li>
+<li>
+<p><strong>防止重复被攻击</strong>，用户第一次请求，将请求参数放入布隆过滤器中，当第二次请求时，先判断请求参数是否被布隆过滤器命中。可以提高缓存命中率</p>
+</li>
+<li>
+<p><strong>判断用户是否阅读过某视频或文章</strong>， 比如抖音或头条，当然会导致一定的误判，但不会让用户看到重复的内容。</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Wanghui Huang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hwh.zone/p/61434/">https://hwh.zone/p/61434/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hwh.zone" target="_blank">royhuang's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%A0%A1%E6%8B%9B/">校招</a><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></div><div class="post_share"><div class="social-share" data-image="/img/about-bg.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatPay.png" target="_blank"><img class="post-qr-code-img" src="/img/wechatPay.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/img/alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/p/31215/"><img class="prev-cover" src="/img/about-bg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">校招笔记（六）_计算机基础_Redis</div></div></a></div><div class="next-post pull-right"><a href="/p/31667/"><img class="next-cover" src="/img/about-bg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">校招笔记（八）_计算机基础_场景&amp;智力题</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/p/5582/" title="校招笔记（九）_计算机基础_相关补充"><img class="cover" src="/img/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-25</div><div class="title">校招笔记（九）_计算机基础_相关补充</div></div></a></div><div><a href="/p/44980/" title="校招笔记（二）_计算机基础_Linux&Git"><img class="cover" src="/img/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-26</div><div class="title">校招笔记（二）_计算机基础_Linux&Git</div></div></a></div><div><a href="/p/46361/" title="校招笔记（三）_计算机基础_计算机网络"><img class="cover" src="/img/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-26</div><div class="title">校招笔记（三）_计算机基础_计算机网络</div></div></a></div><div><a href="/p/31667/" title="校招笔记（八）_计算机基础_场景&智力题"><img class="cover" src="/img/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-26</div><div class="title">校招笔记（八）_计算机基础_场景&智力题</div></div></a></div><div><a href="/p/56848/" title="校招笔记（五）_计算机基础_MySQL"><img class="cover" src="/img/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-26</div><div class="title">校招笔记（五）_计算机基础_MySQL</div></div></a></div><div><a href="/p/31215/" title="校招笔记（六）_计算机基础_Redis"><img class="cover" src="/img/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-26</div><div class="title">校招笔记（六）_计算机基础_Redis</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/cat.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wanghui Huang</div><div class="author-info__description">tech & life</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">32</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">32</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">20</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Wanghui-Huang"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Wanghui-Huang" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:hwh199601@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">royHuang's studio</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">七、数据结构和算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%A6%82%E4%BD%95%E5%AF%B9%E5%BF%AB%E6%8E%92%E8%BF%9B%E8%A1%8C%E4%BC%98%E5%8C%96%EF%BC%9F"><span class="toc-text">1. 如何对快排进行优化？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%BF%AB%E6%8E%92%E5%92%8C%E5%A0%86%E6%8E%92%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8%E5%BF%AB%E6%8E%92%E5%92%8C%E5%A0%86%E6%8E%92%EF%BC%9F"><span class="toc-text">2.快排和堆排的区别？什么时候使用快排和堆排？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E3%80%90%E9%9D%A2%E8%AF%95%E9%87%8D%E7%82%B9%E3%80%91%E6%9C%89%E5%93%AA%E4%BA%9B%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%8C%E5%90%84%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6-%E5%93%AA%E4%BA%9B%E6%98%AF%E7%A8%B3%E5%AE%9A%E7%9A%84%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E7%A8%B3%E5%AE%9A%E7%9A%84%EF%BC%9F"><span class="toc-text">3. 【面试重点】有哪些排序算法，各算法的时间复杂度 ? 哪些是稳定的？为什么是稳定的？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-%E5%A6%82%E6%9E%9C%E6%95%B0%E6%8D%AE%E5%A4%A7%E8%87%B4%E6%9C%89%E5%BA%8F%E7%9A%84%EF%BC%8C%E7%94%A8%E4%BB%80%E4%B9%88%E6%8E%92%E5%BA%8F%E6%AF%94%E8%BE%83%E5%A5%BD%EF%BC%9F"><span class="toc-text">3.1 如果数据大致有序的，用什么排序比较好？</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%8C%E7%BA%A2%E9%BB%91%E6%A0%91%E5%92%8C%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F%EF%BC%88%E6%9C%89%E4%BA%86%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%E3%80%81%E5%B9%B3%E8%A1%A1%E6%A0%91%EF%BC%88AVL%EF%BC%89%E4%B8%BA%E5%95%A5%E8%BF%98%E9%9C%80%E8%A6%81%E7%BA%A2%E9%BB%91%E6%A0%91%EF%BC%9F%EF%BC%89"><span class="toc-text">4. 二叉查找树，红黑树和平衡二叉树的区别？（有了二叉查找树、平衡树（AVL）为啥还需要红黑树？）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BA%A2%E9%BB%91%E6%A0%91%E4%B8%8D%E9%9C%80%E8%A6%81%E9%A2%91%E7%B9%81%E8%B0%83%E6%95%B4%EF%BC%9F"><span class="toc-text">4.1 为什么红黑树不需要频繁调整？</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E7%9A%84%E8%BF%87%E7%A8%8B-%EF%BC%9F"><span class="toc-text">5.快速排序的过程 ？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E5%8E%9F%E7%90%86%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AA%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0%EF%BC%9F%E5%85%B6%E5%AE%83%E7%9B%B8%E5%85%B3%E5%BA%94%E7%94%A8%EF%BC%9F"><span class="toc-text">6. 布隆过滤器原理？为什么使用多个哈希函数？其它相关应用？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#7-1-%E4%BB%8EHashMap%E8%AF%B4%E8%B5%B7%E2%80%94%E5%BD%93%E4%BD%A0%E5%88%A4%E6%96%AD%E6%9F%90%E4%B8%AA%E5%85%83%E7%B4%A0%E6%97%B6%E5%80%99%E4%BD%A0%E5%9C%A8%E6%83%B3%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">7.1 从HashMap说起—当你判断某个元素时候你在想什么？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7-2-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E5%8E%9F%E7%90%86"><span class="toc-text">7.2 数据结构及原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7-3-%E5%B8%83%E9%9A%86%E5%87%BD%E6%95%B0%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-text">7.3 布隆函数优缺点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7-4-%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">7.4 应用场景</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/2/" title="无题">无题</a><time datetime="2021-12-05T08:28:39.054Z" title="发表于 2021-12-05 16:28:39">2021-12-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/1/" title="无题">无题</a><time datetime="2021-12-05T08:24:40.924Z" title="发表于 2021-12-05 16:24:40">2021-12-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/62712/" title="C++从零开始（零）">C++从零开始（零）</a><time datetime="2021-12-05T08:22:28.029Z" title="发表于 2021-12-05 16:22:28">2021-12-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/56326/" title="Hexo快速打造属于自己的网站">Hexo快速打造属于自己的网站</a><time datetime="2021-11-29T12:10:54.202Z" title="发表于 2021-11-29 20:10:54">2021-11-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/31667/" title="校招笔记（八）_计算机基础_场景&amp;智力题">校招笔记（八）_计算机基础_场景&amp;智力题</a><time datetime="2021-11-26T13:37:19.761Z" title="发表于 2021-11-26 21:37:19">2021-11-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 By Wanghui Huang</div><div class="footer_custom_text">Support By <a target="_blank" rel="noopener" href="https://cloud.tencent.com/" style="text-decoration:underline; color:#476679;"> Tencent Cloud </a> |  <a target="_blank" rel="noopener" href="https://hexo.io/" style="text-decoration:underline; color:#476679;">Hexo</a> | <a target="_blank" rel="noopener" href="https://butterfly.js.org/" style="text-decoration:underline; color:#476679;">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'blog-comments-5g2cfsved8c0de34',
+      region: 'ap-shanghai'
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'blog-comments-5g2cfsved8c0de34',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
