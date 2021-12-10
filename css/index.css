@@ -3481,11 +3481,7 @@ blockquote footer cite:before {
   background: 0;
 }
 #page-header.not-top-img #nav {
-  background: -webkit-linear-gradient(left, transparent, #fef9f8);
-  background: -moz-linear-gradient(left, transparent, #fef9f8);
-  background: -o-linear-gradient(left, transparent, #fef9f8);
-  background: -ms-linear-gradient(left, transparent, #fef9f8);
-  background: linear-gradient(to right, transparent, #fef9f8);
+  background: rgba(255,255,255,0.8);
   -webkit-user-select: auto;
   -moz-user-select: auto;
   -ms-user-select: auto;
