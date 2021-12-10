@@ -12,6 +12,15 @@ main {
   display: block
 }
 
+#page-header
+{
+  background: linear-gradient(90deg, rgba(247, 149, 51, 0.1) 0px, rgba(243, 112, 85, 0.1) 15%, rgba(239, 78, 123, 0.1) 30%, rgba(161, 102, 171, 0.1) 44%, rgba(80, 115, 184, 0.1) 58%, rgba(16, 152, 176, 0.1) 72%, rgba(7, 179, 155, 0.1) 86%, rgba(109, 186, 130, 0.1) 100%); 
+  user-select: auto;
+}
+#post-info
+{
+  text-align: center;
+}
 
 div.site-card-group
 {
@@ -3472,7 +3481,15 @@ blockquote footer cite:before {
   background: 0;
 }
 #page-header.not-top-img #nav {
-  background: rgba(255,255,255,0.8);
+  background: -webkit-linear-gradient(left, transparent, #fef9f8);
+  background: -moz-linear-gradient(left, transparent, #fef9f8);
+  background: -o-linear-gradient(left, transparent, #fef9f8);
+  background: -ms-linear-gradient(left, transparent, #fef9f8);
+  background: linear-gradient(to right, transparent, #fef9f8);
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
   -webkit-box-shadow: 0 5px 6px -5px rgba(133,133,133,0.6);
   box-shadow: 0 5px 6px -5px rgba(133,133,133,0.6);
 }
