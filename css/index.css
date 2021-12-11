@@ -11,22 +11,28 @@ body {
 main {
   display: block
 }
+#widget-tree ul {
 
+  padding: 0 0 0.4em 0.4em;
+}
 #widget-tree
 {
   background-color: rgba(255, 255, 255, 0.9);
-  width: 22em;
+  width: 18em;
 }
 #widget-tree-button.open 
 {
-  left: 16.5rem;
+  left: 13.5rem;
+  background: rgba(255, 255, 255,0.5);
 }
+
+
 .tree-list-post-link
  {
-  font-size: 14px;
+  font-size: 6px;
 }
 .tree-list-link {
-  font-size: 0.9rem;
+  font-size: 0.65rem;
 }
 .tree-list-count 
 {
