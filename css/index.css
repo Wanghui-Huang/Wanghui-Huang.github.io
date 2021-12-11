@@ -12,6 +12,30 @@ main {
   display: block
 }
 
+#widget-tree
+{
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 22em;
+}
+#widget-tree-button.open 
+{
+  left: 16.5rem;
+}
+.tree-list-post-link
+ {
+  font-size: 14px;
+}
+.tree-list-link {
+  font-size: 0.9rem;
+}
+.tree-list-count 
+{
+  display:none;
+}
+#widget-tree > ul
+{
+  margin-top:50px;
+}
 #page-header
 {
   background: linear-gradient(90deg, rgba(247, 149, 51, 0.1) 0px, rgba(243, 112, 85, 0.1) 15%, rgba(239, 78, 123, 0.1) 30%, rgba(161, 102, 171, 0.1) 44%, rgba(80, 115, 184, 0.1) 58%, rgba(16, 152, 176, 0.1) 72%, rgba(7, 179, 155, 0.1) 86%, rgba(109, 186, 130, 0.1) 100%); 
