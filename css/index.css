@@ -17,7 +17,7 @@ main {
 }
 #widget-tree
 {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.8);
   width: 18em;
 }
 #widget-tree-button.open 
@@ -25,7 +25,11 @@ main {
   left: 13.5rem;
   background: rgba(255, 255, 255,0.5);
 }
-
+.tree-post-toc, .tree-post-toc-child {
+  list-style-type: none;
+  padding-left: 0.9rem;
+  font-size: 0.55rem;
+}
 
 .tree-list-post-link
  {
@@ -40,7 +44,7 @@ main {
 }
 #widget-tree > ul
 {
-  margin-top:50px;
+  margin-top:10px;
 }
 #page-header
 {
