@@ -255,13 +255,13 @@
       
         <tags>
             
-            <tag> Redis </tag>
-            
             <tag> 校招 </tag>
             
             <tag> 计算机基础 </tag>
             
             <tag> 数据库 </tag>
+            
+            <tag> Redis </tag>
             
         </tags>
       
@@ -288,11 +288,11 @@
       
         <tags>
             
-            <tag> MySQL </tag>
-            
             <tag> 校招 </tag>
             
             <tag> 计算机基础 </tag>
+            
+            <tag> MySQL </tag>
             
             <tag> 数据库 </tag>
             
