@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/about-bg.jpg">
 <meta property="article:published_time" content="2021-12-09T05:31:37.851Z">
-<meta property="article:modified_time" content="2022-02-08T06:05:35.245Z">
+<meta property="article:modified_time" content="2022-02-09T10:20:04.293Z">
 <meta property="article:author" content="Wanghui Huang">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="教程">
@@ -61,7 +61,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2022-02-08 14:05:35'
+  postUpdate: '2022-02-09 18:20:04'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -148,7 +148,7 @@
     if (fontSizeVal !== undefined) {
       document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
     }
-    })(window)</script><meta name="google-site-verification" content="uO6C17u7YuZfMWvThEQ9nOGQS4GIN2zAM6hC4tH-RiM" /><meta name="baidu-site-verification" content="code-nRnoDyQJPT" /><script> var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?13a4aefcbad9616a1f5859538d0d882e"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); })(); </script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.min.css" media="defer" onload="this.media='all'"><script async src="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/carousel-touch.min.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/cat.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk/"><i class="fa-fw fa-fw fa-fw fas fa-comment-dots"></i><span> 说说</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> aboutME</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">royhuang's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk/"><i class="fa-fw fa-fw fa-fw fas fa-comment-dots"></i><span> 说说</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> aboutME</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">C++从零开始（二）：务实基础（下）函数</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-09T05:31:37.851Z" title="发表于 2021-12-09 13:31:37">2021-12-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-02-08T06:05:35.245Z" title="更新于 2022-02-08 14:05:35">2022-02-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/">C++</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/">从零开始</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/C-%E5%9F%BA%E7%A1%80/">C++基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">28.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>105分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="C++从零开始（二）：务实基础（下）函数"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="twikoo_visitors"></span></span></div></div></div><article class="post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
+    })(window)</script><meta name="google-site-verification" content="uO6C17u7YuZfMWvThEQ9nOGQS4GIN2zAM6hC4tH-RiM" /><meta name="baidu-site-verification" content="code-nRnoDyQJPT" /><script> var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?13a4aefcbad9616a1f5859538d0d882e"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); })(); </script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.min.css" media="defer" onload="this.media='all'"><script async src="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/carousel-touch.min.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/cat.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">38</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk/"><i class="fa-fw fa-fw fa-fw fas fa-comment-dots"></i><span> 说说</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> aboutME</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">royhuang's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk/"><i class="fa-fw fa-fw fa-fw fas fa-comment-dots"></i><span> 说说</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> aboutME</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">C++从零开始（二）：务实基础（下）函数</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-09T05:31:37.851Z" title="发表于 2021-12-09 13:31:37">2021-12-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-02-09T10:20:04.293Z" title="更新于 2022-02-09 18:20:04">2022-02-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/">C++</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/">从零开始</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/C-%E5%9F%BA%E7%A1%80/">C++基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">28.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>105分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="C++从零开始（二）：务实基础（下）函数"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="twikoo_visitors"></span></span></div></div></div><article class="post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
 <p>🌟<a href="https://hwh.zone/p/62712/">《C++从零开始》</a> 系列，开始更新中…</p>
 </blockquote>
 <div class="tag link"><a class="link-card" title="C++从零开始" href="https://hwh.zone/p/62712"><div class="left"><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/cat-modified.png"/></div><div class="right"><p class="text">C++从零开始</p><p class="url">https://hwh.zone/p/62712</p></div></a></div>
@@ -1290,7 +1290,7 @@ C++ 中函数一般形式如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cout&lt;&lt;*a&lt;&lt;endl; <span class="comment">// 危，此时a是悬空指针，已经被free(a)</span></span><br><span class="line">a = <span class="literal">nullptr</span>;    <span class="comment">// 最佳实践：将已经释放的指针置空</span></span><br><span class="line">cout&lt;&lt;*a&lt;&lt;endl; <span class="comment">// 此时编译器会报错，ok</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p><strong>可以看到，如果free的chunk没有和top chunk相邻被合并，其又太小的话，可能永远不会被使用</strong>——这就是产生了内存碎片。</p>
+<p><strong>可以看到，如果free的chunk没有和top chunk相邻被合并，其又太小的话，可能永远不会被使用</strong>——这就产生了内存碎片。</p>
 <p>如下图：</p>
 <p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/10681867-4b414b22810c9e9d.png" alt="img"></p>
 <p>free(A)后，由于chunk A无法和top chunk合并，在堆中便产生了内存空洞，也就是内存碎片。幸运的是，它还足够大（40K），有很大概率其空间是能够被利用的。</p>
@@ -1308,7 +1308,12 @@ C++ 中函数一般形式如下：</p>
 <ul>
 <li>
 <p><strong>new底层实现（内置类型</strong>）</p>
-<p>对于内置类型来说，new和malloc功能基本一致，不过new还可以进行<strong>初始化</strong>。</p>
+<p>对于内置类型来说，new和malloc功能基本一致：</p>
+<ul>
+<li>分配内存空间；</li>
+<li>返回内存空间地址。</li>
+</ul>
+<p>不过new还可以进行<strong>初始化</strong>。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化单个：等同于int* a = (int*)malloc(sizeof(int));</span></span><br><span class="line"><span class="keyword">int</span>* a = <span class="keyword">new</span> <span class="keyword">int</span>;</span><br><span class="line"><span class="comment">// 初始化单个：同时进行初始化</span></span><br><span class="line"><span class="keyword">int</span>* c = <span class="keyword">new</span> <span class="built_in"><span class="keyword">int</span></span>(<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
 <p>new在C++中被定义为一个<strong>运算符</strong>，它会在底层调用全局函数operator new。</p>
 <p>我们可以通过查看<code>int* array = new int;</code> 对应汇编源码验证：</p>
@@ -1331,7 +1336,7 @@ C++ 中函数一般形式如下：</p>
 </ol>
 </li>
 <li>
-<p>从源码中能看出的是<strong>operator new</strong>在底层是利用malloc分配内存，因此可以说<strong>new其实只是malloc一层封装</strong>。</p>
+<p>从源码中能看出的是<strong>operator new</strong>在底层是利用malloc分配内存，因此可以说<strong>new只是malloc一层封装</strong>。</p>
 </li>
 </ul>
 </li>
@@ -1339,10 +1344,11 @@ C++ 中函数一般形式如下：</p>
 <p><strong>new底层实现（自定义类型</strong>）</p>
 <p>但对于自定义类型，new还会调用构造函数初始化：</p>
 <ol>
-<li>调用operator new为对象分配空间（内置类型）；</li>
-<li><strong>调用对象的构造函数</strong>对对象进行初始化。</li>
+<li>调用operator new为对象分配内存；</li>
+<li><strong>调用对象的构造函数对对象进行初始化</strong>；</li>
+<li>返回分配的内存空间地址。</li>
 </ol>
-<p>我们举一个具体的例子分析：</p>
+<p>分析下例：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>     </span></span><br><span class="line"><span class="function"></span>&#123;   </span><br><span class="line">  <span class="comment">// malloc分配对象  </span></span><br><span class="line">  cout &lt;&lt; <span class="string">&quot;malloc:&quot;</span> &lt;&lt; endl;</span><br><span class="line">  Stu* a = (Stu*)<span class="built_in">malloc</span>(<span class="built_in"><span class="keyword">sizeof</span></span>(Stu));</span><br><span class="line">  <span class="comment">// new分配对象</span></span><br><span class="line">  cout &lt;&lt; <span class="string">&quot;new:&quot;</span> &lt;&lt; endl;</span><br><span class="line">  Stu* b = <span class="keyword">new</span> <span class="built_in">Stu</span>(<span class="number">1</span>, <span class="string">&quot;张三&quot;</span>);             </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>输出：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">malloc:</span><br><span class="line">new:</span><br><span class="line">自定义构造函数初始化</span><br></pre></td></tr></table></figure>
@@ -1378,7 +1384,7 @@ C++ 中函数一般形式如下：</p>
 <li>对于内置类型：底层调用free实现，和free无多大区别（也没有异常处理）；</li>
 <li>对于自定义类型：除了调用free释放对象空间，在此之前还会调用对象的析构函数。</li>
 </ul>
-<p>下面我们通过具体例子来看看。</p>
+<p>通过具体例子来看看。</p>
 <ul>
 <li>
 <p><strong>delete底层实现（内置类型</strong>）</p>
@@ -1393,7 +1399,7 @@ C++ 中函数一般形式如下：</p>
 <p><strong>delete底层实现（自定义类型</strong>）</p>
 <p>但对于自定义类型，delete还会调用析构函数：</p>
 <ol>
-<li><strong>调用对象的析构函数</strong>清理对象；</li>
+<li><strong>调用对象的析构函数清理对象</strong>；</li>
 <li>调用operator delete清理内存；</li>
 </ol>
 <p>一个小例子：</p>
