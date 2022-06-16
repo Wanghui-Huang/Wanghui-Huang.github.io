@@ -1,0 +1,772 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><!-- hexo injector head_begin start --><link href="https://cdn.jsdelivr.net/npm/hexo-widget-tree@0.2.2/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end --><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>C++从零开始（十二）：Linux系统编程入门 | royhuang's blog</title><meta name="author" content="Wanghui Huang"><meta name="copyright" content="Wanghui Huang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="🌟《C++从零开始》 系列，毕业论文初稿写完三个月过去，终于又开始更新了…🥗  C++从零开始https:&#x2F;&#x2F;hwh.zone&#x2F;p&#x2F;62712 Linux系统编程作为《C++从零开始》三部曲之一，自有其极其重要的地位。 如果将Linux比作为一台性能出众的跑车，我们一定不会只满足于驾驶它上下班，只会挂挡、踩油门和控制方向之类的基本操作。我们想要更加了解它，挖掘更多的潜能。 学习系统编程便是让">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++从零开始（十二）：Linux系统编程入门">
+<meta property="og:url" content="https://hwh.zone/p/45495/index.html">
+<meta property="og:site_name" content="royhuang&#39;s blog">
+<meta property="og:description" content="🌟《C++从零开始》 系列，毕业论文初稿写完三个月过去，终于又开始更新了…🥗  C++从零开始https:&#x2F;&#x2F;hwh.zone&#x2F;p&#x2F;62712 Linux系统编程作为《C++从零开始》三部曲之一，自有其极其重要的地位。 如果将Linux比作为一台性能出众的跑车，我们一定不会只满足于驾驶它上下班，只会挂挡、踩油门和控制方向之类的基本操作。我们想要更加了解它，挖掘更多的潜能。 学习系统编程便是让">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/about-bg.jpg">
+<meta property="article:published_time" content="2022-04-03T05:45:34.660Z">
+<meta property="article:modified_time" content="2022-06-16T14:09:21.171Z">
+<meta property="article:author" content="Wanghui Huang">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="系统编程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/about-bg.jpg"><link rel="shortcut icon" href="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/cat-modified.png"><link rel="canonical" href="https://hwh.zone/p/45495/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":"true# copy button","highlightLang":false,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":80,"languages":{"author":"作者: Wanghui Huang","link":"链接: ","source":"来源: royhuang's blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'C++从零开始（十二）：Linux系统编程入门',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-06-16 22:09:21'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><meta name="google-site-verification" content="uO6C17u7YuZfMWvThEQ9nOGQS4GIN2zAM6hC4tH-RiM" /><meta name="baidu-site-verification" content="code-nRnoDyQJPT" /><script> var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?13a4aefcbad9616a1f5859538d0d882e"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); })(); </script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.min.css" media="defer" onload="this.media='all'"><script async src="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/carousel-touch.min.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/cat.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">42</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk/"><i class="fa-fw fa-fw fa-fw fas fa-comment-dots"></i><span> 说说</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> aboutME</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">royhuang's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk/"><i class="fa-fw fa-fw fa-fw fas fa-comment-dots"></i><span> 说说</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> aboutME</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">C++从零开始（十二）：Linux系统编程入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-03T05:45:34.660Z" title="发表于 2022-04-03 13:45:34">2022-04-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-06-16T14:09:21.171Z" title="更新于 2022-06-16 22:09:21">2022-06-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/">C++</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/">从零开始</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/">Linux系统编程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">8.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>27分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="C++从零开始（十二）：Linux系统编程入门"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="twikoo_visitors"></span></span></div></div></div><article class="post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
+<p>🌟<a href="https://hwh.zone/p/62712/">《C++从零开始》</a> 系列，毕业论文初稿写完三个月过去，终于又开始更新了…🥗</p>
+</blockquote>
+<div class="tag link"><a class="link-card" title="C++从零开始" href="https://hwh.zone/p/62712"><div class="left"><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/cat-modified.png"/></div><div class="right"><p class="text">C++从零开始</p><p class="url">https://hwh.zone/p/62712</p></div></a></div>
+<p>Linux系统编程作为《C++从零开始》三部曲之一，自有其极其重要的地位。</p>
+<p>如果将Linux比作为一台性能出众的跑车，我们一定不会只满足于驾驶它上下班，只会挂挡、踩油门和控制方向之类的基本操作。我们想要更加了解它，挖掘更多的潜能。</p>
+<p>学习系统编程便是让你做到这一点。</p>
+<p>Linux系统内容纷繁复杂，在学习过程中<a target="_blank" rel="noopener" href="https://m.douban.com/book/subject/25809330/">《Linux系统编程手册》</a>使我受益良多。在本部曲中，我将尽量用简洁的语言进行总结和扩展。</p>
+<p>好了，轻松一点，让我们先从Linux的前身——UNIX历史说起吧。</p>
+<h1>UNIX历史</h1>
+<h2 id="UNIX和C简史">UNIX和C简史</h2>
+<ol>
+<li><strong>1969年</strong>，<u>bell实验室</u>（隶属AT&amp;T电话公司），<u>Ken Thompson</u>，开发出了<strong>首个 UNIX 系统</strong>。
+<ul>
+<li>UNIX 是MULTICS（多信息及计算服务，Multiplexed Information and Computing Service）一词的双关语。</li>
+</ul>
+</li>
+<li><strong>1970年</strong>，<u>AT&amp;T 的工程师</u>，在Digital PDP-11 小型机以汇编语言重写了UNIX。</li>
+<li><strong>1971年</strong>，Thompson 在 bell 实验室的同事，<u>Dennis Ritchie</u>设计<strong>实现了C语言</strong>。
+<ul>
+<li>C 语言由于其高效、灵活、功能丰富、表达力强和较好的可移植性等特点，迅速风靡起来。</li>
+</ul>
+</li>
+<li><strong>1973 年</strong>，UNIX 已经被移植到了 PDP-11 小型机上，并以 <strong>C 语言对UNIX进行了重写</strong>。</li>
+<li><strong>1977年</strong>，因为法律禁止 AT&amp;T销售 UNIX，AT&amp;T公司<strong>允许高校使用UNIX</strong>，极大促进了UNIX的发展。第七版 UNIX 发布的重要意义还在于，从该版本起，UNIX 分裂为了两大分支：BSD 和 System V。</li>
+<li><strong>1979年</strong>，伯克利发布首个完整的，属于自己 <strong>UNIX 发布版 3BSD</strong>（伯克利软件发布，Berkeley Software Distribution）诞生。
+<ul>
+<li>在此期间，随着 AT&amp;T 不再对电信市场形成垄断，该公司被获准销售 UNIX。这也就催生出了另一种 UNIX 的变种—System V，日后，它也成为了某些商业 UNIX 实现的基石。</li>
+</ul>
+</li>
+<li><strong>1983 年</strong>，加州大学伯克利分校的计算机系统研究组（Computer Systems Research Group）<strong>发布了 4.2BSD</strong>。
+<ul>
+<li><u>该版本的发布意义深远</u>，因为其包含了完整的 TCP/IP 实现，其中包括套接字应用编程接口（API）以及各种网络工具。</li>
+</ul>
+</li>
+</ol>
+<h2 id="Linux简史">Linux简史</h2>
+<p>在当时UNIX时代，计算机软件的消费者不但无权阅读自己所购软件的源码，而且还不能复制、更改及重新发行所购软件。Stallman认为，这只会造成程序员之间勾心斗角、敝帚自珍的局面，无法实现工作协同和成果共享。</p>
+<ol>
+<li><strong>1984年</strong>，MIT 的程序员<u>Richard Stallman</u>，<strong>发起了 GNU 项目</strong>（“GNU’s not UNIX”的递归缩写形式）。
+<ul>
+<li>GNU 项目由此制定了 <strong>GNU GPL协议</strong>：以 GPL 许可协议发布的软件不但必须开放源码，而且应能在 GPL 条款的约束下自由对其进行重新发布。可以不受限制的修改以 GPL 许可协议发布的软件，但任何经修改后发布的软件仍需遵守 GPL 条款；</li>
+<li>GNU 项目还开发出了<strong>Emacs 文本编辑器</strong>、<strong>GCC</strong>、<strong>bash shell</strong> 以及 <strong>glibc</strong>（GNU C 语言库），<u>只要再拥有一个能够有效运作的内核，就能使 GNU 项目开发出的UNIX 系统“功德圆满”</u>。</li>
+</ul>
+</li>
+<li><strong>1991</strong> 年，<u>Linus Torvalds</u>，<strong>开发出UNIX内核</strong>“雏形”，可以编译并运行各种 GNU 程序。
+<ul>
+<li>为了传承 UNIX 历史悠久的光荣传统，总以字母“X”结尾，人们最终将这一内核命名为 Linux。</li>
+</ul>
+</li>
+</ol>
+<p>应 Torvalds 之邀，许多其他程序员也加入到了改进内核的行列中。随着时光的流逝，在一干程序员的不懈努力下，Linux 逐渐发展壮大，并被移植到了多种硬件架构之上。</p>
+<h2 id="标准化过程">标准化过程</h2>
+<p>20 世纪 80 年代末，UNIX 和 C 语言的实现“百花齐放”，所引发的可移植性问题迫使人们开展针对以上两者的标准化工作。</p>
+<p>C 语言和 UNIX 系统的标准化进程也显得愈发重要。</p>
+<h3 id="C标准">C标准</h3>
+<p>C 语言标准独立于任何操作系统，换言之，C 语言并不依附于 UNIX 系统。</p>
+<ol>
+<li><strong>1989 年</strong>，美国国家标准委员会ANSI的<strong>C 语言标准（C89标准）获批</strong>。
+<ul>
+<li>这份标准在定义 C 语言语法和语义的同时，还对标准 C 语言库操作进行了描述，这包括 stdio 函数、字符串处理函数、数学函数、各种头文件等等。</li>
+</ul>
+</li>
+<li><strong>随之于 1990 年</strong>，<strong>C89标准被国际标准化组织ISO采纳</strong>；</li>
+<li><strong>1999年</strong>，<u>ISO</u> 对 C 语言标准的修订版，<strong>C99标准正式被批准</strong>。
+<ul>
+<li>对 C 语言及其标准库的一系列修改，诸如，增加了 long long 和布尔数据类型、C++风格的注释（//）、受限指针以及可变长数组等。</li>
+</ul>
+</li>
+</ol>
+<h3 id="操作系统接口">操作系统接口</h3>
+<ol>
+<li><strong>1989年</strong>，操作系统标准化的“第一次吃螃蟹”便催生出了 <strong>POSIX.1</strong>。
+<ul>
+<li>术语“POSIX（可移植操作系统 Portable Operating System Interface 的缩写）”；</li>
+<li>符合 POSIX.1 标准的操作系统应向程序提供调用各项服务的 API，POSIX.1 文档对此作了规范。凡是提供了上述 API 的操作系统都可被认定为符合 POSIX.1 标准。</li>
+</ul>
+</li>
+<li><strong>1988 年和 1990 年</strong>，IEEE 和 ISO 先后将 POSIX.1 采纳为标准。</li>
+<li><strong>2001 年</strong>，<strong>POSIX 1003.1-2001 标准颁布</strong>，取代了 SUSv2、POSIX.1、POSIX.2 以及大批的早期 POSIX 标准。</li>
+<li><strong>2008 年</strong>，人们继续完成对POSIX标准和 SUS 规范的修订，于是，合二为一的<br>
+POSIX 1003.1-2008 和 SUSv4 标准浮出水面。</li>
+</ol>
+<p>对Linux发展历史有了简单了解后，我们再来了解Linux系统编程的一些基本概念吧。</p>
+<h1>一、基本概念</h1>
+<p>在本章中，主要将介绍Linux&amp;系统编程的基本概念，以期更好地理解后续章节。</p>
+<h2 id="1-1-Linux基本概念">1.1 Linux基本概念</h2>
+<h3 id="1-1-1-操作系统与内核">1.1.1 操作系统与内核</h3>
+<p>操场系统与内核表现为包含关系。</p>
+<ul>
+<li><strong>操作系统</strong>，指完整的软件包，这包括用来<u>管理计算机资源（即CPU、RAM和设备）的核心层软件</u>，以及<u>附带的所有标准软件工具</u>，诸如命令行解释器、图形用户界面、文本编辑器等；</li>
+<li><strong>内核</strong>，则特指管理资源的核心层软件。</li>
+</ul>
+<h4 id="内核有什么用？">内核有什么用？</h4>
+<p>内核所提供的核心层软件，一般执行以下主要任务：</p>
+<ul>
+<li>
+<p><strong>进程调度，即用于控制进程对CPU使用</strong>。</p>
+<p>CPU在一时间段只能执行一个任务，而Linux属于抢占式多任务操作系统，这意味着多个进程（一个运行中的程序我们称之为“进程”）可同时驻留在内存。<u>分配CPU何时给哪些进程使用，以及每个进程能使用多长时间</u>，都需要内核进行进程调度。</p>
+</li>
+<li>
+<p><strong>进程通信，用于多进程之间进行通信</strong>。</p>
+</li>
+<li>
+<p><strong>内存管理，而物理内存（RAM）仍然属于有限资源，内核必须以公平、高效地方式在进程间共享这一资源</strong>。</p>
+<p>Linux通常采用<u>虚拟内存管理机制</u>，它有以下好处：</p>
+<ul>
+<li>内存隔离，进程与进程之间&amp;进程与内核之间隔离。因此一个进程无法读取其它进程或内核的内容。</li>
+<li>只需将进程一部分保存在内存中。不但降低了每个进程对内存的需求量，而且还能在 RAM 中同时加载更多的进程</li>
+</ul>
+</li>
+<li>
+<p><strong>文件系统</strong>，内核在磁盘之上提供了文件系统。</p>
+</li>
+<li>
+<p><strong>IO设备访问</strong>，如键盘、打印机等。</p>
+</li>
+<li>
+<p><strong>网络连接</strong>，内核以用户进程的名义收发网络消息（数据包）。</p>
+</li>
+<li>
+<p><strong>提供系统调用应用编程接口</strong>（API）：进程可利用内核入口点（也称为系统调用）请求内核去执行各种任务。</p>
+</li>
+</ul>
+<p>以上内容每一部分都将后续扩展开来分析探讨。</p>
+<h4 id="内核态和用户态">内核态和用户态</h4>
+<p><strong>CPU 可在用户态和核心态两种不同状态运行，对应地将虚拟内存区域划分（标记）为用户空间部分或内核空间部分</strong>。</p>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/k.jpg" alt="k"></p>
+<ul>
+<li><strong>用户态</strong>，CPU 只能访问被标记为用户空间的内存，无法执行不利于系统运行的操作。</li>
+<li><strong>核心态</strong>，CPU 既能访问用户空间内存，也能访问内核空间内存，也能执行一些核心操作如：执行宕机（halt）指令去关闭系统，访问内存管理硬件等。</li>
+</ul>
+<p>这样做保证了系统的安全和效率。</p>
+<h3 id="1-1-2-shell">1.1.2 shell</h3>
+<p><strong>shell 也称之为命令解释器</strong>，主要用于读取用户输入的命令，并执行相应的程序以响应命令。</p>
+<p>纵观 UNIX 历史，出现过以下几种重要的 shell（按时间顺序）：</p>
+<ol>
+<li><strong>Bourne shell (sh</strong>)，历史最为悠久，由<u>Steve Boume</u>编写。Bourne shell 包含了在其他 shell 中常见的许多特性，I/O 重定向、管道、文件名生成（通配符）、变量、环境变量处理、命令替换、后台命令执行等。</li>
+<li><strong>C shell（csh</strong>），由 <u>Bill Joy</u>编写而成，控制语法与C语言有很多相似之处而因此得名。C shell 与 Bourne shell 并不兼容，且包含一些极为实用的特性，如命令历史记录，命令编辑等。</li>
+<li><strong>Korn shell（ksh</strong>），由<u>David Korn</u> 编写，不但兼容了sh还吸收了csh相关特性。</li>
+<li><strong>Bourne again shell（bash</strong>），这款 shell 是 <u>GNU 项目</u>对 <strong>Bourne shell 的重新实现</strong>，提供了与 C shell 和 Korn shel 所类似的交互式特性。</li>
+</ol>
+<p>不过，<strong>设计 shell 的目的不仅仅是用于人机交互，对 shell 脚本（包含 shell 命令的文本文件）进行解释也是其用途之一</strong>。为实现这一目的，每款 shell 都内置有许多通常与编程语言相关的功能，其中包括变量、循环和条件语句、I/O 命令以及函数等。</p>
+<h3 id="1-1-3-用户和组">1.1.3 用户和组</h3>
+<p><strong>系统会对每个用户的身份做唯一标识，用户可隶属于多个组</strong>。</p>
+<h4 id="用户">用户</h4>
+<p>系统的每个用户都拥有唯一的登录名（用户名）和与之相对应的整数型用户ID（UID）。</p>
+<p>在系统文件<code>/etc/passwd</code> 显示了更具体的信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@roy-cpp cpp-learn]<span class="comment"># cat /etc/passwd</span></span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">bin:x:1:1:bin:/bin:/sbin/nologin</span><br><span class="line">daemon:x:2:2:daemon:/sbin:/sbin/nologin</span><br><span class="line">adm:x:3:4:adm:/var/adm:/sbin/nologin</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>以上7个字段分别对应：<strong>用户名</strong>:<strong>口令</strong>:<strong>用户标识号</strong>:<strong>组标识号</strong>:<strong>注释性描述</strong>:<strong>主目录</strong>:<strong>登录Shell</strong> 。下面对其中部分字段进行解释：</p>
+<ul>
+<li>
+<p><strong>口令</strong>，一些系统中，存放着加密后的用户口令字，但这存在安全隐患。因此，在Linux使用了shadow技术，使用<code>x</code>或<code>*</code>进行替代，而把真正的加密后的用户口令字存放到<code>/etc/shadow</code>文件中。</p>
+</li>
+<li>
+<p><strong>用户标志号</strong>，即UID，为一个整数，范围为0~65535。0是超级用户root的标识号，1-99由系统保留，作为管理账号，普通用户的标识号从100开始。</p>
+</li>
+<li>
+<p><strong>组标志号</strong>，即GID，记录用户所属的用户组，对应着/etc/group文件中的一条记录。</p>
+</li>
+<li>
+<p><strong>注释性描述</strong>，记录着用户的一些个人情况，但并没有什么实际的用途。</p>
+</li>
+<li>
+<p><strong>主目录</strong>，用户在登录到系统之后所处的目录，各用户对自己的主目录有完整的读（r）、写（w）、执行（x）权限。</p>
+</li>
+<li>
+<p><strong>登陆shell</strong>，用户登录到系统后运行的命令解释器，即shell。</p>
+</li>
+</ul>
+<p>在<code>/etc/passwd</code>我们也注意到，除了我们熟知的root账户，还有一些其它系统账户：bin（拥有可执行的用户命令文件）、sys（拥有系统文件）、adm（拥有帐户文件）。</p>
+<h4 id="组">组</h4>
+<p><strong>出于管理目的，比如为了控制对文件和其他资源的访问</strong>，将多个用户分组是非常实用的做法。</p>
+<p>每个用户组都对应着系统组文件<code>/etc/group</code> 中的一行记录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@roy-cpp cpp-learn]<span class="comment"># cat /etc/group</span></span><br><span class="line">root:x:0:</span><br><span class="line">bin:x:1:</span><br><span class="line">daemon:x:2:</span><br><span class="line">sys:x:3:</span><br></pre></td></tr></table></figure>
+<p>以上4个字段分别对应， <strong>组名:口令:组标识号:组内用户列表</strong>。</p>
+<ul>
+<li>其中组内用户列表，是属于这个组的所有用户的列表，不同用户之间用逗号<code>,</code>分隔。</li>
+</ul>
+<h3 id="1-1-4-目录与文件">1.1.4 目录与文件</h3>
+<h4 id="目录">目录</h4>
+<p>Linux目录具有以下特点：</p>
+<ul>
+<li>
+<p><strong>单根目录结构</strong>，Linux内核维护一套单根目录结构，存放系统所有文件。这和我们熟知Windows系统不同，它的每个磁盘（如C盘）都有各自的目录层级。</p>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20220506131811917.png" alt="image-20220506131811917"></p>
+</li>
+<li>
+<p><strong>绝对路径与相对路径</strong>。</p>
+<ul>
+<li><strong>绝对路径以<code>/</code>开始</strong>，如上图中<code>/etc/passwd</code> ；</li>
+<li><strong>相对路径不以<code>/</code>开始</strong>，如上图中，在usr目录下，<code>include/sys/types.h</code> 、<code>../home/mtk/.bashrc</code> 分别可引用文件types.h和.bashrc。</li>
+</ul>
+</li>
+</ul>
+<h4 id="文件">文件</h4>
+<p>Linux文件主要值得关注以下三点：</p>
+<ul>
+<li>
+<p><strong>文件类型</strong>，在Linux文件系统内，“<strong>一切皆为文件</strong>”。这意味着文件类型不仅包含<u>普通文本文件</u>，还包含：设<u>备、管道、套接字、目录、符号链接</u>等。</p>
+</li>
+<li>
+<p><strong>文件名</strong>，文件名最长可达 255 个字符。文件名可以包含除<code>/</code>和空<br>
+字符（<code>\0</code>）外的所有字符。</p>
+<blockquote>
+<p>此外，还应避免以连字符<code>-</code>作为文件名的起始字符，因为一旦在 shell 命令中使用这种文件名，会被误认为命令行选项开关。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>文件IO模型</strong>，<strong>UNIX 系统 I/O 模型最为显著的特性之一是其 I/O 通用性概念</strong>。</p>
+<p>也就是说，同一套系统调用（open()、read()、write()、close()等）所执行的 I/O 操作，可施之于所有文件类型，包括设备文件。</p>
+<p><strong>另外，值得注意的是，UNIX系统本质只提供<u>字节流文件</u>，因此没有“文件结束符”的概念</strong>。UNIX系统read()如何判断文件结束？读取文件时如无数据返回，便会认定抵达文件末尾。</p>
+</li>
+</ul>
+<h3 id="1-1-5-进程">1.1.5 进程</h3>
+<p><strong>进程是正在执行的程序实例</strong>。</p>
+<p>执行程序时，内核会将程序代码载入虚拟内存，为程序变量分配空间，建立内核记账（bookkeeping）数据结构，以记录与进程有关的各种信息（比如，进程 ID、用户 ID、组 ID 以及终止状态等）。</p>
+<h4 id="进程内存布局">进程内存布局</h4>
+<p>下图展示了一个虚拟进程（程序）内存空间<u>运行时</u>分布布局。高地址的1GB（Windows默认2GB）空间分配给内核，也称为<strong>内核空间</strong>；剩下的3GB分给用户，也称<strong>用户空间</strong>（程序使用的）。</p>
+<p><strong>一个进程本质是由代码段、数据段、堆、栈四部分组成的</strong> 。</p>
+<img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/5e8d39d19a216fd03392d36081e70b7e.jpg" alt="你确定你理解内存分配吗？" style="zoom:80%;" />
+<p>作为程序员，我们更关注的是用户空间中的内容，也就是：</p>
+<ul>
+<li>
+<p><strong>栈（Stack</strong>）：存储代码中调用函数、定义<u><strong>局部</strong>变量</u>(但不包含static修饰的变量)、保存的上下文等；</p>
+<ul>
+<li>
+<p><strong>特点</strong>：存放的数据从<strong>栈顶（低地址</strong>）压入，也是从<strong>栈顶（低地址</strong>）弹出，所以有人说栈是<strong>向下生长</strong>的。函数退出时，所有数据会自动释放内存（出栈）。</p>
+<img src="https://pic1.zhimg.com/v2-4a47248b485bc764430e802f87ee950c_b.webp" alt="img" style="zoom:67%;" />
+</li>
+</ul>
+</li>
+<li>
+<p><strong>文件映射区域 ：</strong> 栈和堆中间那个空白区域。动态库、共享内存等映射物理空间的内存，一般是 <code>mmap</code> 函数所分配的虚拟地址空间。</p>
+</li>
+<li>
+<p><strong>堆（Heap</strong>）：存储那些生存期<u>与函数调用无关的数据</u>，如动态分配的内存。堆（动态）分配的接口通常有malloc()、calloc()、realloc()、new等。</p>
+<ul>
+<li><strong>特点</strong>：相对于栈，堆是<strong>向上生长</strong>的；堆空间需要主动释放，否则会依然存在。</li>
+</ul>
+</li>
+<li>
+<p><strong>数据段（.data</strong>）：保存<strong>全局</strong>变量、<strong>常量</strong>、<strong>静态变量</strong>的内容的一块内存区域。</p>
+</li>
+<li>
+<p><strong>代码段（.text &amp; .init</strong>）： <code>.text</code> 用于存放整个程序中的代码， <code>.init</code> 用于存放系统中用来初始化启动你的程序的一段代码 。</p>
+</li>
+</ul>
+<h4 id="进程创建、执行及终止">进程创建、执行及终止</h4>
+<ul>
+<li>
+<p><strong>进程创建调用fork()函数，新创建进程被称为子进程</strong>。正如“fork”所暗示的，</p>
+<ul>
+<li>子进程会<u>复制父进程数据段、堆、栈等的副本并可以进行修改</u>；</li>
+<li><u>代码段</u>在内存被标记为只读，则由父、子进程共享。</li>
+</ul>
+</li>
+<li>
+<p><strong>进程执行往往指的是，1）执行父进程共享代码其它函数，或2）调用execve()去加载执行全新程序</strong>。</p>
+<ul>
+<li>execve()会销毁所有代码段、数据段及堆栈内容，并根据新段创建新段进行替换；</li>
+<li>以execve()为基础，C语言库提供以“exec”打头的相关函数。</li>
+</ul>
+</li>
+<li>
+<p><strong>进程终止往往可通过，1）调用_exit()函数，或2）向进程传递信号杀死</strong>。</p>
+<p>根据惯例，终止状态为 0 表示进程“功成身退”，非 0 则表示有错误发生。</p>
+</li>
+</ul>
+<h4 id="特殊进程">特殊进程</h4>
+<h5 id="init进程">init进程</h5>
+<p>系统引导时，内核会创建一个名为 init 的特殊进程，其主要任务是<u>创建并监控</u>系统运行所需的一系列进程。</p>
+<ul>
+<li><strong>1生万物</strong>，init 进程的进程号总为 1，且总是以超级用户权限运行，系统的所有进程不是由 init（使用 frok()）“亲自”创建，就是由其后代进程创建。</li>
+<li><strong>与日同辉</strong>，谁（哪怕是超级用户）都不能“杀死”init 进程，只有关闭系统才能终止该进程。</li>
+</ul>
+<h5 id="守护进程">守护进程</h5>
+<p>守护进程指的是具有特殊用途的进程，系统创建和处理此类进程的方式与其他进程相同，但以下特征是其所独有的：</p>
+<ul>
+<li><strong>长生不老</strong>，守护进程通常在系统引导时启动，直至系统关闭前，会一直“健在”。</li>
+<li><strong>后台运行</strong>，且无控制终端供其读取或写入数据。</li>
+</ul>
+<p>守护进程中的例子有 <strong>syslogd</strong>（在系统日志中记录消息）和 <strong>httpd</strong>（利用 HTTP 分发 Web 页面）。</p>
+<h4 id="环境列表">环境列表</h4>
+<p>每个进程都有一份环境列表，即在进程用户空间内存中维护的一组环境变量。这份列表的每一元素都由一个名称及其相关值组成。</p>
+<blockquote>
+<p>由 fork()创建的新进程，也会继承父进程的环境副本。</p>
+</blockquote>
+<p>在大多数shell中，我们使用export命令进行创建环境变量：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@roy-cpp cpp-learn]<span class="comment"># export myval=&#x27;hello unix&#x27;</span></span><br><span class="line">[root@roy-cpp cpp-learn]<span class="comment"># echo $myval</span></span><br><span class="line">hello unix</span><br></pre></td></tr></table></figure>
+<p>我们还可以打印已预定义的环境变量：</p>
+<ul>
+<li>PATH，用户输入命令后，shell搜索的目录列表；</li>
+<li>HOME，用户登陆目录的路径名。</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@roy-cpp cpp-learn]# echo $PATH </span><br><span class="line">/root/.vscode-server/bin/f80445acd5a3dadef24aa209168452a3d97cc326/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin</span><br><span class="line">[root@roy-cpp cpp-learn]# echo $HOME</span><br><span class="line">/root</span><br></pre></td></tr></table></figure>
+<p>这些预定义的变量也很好地可以直接被shell脚本和程序进行访问。</p>
+<h4 id="进程通信">进程通信</h4>
+<p>Linux 系统上运行有多个进程，有些进程必须相互合作以达成预期目的，因此彼此间需要通信和同步机制。</p>
+<ul>
+<li><u>读写磁盘文件中的信息</u>，来进程间通信是一种容易被接受且简单可行的办法。</li>
+</ul>
+<p>但这种方法既慢又缺乏灵活性。因此，像所有现代 UNIX 实现那样，Linux 也提供了丰富的进程间通信（IPC）机制，如下所示。</p>
+<ul>
+<li><strong>信号（signal</strong>），用来表示事件的发生。</li>
+<li><strong>管道（亦即 shell 用户所熟悉的“|”操作符）和 FIFO</strong>，用于在进程间传递数据。</li>
+<li><strong>套接字</strong>，供同一台主机或是联网的不同主机上所运行的进程之间传递数据。</li>
+<li><strong>消息队列</strong>，用于在进程间交换消息（数据包）。</li>
+<li><strong>信号量（semaphore</strong>），用来同步进程动作。</li>
+<li><strong>共享内存</strong>，允许两个及两个以上进程共享一块内存。当某进程改变了共享内存的内容时，其他所有进程会立即了解到这一变化。</li>
+</ul>
+<h3 id="1-1-6-内存映射">1.1.6 内存映射</h3>
+<p><strong>内存映射（Memory-mapped，mmap）</strong>，即将一个文件或者其他对象映射到进程的地址空间，实现文件磁盘地址和应用程序进程虚拟地址空间中一段虚拟地址的映射关系。</p>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/v2-3a06854cd2f7cba1da033b4a931d01e8_720w.jpg" alt="img"></p>
+<p><strong>特别的，由某一进程所映射的内存可以与其他进程的映射共享</strong>。</p>
+<p>有两种方式可以做到这一点：</p>
+<ol>
+<li>两个进程都针对某一文件的相同部分加以映射；</li>
+<li>由 fork()创建的子进程自父进程处继承映射。</li>
+</ol>
+<p><strong>但这也由此引发了一个问题：某个进程对共享页面内容的改动一定会为其他进程所见吗</strong>？</p>
+<p>其实这取决于创建映射时所传入的标志参数。</p>
+<ul>
+<li>若传入标志为私有，则某进程对映射内容的修改对于其他进程是不可见的，<u>而且这些改动也不会真地落实到文件上</u>；</li>
+<li>若传入标志为共享，对映射内容的修改就会为其他进程所见，<u>并且这些修改也会造成对文件的改动</u>。</li>
+</ul>
+<p>内存映射用途很多，如文件 I/O（即映射内存 I/O）以及进程间通信（通过共享映射）。在后续我们还会更深入的探讨。</p>
+<h3 id="1-1-7-信号">1.1.7 信号</h3>
+<p>尽管1.5.5将信号视为 IPC 的方法之一，但其在其他方面的广泛应用则更为普遍。<br>
+<strong>人们往往将信号称为“软件中断”。进程收到信号，就意味着某一事件或异常情况的发生</strong>。</p>
+<p>信号的类型很多，每一种分别标识不同的事件或情况。采用不同的<u>整数</u>来标识各种信号类型，并以 <code>SIGxxxx</code> 形式的符号名加以定义。</p>
+<ul>
+<li>
+<p><strong>信号发送</strong>，内核、其他进程（只要具有相应的权限）或进程自身均可向进程发送信号。</p>
+<p>发生下列情况之一时，内核可向进程发送信号：</p>
+<ul>
+<li>用户键入中断字符（通常为 Control-C）。</li>
+<li>进程的子进程之一已经终止。</li>
+<li>由进程设定的定时器（告警时钟）已经到期。</li>
+<li>进程尝试访问无效的内存地址。</li>
+</ul>
+<p>在 shell 中，可使用 <code>kill</code> 命令向进程发送信号。在程序内部，系统调用 kill()可提供相同的功能。</p>
+</li>
+<li>
+<p><strong>信号回复</strong>，收到信号时，进程会根据信号采取如下动作之一：</p>
+<ul>
+<li>忽略信号。</li>
+<li>被信号“杀死”。</li>
+<li>先挂起，之后再被专用信号唤醒。</li>
+</ul>
+<p>就大多数信号类型而言，程序可选择不采取默认的信号动作，而是<u>忽略信号或者建立自己的信号处理器</u>。信号处理器是由程序员定义的函数，会在进程收到信号时自动调用，根据信号的产生条件执行相应动作。</p>
+</li>
+</ul>
+<h3 id="1-1-8-线程">1.1.8 线程</h3>
+<p>在现代 UNIX 实现中，每个进程都可执行多个线程。</p>
+<p><strong>什么是线程</strong>？</p>
+<p>线程是操作系统能够进行运算调度的最小单位，被包含在进程之中，是进程中的实际运作单位。</p>
+<ul>
+<li>每个线程都会<strong>执行相同的程序代码，共享同一数据区域和堆</strong>；</li>
+<li>每个线程都<strong>拥有属于自己的栈</strong>，用来装载本地变量和函数调用链接信息。</li>
+</ul>
+<p><strong>为什么需要线程</strong>？</p>
+<p>线程的主要优点：</p>
+<ul>
+<li>协同线程之间的数据共享（通过全局变量）更为容易、自然；</li>
+<li>多线程创建、销毁等开销小；</li>
+<li>CPU利用率高，如果一个子任务阻塞，程序可以将CPU调度到另外一个子任务进行工作。<u>这样CPU还是保留在本程序中</u>，而不是被调度到别的进程去。这样，提高了本程序所获得的CPU时间和利用率。</li>
+</ul>
+<p><strong>线程之间如何通信</strong>？</p>
+<ul>
+<li>利用前述进程之间的通信方式（<strong>IPC</strong>）；</li>
+<li><strong>利用共享的全局变量进行通信</strong>，借助于线程 API 所提供的条件变量和互斥机制，进程所属的线程之间得以相互通信并同步行为。</li>
+</ul>
+<h3 id="1-1-9-会话、控制终端和控制进程">1.1.9 会话、控制终端和控制进程</h3>
+<p>会话、控制终端和控制进程之间概念和关系如下。</p>
+<h4 id="会话">会话</h4>
+<p><strong>会话是一个或多个进程组的集合</strong>，会话中的所有进程都具有相同的会话标识符。</p>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/session.jpg" alt="会话"></p>
+<p><strong>会话与shell的关系</strong>？</p>
+<p>使用会话最多的是支持任务控制的 shell，由 shell 创建的所有进程组与 shell 自身隶属于同一会话，<u>shell 是此会话的会话首进程</u>。</p>
+<h4 id="控制终端">控制终端</h4>
+<p>当一个终端与一个会话相关联后，那么这个终端就称为该会话的<strong>控制终端</strong>，建立与控制终端连接的会话首进程（一般是shell）被称为<strong>控制进程</strong>(controlling process)。</p>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/session2.jpg" alt="会话"></p>
+<p><strong>控制终端关闭时，会话中各个进程的变化</strong>？</p>
+<p>简单来说，shell进程和前台所有进程会退出，后台无终端输出进程退出。</p>
+<ol>
+<li>首先会发一个挂断信号SIGHUP给<u>会话首进程</u>（一般为shell），即shell进程退出。</li>
+<li>当会话首进程shell退出时，挂断信号（SIGHUP）还会继续发送给<u>前台进程组</u>和<u>后台有终端输出的</u>所有进程。</li>
+</ol>
+<p>若进程未对挂断信号（SIGHUP）进行处理时，所有收到该信号的进程将被终止。</p>
+<p><strong>如何让进程在终端关闭时，不受其影响进行执行</strong>？</p>
+<p>根据前述，若想进程在终端关闭时不受影响：</p>
+<ol>
+<li>如果该进程无终端输出，让该进程成为后台进程；</li>
+<li>如果该进程有终端输出，还忽略SIGHUP信号；</li>
+<li>让程序对挂断信号SIGHUP进行处理。</li>
+</ol>
+<p>针对1、2我们可以使用命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup &lt;<span class="built_in">command</span>&gt; &amp;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>nohub，忽略所有挂断（SIGHUP）信号；</li>
+<li>&amp;，程序进程进入后台运行。</li>
+</ul>
+<p>实例：<code>nohub python run.py &amp;</code> 。</p>
+<p>针对3，我们还可以让程序自动具备防退出功能。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;apue.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span> </span></span><br><span class="line"><span class="comment">// 处理程序</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sig_hup</span><span class="params">(<span class="keyword">int</span> signo)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;received signup\n&quot;</span>);</span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> count; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  setbuf(<span class="built_in">stdout</span>,<span class="literal">NULL</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;pid = %d\n&quot;</span>,getpid());</span><br><span class="line">  <span class="comment">// 注册挂断信号(SIGHUP)的处理程序</span></span><br><span class="line">  <span class="comment">// 这样一来，我们的程序就不会因收到挂断信号而退出了</span></span><br><span class="line">  signal(SIGHUP, sig_hup);</span><br><span class="line">  <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">  &#123; </span><br><span class="line">    count++;</span><br><span class="line">  &#125; </span><br><span class="line">  <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h3 id="1-10-proc目录">1.10 /proc目录</h3>
+<p>Linux系统上的/proc目录是一种文件系统，即proc文件系统。 /proc是一种伪文件系统（也即虚拟文件系统），存储的是<strong>当前内核运行状态</strong>的一系列特殊文件，用户可以通过这些文件：</p>
+<ul>
+<li><strong>查看系统有关（1）硬件及当前（2）正在运行进程的信息</strong>；</li>
+<li><strong>更改其中某些文件来改变内核的运行状态</strong>。</li>
+</ul>
+<p>例如，查看磁盘信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@roy-cpp proc]<span class="comment"># cat /proc/devices </span></span><br><span class="line">Character devices:</span><br><span class="line">  1 mem</span><br><span class="line">  4 /dev/vc/0</span><br><span class="line">  4 tty</span><br><span class="line">  4 ttyS</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-系统编程基本概念">1.2 系统编程基本概念</h2>
+<p><strong>什么是系统编程</strong>？</p>
+<p>系统编程，是指<u>进程（或者说程序</u>）以API形式，去<u>调用系统内核</u>提供的一系列服务如：</p>
+<ul>
+<li>创建进程</li>
+<li>执行IO</li>
+<li>进程通信</li>
+<li>…</li>
+</ul>
+<p>等来完成程序编写。</p>
+<p>可以看到前述核心过程是<strong>调用系统内核服务</strong>，也就是我们常说的<u>系统调用</u>。</p>
+<h3 id="1-2-1-系统调用">1.2.1 系统调用</h3>
+<p>在深入系统调用的运作方式之前，请务必牢记以下几点：</p>
+<ul>
+<li><strong>检测返回状态</strong>，无论何时，只要执行了系统调用或者库函数，检查调用的返回状态以确定调用是否成功，这是一条编程铁律。</li>
+<li><strong>核心态切换</strong>，系统调用将处理器从用户态切换到核心态，以便 CPU 访问受到保护的内核内存。</li>
+<li><strong>每个系统调用由数字标识</strong>，系统调用的组成是固定的，每个系统调用都由一个唯一的数字来标识。</li>
+<li><strong>每个系统调用都有对应参数</strong>。</li>
+</ul>
+<p>现在我们来以具体的硬件平台x86-32为例，来分析系统调用发生时的步骤：</p>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20220509221824529.png" alt="image-20220509221824529"></p>
+<ol>
+<li>
+<p><strong>调用外壳函数</strong>，应用程序通过设置相应的参数来调用 C 语言函数库中的外壳函数，然后发起系统调用；</p>
+</li>
+<li>
+<p><strong>参数传入寄存器</strong>，内核希望将这些函数参数置入特定寄存器，因此，外壳函数会将上述参数复制到寄存器；</p>
+</li>
+<li>
+<p><strong>系统调用编号传入寄存器<code>%eax</code></strong>，由于所有系统调用进入内核的方式相同，内核需区分每个系统调用，为此，外壳函数会将系统调用编号复制到一个特殊的 CPU 寄存器（%eax）中；</p>
+</li>
+<li>
+<p><strong>执行中断</strong>，外壳函数执行中断机器指令（int 0x80）→<u>处理器从用户态切换到核心态</u>→执行系统中断 0x80；</p>
+</li>
+<li>
+<p><strong>响应中断</strong>，保存寄存器值→审核系统编号有效性→<u>查询服务列表sys_call_table→执行系统调用→返回状态参数给sys_call</u>()；</p>
+<ul>
+<li>关于sys_call_table，在 Linux/x86-32 上，execve()的系统调用号为 11(__NR_execve)。因此，在 sys_call_table 向量中，条目 11 包含了该<br>
+系统调用的服务例程 sys_execve()的<strong>地址</strong>。</li>
+</ul>
+</li>
+<li>
+<p><strong>结束中断</strong>，内核栈中恢复各寄存器值→系统调用返回值置于栈中→<u>处理器切回用户态</u>。</p>
+</li>
+<li>
+<p><strong>返回值错误处理</strong>，若系统调用服务例程的返回值表明调用有误，外壳函数会使用该值来设置全局变量 errno。</p>
+</li>
+</ol>
+<h3 id="1-2-2-C语言函数库glibc">1.2.2  C语言函数库glibc</h3>
+<p>GNU C 语言函数库[glibc](<a target="_blank" rel="noopener" href="http://www">http://www</a>.<br>
+<a target="_blank" rel="noopener" href="http://gnu.org/software/libc/">gnu.org/software/libc/</a>)，是 Linux 上最常用的实现。</p>
+<p>查看一下我们机器上的glibc版本吧：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@roy-cpp TLPI]<span class="comment"># /lib64/libc.so.6 </span></span><br><span class="line">GNU C Library (GNU libc) stable release version 2.17, by Roland McGrath et al.</span><br></pre></td></tr></table></figure>
+<p>动态库<code>libc.so.6</code> 可视为可执行文件，输出当前glibc版本，一般位于目录/lib64/libc.so.6 或 /lib/libc.so.6 下。</p>
+<h3 id="1-2-3-处理返回的错误">1.2.3 处理返回的错误</h3>
+<p><strong>不检查状态值，少敲几行代码听起来的确诱人，但实际却得不偿失</strong>。</p>
+<p>每个<u>系统调用</u>和<u>库函数</u>都会返回某类状态值，要了解调用是否成功，必须坚持对状态值进行检查。</p>
+<p>这能节约我们大把的程序调试时间。</p>
+<h4 id="处理系统调用错误">处理系统调用错误</h4>
+<p>绝大部分系统检查调用错误信息步骤：</p>
+<ol>
+<li>先检查系统调用返回值是否错误（为-1），如果错误转2；</li>
+<li>继续检查 errno号，来确定具体错误。</li>
+</ol>
+<p>下面举一个例子。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cnt = <span class="built_in">read</span>(fd,buf1,len);</span><br><span class="line"><span class="keyword">if</span>(cnt == <span class="number">-1</span>)  <span class="comment">// 检查返回值</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(errno == EINTR)  <span class="comment">// 检查errno号</span></span><br><span class="line">    	std::cout &lt;&lt; <span class="string">&quot;read was interrupted by a signal.&quot;</span> ;</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        <span class="comment">// do something</span></span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>检查errno号也可以直接替换使用<code>perror(char* str)</code> 函数，其会打印我们输入字符串<code>str</code> + 当前error对应的错误信息。</p>
+<p>以下是一个更完整的例子展示。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span>    <span class="comment">/* For O_RDWR */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span>   <span class="comment">/* For open(), creat() */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span>   </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span>  <span class="comment">/* For strlen()*/</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span>  <span class="comment">/* For setw() */</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> fd = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> filename[<span class="number">20</span>] = <span class="string">&quot;./test/1.txt&quot;</span>;</span><br><span class="line">    <span class="comment">// 打开文件</span></span><br><span class="line">    fd = <span class="built_in">open</span>(filename,O_RDWR|O_EXCL|O_TRUNC,S_IRWXG);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;open the file.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">if</span>(fd == <span class="number">-1</span>)  <span class="comment">// 判断文件是否成功打开</span></span><br><span class="line">    &#123;       </span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;file open error.\n&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 写数据</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;writ data to the file.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, len = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">100</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;please input: &quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    std::cin.<span class="built_in">getline</span>(buf,<span class="number">100</span>); </span><br><span class="line">    len = <span class="built_in">strlen</span>(buf);</span><br><span class="line">    cnt = <span class="built_in">write</span>(fd,buf,len);</span><br><span class="line">    <span class="keyword">if</span>(cnt == <span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;file write error.&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">close</span>(fd);   <span class="comment">// 关闭文件   </span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 读取文件</span></span><br><span class="line">    <span class="keyword">char</span> buf1[<span class="number">100</span>] =&#123;<span class="number">0</span>&#125;;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;read file.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    fd = <span class="built_in">open</span>(filename,O_RDONLY);  <span class="comment">// 再次打开文件</span></span><br><span class="line">    <span class="keyword">if</span>(fd == <span class="number">-1</span>) <span class="comment">// 判断文件是否打开成功</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;file open error.\n&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    cnt = <span class="built_in">read</span>(fd,buf1,len);</span><br><span class="line">    <span class="keyword">if</span>(cnt == <span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">perror</span>(<span class="string">&quot;file read error.&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    std::cout &lt;&lt; buf1;</span><br><span class="line">    <span class="built_in">close</span>(fd);</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@roy-cpp TLPI]<span class="comment"># g++ -g  chap3.cpp  -o chap3.out  </span></span><br><span class="line">[root@roy-cpp TLPI]<span class="comment"># ./chap3.out </span></span><br><span class="line">open the file.</span><br><span class="line">writ data to the file.</span><br><span class="line">please input: </span><br><span class="line">hello roy</span><br><span class="line"><span class="built_in">read</span> file.</span><br><span class="line">hello roy</span><br></pre></td></tr></table></figure>
+<h4 id="处理库函数调用错误">处理库函数调用错误</h4>
+<p>库函数调用和系统调用错误有些不同。</p>
+<ul>
+<li>和系统调用一致：返回值为-1，配合error号进行检查；</li>
+<li>出错返回值不一定为-1，如<code>fopen</code>出错返回NULL指针，配合error进行检查；</li>
+<li>部分库函数根本不使用error。</li>
+</ul>
+<p>在本章，主要介绍了Linux发展历史，以及Linux&amp;系统编程的基本概念。在下一章，我将主要介绍文件I/O相关知识。</p>
+<h1>更新记录</h1>
+<div class="timeline">
+<div class="timenode"><div class="meta"><p><p>2022-06-16 ：更新笔记</p>
+</p></div><div class="body"><ol><li>第一次更新</li></ol></div></div>
+</div>
+<h1>参考文献</h1>
+<p>[1]  <a target="_blank" rel="noopener" href="http://shareinto.github.io/2016/11/17/linux-terminal/">http://shareinto.github.io/2016/11/17/linux-terminal/</a></p>
+<p>[2] 黑马程序员教程：<a target="_blank" rel="noopener" href="https://book.itheima.net/course/223/">https://book.itheima.net/course/223/</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Wanghui Huang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hwh.zone/p/45495/">https://hwh.zone/p/45495/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hwh.zone" target="_blank">royhuang's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%99%E7%A8%8B/">教程</a><a class="post-meta__tags" href="/tags/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/">系统编程</a></div><div class="post_share"><div class="social-share" data-image="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/about-bg.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/wechatPay.png" target="_blank"><img class="post-qr-code-img" src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/wechatPay.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/alipay.png" target="_blank"><img class="post-qr-code-img" src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/p/17467/"><img class="prev-cover" src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/about-bg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">C++从零开始（十一）：C++进阶（下）STL</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/p/18652/" title="C++从零开始（一）：环境搭建（上）VSCode远程开发"><img class="cover" src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20211211214212828.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-05</div><div class="title">C++从零开始（一）：环境搭建（上）VSCode远程开发</div></div></a></div><div><a href="/p/17506/" title="C++从零开始（七）：面对对象（上）快速入门"><img class="cover" src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-24</div><div class="title">C++从零开始（七）：面对对象（上）快速入门</div></div></a></div><div><a href="/p/60158/" title="C++从零开始（九）：面对对象（下）继承和虚函数"><img class="cover" src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-08</div><div class="title">C++从零开始（九）：面对对象（下）继承和虚函数</div></div></a></div><div><a href="/p/2834/" title="C++从零开始（二）：环境搭建（下）g++/Makefile/CMake快速入门"><img class="cover" src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20211211215040434.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-05</div><div class="title">C++从零开始（二）：环境搭建（下）g++/Makefile/CMake快速入门</div></div></a></div><div><a href="/p/43924/" title="C++从零开始（八）：面对对象（中）运算符重载"><img class="cover" src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-27</div><div class="title">C++从零开始（八）：面对对象（中）运算符重载</div></div></a></div><div><a href="/p/6587/" title="C++从零开始（六）：务实基础（下）复合类型及转换"><img class="cover" src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-16</div><div class="title">C++从零开始（六）：务实基础（下）复合类型及转换</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/cat.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wanghui Huang</div><div class="author-info__description">tech & life</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">42</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Wanghui-Huang"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Wanghui-Huang" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:hwh199601@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">royhuang's studio</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">UNIX历史</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#UNIX%E5%92%8CC%E7%AE%80%E5%8F%B2"><span class="toc-text">UNIX和C简史</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux%E7%AE%80%E5%8F%B2"><span class="toc-text">Linux简史</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E5%8C%96%E8%BF%87%E7%A8%8B"><span class="toc-text">标准化过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#C%E6%A0%87%E5%87%86"><span class="toc-text">C标准</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%8F%A3"><span class="toc-text">操作系统接口</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">一、基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-Linux%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">1.1 Linux基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-1-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%86%85%E6%A0%B8"><span class="toc-text">1.1.1 操作系统与内核</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8%EF%BC%9F"><span class="toc-text">内核有什么用？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E6%80%81%E5%92%8C%E7%94%A8%E6%88%B7%E6%80%81"><span class="toc-text">内核态和用户态</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-2-shell"><span class="toc-text">1.1.2 shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-3-%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84"><span class="toc-text">1.1.3 用户和组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E6%88%B7"><span class="toc-text">用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%84"><span class="toc-text">组</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-4-%E7%9B%AE%E5%BD%95%E4%B8%8E%E6%96%87%E4%BB%B6"><span class="toc-text">1.1.4 目录与文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-text">目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6"><span class="toc-text">文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-5-%E8%BF%9B%E7%A8%8B"><span class="toc-text">1.1.5 进程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80"><span class="toc-text">进程内存布局</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA%E3%80%81%E6%89%A7%E8%A1%8C%E5%8F%8A%E7%BB%88%E6%AD%A2"><span class="toc-text">进程创建、执行及终止</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E8%BF%9B%E7%A8%8B"><span class="toc-text">特殊进程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#init%E8%BF%9B%E7%A8%8B"><span class="toc-text">init进程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B"><span class="toc-text">守护进程</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%88%97%E8%A1%A8"><span class="toc-text">环境列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="toc-text">进程通信</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-6-%E5%86%85%E5%AD%98%E6%98%A0%E5%B0%84"><span class="toc-text">1.1.6 内存映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-7-%E4%BF%A1%E5%8F%B7"><span class="toc-text">1.1.7 信号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-8-%E7%BA%BF%E7%A8%8B"><span class="toc-text">1.1.8 线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-9-%E4%BC%9A%E8%AF%9D%E3%80%81%E6%8E%A7%E5%88%B6%E7%BB%88%E7%AB%AF%E5%92%8C%E6%8E%A7%E5%88%B6%E8%BF%9B%E7%A8%8B"><span class="toc-text">1.1.9 会话、控制终端和控制进程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%9A%E8%AF%9D"><span class="toc-text">会话</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E7%BB%88%E7%AB%AF"><span class="toc-text">控制终端</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-10-proc%E7%9B%AE%E5%BD%95"><span class="toc-text">1.10 &#x2F;proc目录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">1.2 系统编程基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-1-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="toc-text">1.2.1 系统调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-2-C%E8%AF%AD%E8%A8%80%E5%87%BD%E6%95%B0%E5%BA%93glibc"><span class="toc-text">1.2.2  C语言函数库glibc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-3-%E5%A4%84%E7%90%86%E8%BF%94%E5%9B%9E%E7%9A%84%E9%94%99%E8%AF%AF"><span class="toc-text">1.2.3 处理返回的错误</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E9%94%99%E8%AF%AF"><span class="toc-text">处理系统调用错误</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%BA%93%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E9%94%99%E8%AF%AF"><span class="toc-text">处理库函数调用错误</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">更新记录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">参考文献</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/45495/" title="C++从零开始（十二）：Linux系统编程入门">C++从零开始（十二）：Linux系统编程入门</a><time datetime="2022-04-03T05:45:34.660Z" title="发表于 2022-04-03 13:45:34">2022-04-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/17467/" title="C++从零开始（十一）：C++进阶（下）STL">C++从零开始（十一）：C++进阶（下）STL</a><time datetime="2022-02-14T09:55:49.585Z" title="发表于 2022-02-14 17:55:49">2022-02-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/51012/" title="C++从零开始（十）：C++进阶（上）模板">C++从零开始（十）：C++进阶（上）模板</a><time datetime="2022-02-11T08:17:22.936Z" title="发表于 2022-02-11 16:17:22">2022-02-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/60158/" title="C++从零开始（九）：面对对象（下）继承和虚函数">C++从零开始（九）：面对对象（下）继承和虚函数</a><time datetime="2022-02-08T08:24:59.978Z" title="发表于 2022-02-08 16:24:59">2022-02-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By Wanghui Huang</div><div class="footer_custom_text">Support By <a target="_blank" rel="noopener" href="https://cloud.tencent.com/" style="text-decoration:underline; color:#476679;"> Tencent Cloud </a> |  <a target="_blank" rel="noopener" href="https://hexo.io/" style="text-decoration:underline; color:#476679;">Hexo</a> | <a target="_blank" rel="noopener" href="https://butterfly.js.org/" style="text-decoration:underline; color:#476679;">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'blog-comments-5g2cfsved8c0de34',
+      region: 'ap-shanghai'
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'blog-comments-5g2cfsved8c0de34',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script src="https://cdn.jsdelivr.net/npm/hexo-widget-tree@0.2.2/js/index.js"></script><div id="widget-tree">
+      <h1 id="tree-toc-title" style="text-align:center;margin:0;line-hight:1.5"> <a href="https://hwh.zone/categories/">目 录 </a> </h1>
+      <h5 id="tree-toc-subtitle" style="text-align:center;margin:0;line-hight:1.5"> <a href="https://hwh.zone/">royhuang's blog</a> </h5>
+      <ul>
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/C/">
+          C++
+        </a>
+      <ul class="tree-list-children">
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/">
+          从零开始
+        </a>
+      <ul class="tree-list-children">
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/C-%E5%9F%BA%E7%A1%80/">
+          C++基础
+        </a>
+      <ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/p/6587/" title="C++从零开始（六）：务实基础（下）复合类型及转换"><i class="post-icon gg-file-document"></i>C++从零开始（六）：务实基础（下）复合类型及转换</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/26224/" title="C++从零开始（三）：务实基础（上）快速入门"><i class="post-icon gg-file-document"></i>C++从零开始（三）：务实基础（上）快速入门</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/51595/" title="C++从零开始（五）：务实基础（下）函数"><i class="post-icon gg-file-document"></i>C++从零开始（五）：务实基础（下）函数</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/24237/" title="C++从零开始（四）：务实基础（中）指针和引用"><i class="post-icon gg-file-document"></i>C++从零开始（四）：务实基础（中）指针和引用</a></li></ul></li>
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/C-%E8%BF%9B%E9%98%B6/">
+          C++进阶
+        </a>
+      <ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/p/51012/" title="C++从零开始（十）：C++进阶（上）模板"><i class="post-icon gg-file-document"></i>C++从零开始（十）：C++进阶（上）模板</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/17467/" title="C++从零开始（十一）：C++进阶（下）STL"><i class="post-icon gg-file-document"></i>C++从零开始（十一）：C++进阶（下）STL</a></li></ul></li>
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/C-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+          C++环境搭建
+        </a>
+      <ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/p/18652/" title="C++从零开始（一）：环境搭建（上）VSCode远程开发"><i class="post-icon gg-file-document"></i>C++从零开始（一）：环境搭建（上）VSCode远程开发</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/2834/" title="C++从零开始（二）：环境搭建（下）g++/Makefile/CMake快速入门"><i class="post-icon gg-file-document"></i>C++从零开始（二）：环境搭建（下）g++/Makefile/CMake快速入门</a></li></ul></li>
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/C-%E9%9D%A2%E5%AF%B9%E5%AF%B9%E8%B1%A1/">
+          C++面对对象
+        </a>
+      <ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/p/17506/" title="C++从零开始（七）：面对对象（上）快速入门"><i class="post-icon gg-file-document"></i>C++从零开始（七）：面对对象（上）快速入门</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/60158/" title="C++从零开始（九）：面对对象（下）继承和虚函数"><i class="post-icon gg-file-document"></i>C++从零开始（九）：面对对象（下）继承和虚函数</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/43924/" title="C++从零开始（八）：面对对象（中）运算符重载"><i class="post-icon gg-file-document"></i>C++从零开始（八）：面对对象（中）运算符重载</a></li></ul></li>
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/">
+          Linux系统编程
+        </a>
+      <ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/p/45495/" title="C++从零开始（十二）：Linux系统编程入门"><i class="post-icon gg-file-document"></i>C++从零开始（十二）：Linux系统编程入门</a></li></ul></li></ul></li></ul></li>
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/%E5%BB%BA%E7%AB%99/">
+          建站
+        </a>
+      <ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/p/56326/" title="Hexo+Github Pages快速打造属于自己的网站"><i class="post-icon gg-file-document"></i>Hexo+Github Pages快速打造属于自己的网站</a></li></ul></li>
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/Git/">
+          Git
+        </a>
+      <ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/p/43848/" title="Git基础笔记（初步整理）"><i class="post-icon gg-file-document"></i>Git基础笔记（初步整理）</a></li></ul></li>
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/%E6%A0%A1%E6%8B%9B%E7%AC%94%E8%AE%B0/">
+          校招笔记
+        </a>
+      <ul class="tree-list-children">
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/%E6%A0%A1%E6%8B%9B%E7%AC%94%E8%AE%B0/JAVA/">
+          JAVA
+        </a>
+      <ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/p/42516/" title="校招笔记（一）_Java_JVM"><i class="post-icon gg-file-document"></i>校招笔记（一）_Java_JVM</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/8959/" title="校招笔记（一）_Java_多线程"><i class="post-icon gg-file-document"></i>校招笔记（一）_Java_多线程</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/51787/" title="校招笔记（一）_Java_Java入门"><i class="post-icon gg-file-document"></i>校招笔记（一）_Java_Java入门</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/7257/" title="校招笔记（一）_Java_面对对象"><i class="post-icon gg-file-document"></i>校招笔记（一）_Java_面对对象</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/45493/" title="校招笔记（一）_Java_锁"><i class="post-icon gg-file-document"></i>校招笔记（一）_Java_锁</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/21069/" title="校招笔记（一）_Java_集合"><i class="post-icon gg-file-document"></i>校招笔记（一）_Java_集合</a></li></ul></li>
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/%E6%A0%A1%E6%8B%9B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
+          计算机基础
+        </a>
+      <ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/p/61434/" title="校招笔记（七）_计算机基础_数据结构"><i class="post-icon gg-file-document"></i>校招笔记（七）_计算机基础_数据结构</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/44980/" title="校招笔记（二）_计算机基础_Linux&Git"><i class="post-icon gg-file-document"></i>校招笔记（二）_计算机基础_Linux&Git</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/5582/" title="校招笔记（九）_计算机基础_相关补充"><i class="post-icon gg-file-document"></i>校招笔记（九）_计算机基础_相关补充</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/46361/" title="校招笔记（三）_计算机基础_计算机网络"><i class="post-icon gg-file-document"></i>校招笔记（三）_计算机基础_计算机网络</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/31667/" title="校招笔记（八）_计算机基础_场景&智力题"><i class="post-icon gg-file-document"></i>校招笔记（八）_计算机基础_场景&智力题</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/56848/" title="校招笔记（五）_计算机基础_MySQL"><i class="post-icon gg-file-document"></i>校招笔记（五）_计算机基础_MySQL</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/31215/" title="校招笔记（六）_计算机基础_Redis"><i class="post-icon gg-file-document"></i>校招笔记（六）_计算机基础_Redis</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/15646/" title="校招笔记（四）_计算机基础_操作系统"><i class="post-icon gg-file-document"></i>校招笔记（四）_计算机基础_操作系统</a></li></ul></li></ul></li></ul>
+        <div id="widget-tree-button">
+          <i class="gg-chevron-right"></i>
+        </div>
+      </div><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
