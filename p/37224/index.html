@@ -1,0 +1,1543 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><!-- hexo injector head_begin start --><link href="https://cdn.jsdelivr.net/npm/hexo-widget-tree@0.2.2/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end --><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>C++从零开始（开源）：一文读懂muduo | royhuang's blog</title><meta name="author" content="Wanghui Huang"><meta name="copyright" content="Wanghui Huang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="🌟《C++从零开始》 系列，工作快一年，终于又开始更新了…🥗  C++从零开始https:&#x2F;&#x2F;hwh.zone&#x2F;p&#x2F;62712 在学校接触C++比较少，主要是用Java 、Python较多。入职腾讯前，为了恶补下C++网络相关基础，读了一些经典的demo级 开源库，如 Tinyhttpd 、Zavar 等。入职后大多数时候在业务屎山上玩耍，内部也有封装好的网络框架，但一直对网络通信底层挺感兴">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++从零开始（开源）：一文读懂muduo">
+<meta property="og:url" content="https://hwh.zone/p/37224/index.html">
+<meta property="og:site_name" content="royhuang&#39;s blog">
+<meta property="og:description" content="🌟《C++从零开始》 系列，工作快一年，终于又开始更新了…🥗  C++从零开始https:&#x2F;&#x2F;hwh.zone&#x2F;p&#x2F;62712 在学校接触C++比较少，主要是用Java 、Python较多。入职腾讯前，为了恶补下C++网络相关基础，读了一些经典的demo级 开源库，如 Tinyhttpd 、Zavar 等。入职后大多数时候在业务屎山上玩耍，内部也有封装好的网络框架，但一直对网络通信底层挺感兴">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/about-bg.jpg">
+<meta property="article:published_time" content="2023-03-11T05:48:01.602Z">
+<meta property="article:modified_time" content="2023-03-11T06:00:14.672Z">
+<meta property="article:author" content="Wanghui Huang">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="muduo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/about-bg.jpg"><link rel="shortcut icon" href="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/cat-modified.png"><link rel="canonical" href="https://hwh.zone/p/37224/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":"true# copy button","highlightLang":false,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":80,"languages":{"author":"作者: Wanghui Huang","link":"链接: ","source":"来源: royhuang's blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'C++从零开始（开源）：一文读懂muduo',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-11 14:00:14'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    })(window)</script><meta name="google-site-verification" content="uO6C17u7YuZfMWvThEQ9nOGQS4GIN2zAM6hC4tH-RiM" /><meta name="baidu-site-verification" content="code-nRnoDyQJPT" /><script> var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?13a4aefcbad9616a1f5859538d0d882e"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); })(); </script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/l-lin/font-awesome-animation/dist/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.min.css" media="defer" onload="this.media='all'"><script async src="https://cdn.jsdelivr.net/npm/hexo-butterfly-tag-plugins-plus@latest/lib/carousel-touch.min.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/cat.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk/"><i class="fa-fw fa-fw fa-fw fas fa-comment-dots"></i><span> 说说</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> aboutME</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">royhuang's blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/artitalk/"><i class="fa-fw fa-fw fa-fw fas fa-comment-dots"></i><span> 说说</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 目录</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> aboutME</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">C++从零开始（开源）：一文读懂muduo</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-11T05:48:01.602Z" title="发表于 2023-03-11 13:48:01">2023-03-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-11T06:00:14.672Z" title="更新于 2023-03-11 14:00:14">2023-03-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/">C++</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/">从零开始</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">14.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>51分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="C++从零开始（开源）：一文读懂muduo"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="twikoo_visitors"></span></span></div></div></div><article class="post-content" id="article-container"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
+<p>🌟<a href="https://hwh.zone/p/62712/">《C++从零开始》</a> 系列，工作快一年，终于又开始更新了…🥗</p>
+</blockquote>
+<div class="tag link"><a class="link-card" title="C++从零开始" href="https://hwh.zone/p/62712"><div class="left"><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/cat-modified.png"/></div><div class="right"><p class="text">C++从零开始</p><p class="url">https://hwh.zone/p/62712</p></div></a></div>
+<p>在学校接触C++比较少，主要是用Java 、Python较多。入职腾讯前，为了恶补下C++网络相关基础，读了一些经典的<u>demo级</u> 开源库，如 <a target="_blank" rel="noopener" href="https://github.com/EZLippi/Tinyhttpd">Tinyhttpd</a> 、<a target="_blank" rel="noopener" href="https://github.com/zyearn/zaver">Zavar</a> 等。入职后大多数时候在业务屎山上玩耍，内部也有封装好的网络框架，但一直对网络通信底层挺感兴趣。</p>
+<p>疫情过后，所在的业务收缩（千万PCU–&gt;百万PCU），并发数下降了一个量级。也算有了难得的时间，来静下来心来读一些<u>工业级</u>别的开源库。经过调研，锁定在<a target="_blank" rel="noopener" href="https://github.com/S1mpleBug/muduo_cpp11">muduo-cpp11</a> 、<a href="">brpc</a> 两个项目，先花了一周先读完了相对简单的muduo，写篇文章给自己总结回顾，也给后来者一份全面清晰地参考吧。</p>
+<h1>一、Muduo整体架构</h1>
+<blockquote>
+<p>注意，<a target="_blank" rel="noopener" href="https://github.com/chenshuo/muduo">muduo</a> 源码*@chenshuo<em>基于boost，本文代码引用</em>@S1mpleBug*基于C++11改写的<a target="_blank" rel="noopener" href="https://github.com/S1mpleBug/muduo_cpp11">muduo-cpp11</a>。</p>
+</blockquote>
+<h2 id="1-1-从EchoServer说起">1.1 从EchoServer说起</h2>
+<h3 id="1-1-1-快速开始">1.1.1 快速开始</h3>
+<p>下好源码后，我们编译一下项目中EchoServer示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/S1mpleBug/muduo_cpp11</span><br><span class="line">cd muduo_cpp11/example/ &amp; make</span><br></pre></td></tr></table></figure>
+<p>一个简单“复读机”服务器便诞生了：</p>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230227171908955.png" alt="image-20230227171908955"></p>
+<h3 id="1-1-2-“复读机“服务器业务层实现">1.1.2 “复读机“服务器业务层实现</h3>
+<p>muduo的接口使用相当方便和精简：</p>
+<ol>
+<li>
+<p><strong>首先定义一个EchoServer类</strong></p>
+<p>该类主要有如下功能：</p>
+<ul>
+<li>封装了TcpServer类对象<code>server_</code>，在muduo中，TcpServer是整个框架逻辑层面的入口；</li>
+<li>用户注册自定义的事件（新客户端连接、客户端消息响应）回调函数，也即是业务层面逻辑处理。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mymuduo/TcpServer.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mymuduo/Logger.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EchoServer</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">EchoServer</span>(EventLoop *loop, <span class="keyword">const</span> InetAddress &amp;addr, <span class="keyword">const</span> std::string &amp;name)</span><br><span class="line">        : <span class="built_in">server_</span>(loop, addr, name) <span class="comment">// TcpServer server_; TcpServer对象初始化</span></span><br><span class="line">        , <span class="built_in">loop_</span>(loop)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 注册回调函数</span></span><br><span class="line">        server_.<span class="built_in">setConnectionCallback</span>( <span class="comment">// onConnection，打印下连接的客户端ip+port</span></span><br><span class="line">            std::<span class="built_in">bind</span>(&amp;EchoServer::onConnection, <span class="keyword">this</span>, std::placeholders::_1));</span><br><span class="line">        </span><br><span class="line">        server_.<span class="built_in">setMessageCallback</span>( <span class="comment">// onMessage：将客户端发来的信息原样返回send</span></span><br><span class="line">            std::<span class="built_in">bind</span>(&amp;EchoServer::onMessage, </span><br><span class="line">                        <span class="keyword">this</span>, </span><br><span class="line">                        std::placeholders::_1,</span><br><span class="line">                        std::placeholders::_2,</span><br><span class="line">                        std::placeholders::_3));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置合适的subloop线程数量</span></span><br><span class="line">        server_.<span class="built_in">setThreadNum</span>(<span class="number">3</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">start</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        server_.<span class="built_in">start</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">// 连接建立或断开的回调函数</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onConnection</span><span class="params">(<span class="keyword">const</span> TcpConnectionPtr &amp;conn)</span>   </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (conn-&gt;<span class="built_in">connected</span>())</span><br><span class="line">            <span class="built_in">LOG_INFO</span>(<span class="string">&quot;Connection UP : %s&quot;</span>, conn-&gt;<span class="built_in">peerAddress</span>().<span class="built_in">toIpPort</span>().<span class="built_in">c_str</span>());</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">LOG_INFO</span>(<span class="string">&quot;Connection DOWN : %s&quot;</span>, conn-&gt;<span class="built_in">peerAddress</span>().<span class="built_in">toIpPort</span>().<span class="built_in">c_str</span>());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 可读写事件回调</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onMessage</span><span class="params">(<span class="keyword">const</span> TcpConnectionPtr &amp;conn, Buffer *buf, Timestamp time)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        std::string msg = buf-&gt;<span class="built_in">retrieveAllAsString</span>();</span><br><span class="line">        conn-&gt;<span class="built_in">send</span>(<span class="string">&quot;muduo: &quot;</span> + msg);</span><br><span class="line">        <span class="comment">// conn-&gt;shutdown();   // 关闭写端 底层响应EPOLLHUP =&gt; 执行closeCallback_</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    EventLoop *loop_;</span><br><span class="line">    TcpServer server_;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>启动服务器</strong></p>
+<p>EchoServer对象start()，main loop开启事件循环loop()。整个服务器便顺利启动了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 1.用户自定义的loop作为main loop</span></span><br><span class="line">    EventLoop loop;</span><br><span class="line">    <span class="comment">// 2. 对socket编程中的sockaddr_in进行封装</span></span><br><span class="line">    <span class="function">InetAddress <span class="title">addr</span><span class="params">(<span class="number">8002</span>)</span></span>;</span><br><span class="line">    <span class="comment">// 3.EchoServer初始化</span></span><br><span class="line">    <span class="function">EchoServer <span class="title">server</span><span class="params">(&amp;loop, addr, <span class="string">&quot;EchoServer&quot;</span>)</span></span>;</span><br><span class="line">    <span class="comment">// 4.启动服务器server</span></span><br><span class="line">    server.<span class="built_in">start</span>();</span><br><span class="line">    <span class="comment">// 5.开启main loop事件循环：epoll_wait等待listenfd的accpet连接事件</span></span><br><span class="line">    loop.<span class="built_in">loop</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>即使你目前对上述出现<code>loop</code> 、<code>事件循环</code> 等概念还一无所知。但足够简洁的API接口，做业务层的开发，却已经可以实现一个自己的高性能“复读机”服务器了！</p>
+<h2 id="1-2-整体架构：Multi-Reactor">1.2 整体架构：Multi-Reactor</h2>
+<h3 id="1-2-1-高并发之网络IO模型">1.2.1 高并发之网络IO模型</h3>
+<p>高并发即我们所说的 C10K（一个 server 服务 1w 个 client）, C10M（一个 server 服务 1M 个 client） 。这节将主要循序渐近地，介绍如何设计出一个高并发网络 IO 框架：</p>
+<ul>
+<li>传统网络 IO 模型的缺陷</li>
+<li>针对传统网络 IO 模型缺陷的改进：多线程/多进程</li>
+<li>IO 多路复用</li>
+<li>Reactor模型</li>
+</ul>
+<h4 id="传统网络-IO-模型的缺陷">传统网络 IO 模型的缺陷</h4>
+<p>在该小节我们重点关注以下两点：</p>
+<ol>
+<li><strong>传统网络 IO 模型有哪些缺陷</strong>？</li>
+<li><strong>传统网络 IO 模型阻塞点有哪些</strong>？</li>
+</ol>
+<p>先来看下客户端和服务端的基于TCP的通信流程：</p>
+<ol>
+<li><strong>服务端</strong>：server 创建监听 socket 后，执行 bind() 绑定 IP 和端口，然后调用 listen() 监听，代表 server 已经准备好接收请求了，listen 的主要作用其实是初始化半连接和全连接队列大小</li>
+<li><strong>客户端</strong>：server 准备好后，client 也创建 socket ，然后执行 connect 向 server 发起连接请求，<strong>这一步会被阻塞</strong>，需要等待三次握手完成：
+<ul>
+<li>第一次握手完成，服务端会创建 socket（这个 socket 是连接 socket，注意不要和第一步的监听 socket 搞混了）,将其放入半连接队列中；</li>
+<li>第三次握手完成，系统会把 socket 从半连接队列摘下放入全连接队列中，然后 accept 会将其从全连接队列中摘下，之后此 socket 就可以与客户端 socket 正常通信了，默认情况下如果全连接队列里没有 socket，则 accept 会<strong>阻塞等待</strong>三次握手完成。</li>
+</ul>
+</li>
+<li>此后进行read/write，但这个也很可能会被<strong>阻塞</strong>。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>客户端和服务端TCP通信流程</th>
+<th>伪代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/90dbe13651eaa48fb760dd13f9d6c1ad.png" alt="img"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230309160413142.png" alt="image-20230309160413142"></td>
+</tr>
+</tbody>
+</table>
+<p>开头的问题也就很好回答了：</p>
+<ul>
+<li><strong>阻塞点</strong>：传统的socket通信会阻塞在connect，accept，read/write 这几个操作上。</li>
+<li><strong>缺陷点</strong>：性能低下，如单进程/线程，只要 server 阻塞，就不能再接收其他 client 的处理了。</li>
+</ul>
+<h4 id="针对传统网络-IO-模型缺陷的改进">针对传统网络 IO 模型缺陷的改进</h4>
+<p>针对上面的阻塞点，我们可以做如下进行改进。</p>
+<h5 id="多进程-线程：避免read-write阻塞">多进程/线程：避免read/write阻塞</h5>
+<p>如果 server 是单进程/线程，read/write阻塞会导致 server无法再处理其他client请求了，那如果把read/write交给子进程/线程处理？这样一定程度上可提高服务器并发。</p>
+<blockquote>
+<p>一般是使用多线程，因为<u>多进程</u>相对<u>多进程</u>负担更大：</p>
+<ol>
+<li>
+<p>要考虑“<u>子进程善后</u>”：</p>
+<ul>
+<li>
+<p>当「子进程」退出时，实际上内核里还会保留该进程的一些信息，也是会占用内存的，如果不做好“回收”工作，就会变成<strong>僵尸进程</strong>，慢慢耗尽我们的系统资源；</p>
+</li>
+<li>
+<p>因此，父进程要在子进程退出后回收资源，分别是调用 <code>wait()</code> 和 <code>waitpid()</code> 函数。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>进程的上下文切换不仅包含了虚拟内存、栈、全局变量等用户空间的资源，还包括了内核堆栈、寄存器等内核空间的资源；</p>
+</li>
+<li>
+<p>进程创建/开销大。</p>
+</li>
+</ol>
+</blockquote>
+<ul>
+<li><strong>父进程/线程负责 accept(listenfd)等待客户端新连接</strong>， 有新连接fork一个子进程/创建一个线程，把这个 connfd 交给子进程/线程处理；</li>
+<li><strong>子进程/线程负责read(connfd)/write(connfd)等待connfd读写</strong>，这样就算<u>子进程/线程read/write阻塞了，也不影响父进程/线程继续监听和其他子进程/线程处理连接</u>。</li>
+</ul>
+<p>下图是以多进程为例。</p>
+<table>
+<thead>
+<tr>
+<th>多进程IO</th>
+<th>伪代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/d837739b1ef65399bbd4fdfb53aff34f.png" alt="img"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230310111604769.png" alt="image-20230310111604769"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>有关线程池</strong></p>
+<p>不过无论是多进程还是多线程，创建、销毁的开销其实并不小。因此我们还会往往用<u>进程池</u>or<u>线程池</u>进行管理。</p>
+<blockquote>
+<p>需要注意的是，这个队列是全局的，每个线程都会操作，为了避免多线程竞争，线程在操作这个队列前要加锁。</p>
+</blockquote>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/%E7%BA%BF%E7%A8%8B%E6%B1%A0.png" alt="img"></p>
+<p><strong>性能还能再提高吗？</strong></p>
+<p>假设一万个连接，就要开一万个线程，这里面资源消耗便难以接受了。看起来里C10K都差得远。</p>
+<p>再回头看看前面的阻塞点：</p>
+<ul>
+<li>
+<p><strong>对于connect，accept阻塞</strong>，客户端发生连接时，<strong>主进程依旧会阻塞，等待握手完成，期间无法处理其它连接</strong>；</p>
+</li>
+<li>
+<p><strong>对于read/write发生阻塞，等待数据就绪，从磁盘/网卡==&gt;内核换成区</strong>，我们采用多进程/线程，避免了主线程read/write阻塞，从而可以处理多个连接，<strong>但子线程read/write依旧阻塞</strong>。</p>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/79ec7119fc5ed790a4a3ea3472094821.png" alt="img"></p>
+</li>
+</ul>
+<p>所以，我们本质要处理的就两类事件：</p>
+<ol>
+<li>
+<p>父进程/线程负责accept(listenfd)等待<u>新连接事件</u>，即等待客户端三次握手完成 ；</p>
+</li>
+<li>
+<p>子进程/线程负责read(connfd)/write(connfd)等待connfd<u>读写事件</u>，即等待connfd可读、可写。</p>
+<blockquote>
+<p>至于后面对于每个读、写事件是不是，用线程池/专门开线程去处理。这里先不讨论，这是具体io处理逻辑，不是现在要讨论的io读写事件。</p>
+</blockquote>
+</li>
+</ol>
+<p>那能不能有这么一种<strong>事件通知机制</strong>：<strong>在一个进程/线程就可以管理listenfd和多个connfd&amp;处理上述两种事件，只有事件就绪才通知，从而①避免connect/accept（三次握手成功再通知），read/write阻塞（可读、可写再通知）；② 避免一个连接就要开一个进程/线程去监听IO读写事件</strong>。</p>
+<p>I/O多路复用就是这么一种机制，<strong>一个进程可以监视多个描述符fd</strong>，一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作。</p>
+<h4 id="IO多路复用：select-poll-epoll">IO多路复用：select/poll/epoll</h4>
+<p>目前支持I/O多路复用的系统调用有<code>select，pselect，poll，epoll。</code>与多进程和多线程技术相比，<strong>I/O多路复用技术的最大优势是可以一个进程/线程就可以监听多个客户端fd，而不必每个fd监听都要专门开个进程/线程去监听IO读写事件</strong> 。</p>
+<p>在以前的<a href="https://hwh.zone/p/15646/">个人博客</a>，详细分析过，这里不详细描述。仅简单放下select/poll/epoll伪代码比对：</p>
+<ul>
+<li><code>select</code>： ①每次一个fd可读需遍历所有；③描述符有上限 ；③ 大量描述符数组被整体复制于用户态和内核态的地址空间；④ ；</li>
+<li><code>poll</code> ：①每次一个fd可读需遍历所有；② 描述符无上限  ；③大量描述符数组被整体复制于用户态和内核态的地址空间；</li>
+<li><code>epoll</code>：①只需遍历<u>就绪</u>的fd； ②描述符无上限； ③有mmap映射高效缓冲区，没有大量描述符从用户态和内核态直接的复制。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>select</th>
+<th>poll</th>
+<th>epoll</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230308175037297.png" alt="image-20230308175037297"></td>
+<td><img src="https:/blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230308175104079.png" alt="image-20230308175104079"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230308175637979.png" alt="image-20230308175637979"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Reactor模式：继续优化多路IO">Reactor模式：继续优化多路IO</h4>
+<p><strong>我们已经知道 IO 多路程复用是用一个进程来管理多个 socket 的， 那么是否还有优化的空间呢</strong>？</p>
+<p>以最简单的select为例：</p>
+<ol>
+<li>调用 select 来监听连接，读写事件；</li>
+<li>收到事件后判断是否是监听 listenfd 上的连接事件：是的话调用 accept() ；</li>
+<li>否则判断是否是已连接 connfd 上的读写事件，是的话调用 read()/write() 。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>select流程图</th>
+<th>select伪代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/c4d09a898fc645b18150aafc591ad2c6.png" alt="img"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230308175037297.png" alt="image-20230308175037297"></td>
+</tr>
+</tbody>
+</table>
+<p>上面的写法没啥问题，但是逻辑过于耦合，如果：</p>
+<ol>
+<li>select单独一个子逻辑，负责监听。</li>
+<li>listenfd上的连接事件，单独拆分一个子逻辑；</li>
+<li>connfd 上的读写事件，单独拆分一个子逻辑。</li>
+</ol>
+<p>这样会不会更好？</p>
+<h5 id="单进程-线程-单Reactor模式">单进程/线程&amp;单Reactor模式</h5>
+<p>为了提高扩展性&amp;避免耦合性，我们将IO多路复用模型再拆分为三个模块：</p>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/805350f4232fb586d4d0257c5d215c9c.png" alt="img"></p>
+<ol>
+<li><strong>Reactor</strong>， 对象首先调用 select 来<u>监听</u> listenfd/connfd事件，收到事件后会通过 dispatch 分发；</li>
+<li><strong>Acceptor</strong>，如果是连接建立事件，则由 Acceptor 处理，Acceptor 通过调用 <u>accept 接收连接</u>，并且会<u>创建一个 Handler</u> 来处理后续的读写等事件；</li>
+<li><strong>Handler</strong>，如果不是连接建立事件，则 Reactor 会调用连接对应的 Handler 进行响应，handler 会<u>完成 read/业务处理/write 的完整业务处理流程</u>。</li>
+</ol>
+<p>以上这些操作其实和之前的 IO 多路复用一样，所有的操作还是在<strong>一个进程/线程</strong>进行，只不过进行更细分拆解。</p>
+<p><strong>但是如果业务处理耗时较长，那么进程/线程就会被阻塞；另一方面，单进程/线程也没有充分利用多核优势</strong>。</p>
+<p>那么改成多进程/线程，会不会更好？</p>
+<h5 id="多进程-线程-单Reactor模式">多进程/线程&amp;单Reactor模式</h5>
+<p>于是人们又提出了 单 Reactor 多线程模型：</p>
+<ul>
+<li>主进程依旧负责处理：Reactor（监听 listenfd/connfd）、Accpetor（accpet连接&amp;创建Handle处理）、Handle（处理read/write，业务逻辑不再处理）；</li>
+<li>每个Handler的业务处理，改为分配一个线程处理。</li>
+</ul>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/dde30dc52e79109ee75cc30967e4bd41.png" alt="img"></p>
+<blockquote>
+<p>事实上，zaver就是这么做的，参考之前画的流程图：</p>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/http-main.png" alt="http-main"></p>
+</blockquote>
+<p>但依然有如下两个瓶颈点：</p>
+<ol>
+<li>
+<p><strong>子线程处理好业务数据后需要将其传回 handler进行发送处理</strong>，这涉及到共享数据的互斥和保护机制；</p>
+<p>Handler能不能在一个线程全部处理read/业务逻辑/write，避免跨进程/线程通信？</p>
+</li>
+<li>
+<p><strong>主进程单个Reactor负责监听所有fd（listenfd &amp; clientfd）io事件</strong>，在客户端瞬时大并发，会出现性能瓶颈。</p>
+<p><strong>其它Reator分担一些事件监听，如io事件，那该多好</strong>？这也是主要瓶颈所在。</p>
+</li>
+</ol>
+<h5 id="多进程-线程-多Reactor模式">多进程/线程&amp;多Reactor模式</h5>
+<p>基于以上逻辑考虑，多进程/线程&amp;多Reactor模式诞生了：</p>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/a31ef38616720ac9c5d7e0719ee57714.png" alt="img"></p>
+<p>工作原理如下：</p>
+<ol>
+<li><strong>主进程负责处理：Mian-Reactor（只监听listenfd）、Accpetor（accpet连接&amp;创建Handle处理）</strong>，接收connfd后会将其传给 subReactor；</li>
+<li><strong>子进程负责处理：Sub-Reactor（只监听connfd的io读写事件）</strong>，将其连接加入连接队列中来监控；</li>
+<li><strong>Handler，一起处理read/业务逻辑/write，每个Handler一个线程</strong>。</li>
+</ol>
+<p>以上介绍的只是标准的 Reactor 模型，但实际上生产上应用的 Reactor 不一定完全遵照这些标准。</p>
+<p>一起看看muduo怎么做的！</p>
+<h3 id="1-2-2-Muduo与Reactor模式">1.2.2 Muduo与Reactor模式</h3>
+<p>Muduo采用的便是<strong>多线程&amp;多Reactor模式</strong>。</p>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230310203312893.png" alt="image-20230310203312893"></p>
+<ul>
+<li>主进程中，Main-Reactor负责<u>监听</u>listenfd，等待连接事件；Accpetor负责<u>accpet连接</u>返回connfd（注意在muduo，dispatch逻辑实际也在Accpetor中：用于分配一个Sub-Reactor&amp;绑定/注册返回connfd）。</li>
+<li>子进程中（1~N），每个子进程运行一个Sub-Reactor，负责<u>监听</u>已注册的connfd等待io读写事件。</li>
+</ul>
+<p>在muduo中，每个Main-Reactor/Sub-Reactor抽象为EventLoop对象，且运行在一个线程中。这也是<code>one loop per thread</code>的由来。</p>
+<p>仅仅通过上图，也能发现muduo不少特别之处：</p>
+<ol>
+<li><strong>每个Sub-Reactor都会负责监听一部分connfd的io事件</strong>，提高了服务器处理连接能力；</li>
+<li>Sub-Reactor和Main-Reactor通信，是<strong>通过更高效eventfd</strong>，而不是像Main-Reactor使用socket listen()和客户端通信；</li>
+<li><strong>Sub-Reactor不仅要①处理所有connfd的io事件；②还要处理回调队列中的事件</strong>。</li>
+</ol>
+<p>上面的Reactor/Accpetor/…概念，又是在muduo代码中怎么抽象实现？一起看看！</p>
+<h2 id="1-3-Muduo核心类">1.3 Muduo核心类</h2>
+<p>Muduo核心类的结构如下：</p>
+<blockquote>
+<p><strong>为什么要继承NonCopyable基类</strong>？</p>
+<ul>
+<li>
+<p>好处：强制只能以指针的方式使用， 不能以拷贝类的方式来使用， 避免反复拷贝内存空间消耗。</p>
+</li>
+<li>
+<p>具体实现：这个类将拷贝和赋值构造函数给delete掉，提供了一个<strong>不可拷贝</strong>的基类</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NonCopyable</span>(<span class="keyword">const</span> NonCopyable &amp;) = <span class="keyword">delete</span>;</span><br><span class="line">NonCopyable &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> NonCopyable &amp;) = <span class="keyword">delete</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/classnoncopyable__inherit__graph%E7%9A%84%E5%89%AF%E6%9C%AC2.png" alt="classnoncopyable__inherit__graph的副本2"></p>
+<h3 id="1-3-1-Reactor：Poller、EventLoop、EventLoopThread、TcpConnection、Channel">1.3.1 Reactor：Poller、EventLoop、EventLoopThread、TcpConnection、Channel</h3>
+<h4 id="Poller类-EPollPoller类">Poller类 &amp; EPollPoller类</h4>
+<p>Poller类底层封装<u>epoll</u> &amp; <u>poll</u>，它还会被EPollPoller继承，EPollPoller是<u>epoll</u>的封装类。整体实现比较简单。</p>
+<p>其中：</p>
+<ul>
+<li>updateChannel()、removeChannel() ，等函数是封装<code>EPOLL_CTL_ADD</code> 、<code>EPOLL_CTL_DEL</code> ；</li>
+<li>Poller，构造函数owerLoop标识了当前Poller对象所属Loop；析构函数，默认；</li>
+<li>EollPoller构造函数，执行Poller构造函数，创建epollfd；析构函数关闭epollfd。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Poller &amp; EPollPoller成员及继承关系</th>
+<th>EPollPoller构造函数&amp;析构函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/classEPollPoller__inherit__graph.png" alt="classEPollPoller__inherit__graph"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230302174034339.png" alt="image-20230302174034339"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="EventLoop类">EventLoop类</h4>
+<p>EventLoop类进一步封装了Poller类，通过调用Poller::poll()进行I/O复用，返回活跃事件列表，<strong>然后遍历该列表，依次调用每一个活跃Channel的</strong>事件处理函数handleEvent()，而handleEvent其实就是根据事件响应类型（EPOLLIN、EPOLLOUT等），最终调用TcpConnection注册过来的回调函数。</p>
+<table>
+<thead>
+<tr>
+<th>EventLoop类成员</th>
+<th>EventLoop类构造函数&amp;析构函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230310202213519.png" alt="image-20230310202213519"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230310202407788.png" alt="image-20230310202407788"></td>
+</tr>
+</tbody>
+</table>
+<p>作为muduo的核心类，EventLoop类值得分析的地方很多。 <u>本文将在2.1部分，串讲整个流程加深理解</u>。</p>
+<h5 id="从构造函数看：wakeupFd设计与tie初识">从构造函数看：<code>wakeupFd</code>设计与<code>tie</code>初识</h5>
+<p><strong>这里，我们先来看看<code>wakeupFd</code>设计</strong>。</p>
+<p>想想这么一种情况：<strong>Sub-Reactor（EventLoop）开启事件循环后，阻塞在epoll；此时如果有新连接clientfd待注册，Main-Reactor（Accpetor）如何通知Sub-Reactor</strong>？</p>
+<p>这个时候便需要<code>wakeupFd</code>“唤醒”。聪明的你想到：<strong>Accpetor绑定的listenfd是通过<code>listen()</code>来监听客户端请求，Sub EventLoop也可以通过<code>listen()</code>来监听Main-Reactor请求</strong>？</p>
+<blockquote>
+<p>⚠️ 回忆<code>listen()</code>：</p>
+<ul>
+<li><code>listen()</code> 只是让套接字进入监听状态，并没有真正接收客户端请求，listen() 后面的代码会继续执行，直到遇到 accept()；</li>
+<li><code>accept() </code>返回一个新fd来和客户端通信，会阻塞程序执行（后面代码不能被执行），直到有新的请求到来。</li>
+</ul>
+</blockquote>
+<p>但在muduo中，使用的是更高效的<code>eventfd</code>。注意到上表右侧EventLoop<u>构造函数</u>：</p>
+<blockquote>
+<p><strong>eventfd是linux的一个系统调用</strong>，为事件通知创建文件描述符，eventfd()创建一个“eventfd对象”，这个对象能被用户空间应用用作一个<strong>事件等待/响应机制</strong>，靠内核去响应用户空间应用事。</p>
+</blockquote>
+<ol>
+<li>
+<p><strong>首先，创建wakeFd &amp; wakeupChannel</strong>:</p>
+<p>不同于常规使用socket跨线程通信，muduo使用eventfd（事件驱动更快，8字节缓存区也更省）。wakeupChannel_随后对eventfd进行封装。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">wakeupFd_</span>(<span class="built_in">createEventfd</span>()) </span><br><span class="line"><span class="built_in">wakeupChannel_</span>(<span class="keyword">new</span> <span class="built_in">Channel</span>(<span class="keyword">this</span>, wakeupFd_))</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">createEventfd</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> evtfd = ::<span class="built_in">eventfd</span>(<span class="number">0</span>, EFD_NONBLOCK | EFD_CLOEXEC);</span><br><span class="line">    <span class="keyword">if</span> (evtfd &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">LOG_FATAL</span>(<span class="string">&quot;eventfd error:%d\n&quot;</span>, errno);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> evtfd;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>随后wakeupChannel_设置Read回调事件<code>EventLoop::handleRead</code></strong>：</p>
+<blockquote>
+<p>注意区分后面会提到的：<code>Acceptor::handleRead</code>函数。</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wakeupChannel_-&gt;<span class="built_in">setReadCallback</span>(</span><br><span class="line">        std::<span class="built_in">bind</span>(&amp;EventLoop::handleRead, <span class="keyword">this</span>)); </span><br></pre></td></tr></table></figure>
+<p>很简单，<code>EventLoop::handleRead(this)</code> 只是有写事件（Main-Reactor为了唤醒往<code>wakeupFd_</code> 写）时，读出数据，基本啥也没干。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EventLoop::handleRead</span><span class="params">()</span> <span class="comment">// 删除read判错逻辑</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">uint64_t</span> one = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">ssize_t</span> n = <span class="built_in">read</span>(wakeupFd_, &amp;one, <span class="built_in"><span class="keyword">sizeof</span></span>(one));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>Sub-Reactor（EventLopp）注册wakeFd事件开始监听</strong>：</p>
+<p><code>Channel::enableReading()</code> 核心逻辑是，注册fd事件到当前调用Channel所绑定的EventLoop的epoll上。</p>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230302153343007.png" alt="image-20230302153343007"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wakeupChannel_-&gt;<span class="built_in">enableReading</span>();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这样Main-Reactor需要唤醒Sub-Reactor时：</p>
+<ol>
+<li>
+<p>将新连接建立的回调事件（<em><strong>TcpConnection::connectEstablished</strong></em>,），压入Sub-Reactor的<u>回调队列</u> ；</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*in TcpServer.cc*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TcpServer::newConnection</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> InetAddress &amp;peerAddr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// .... 省略</span></span><br><span class="line">  ioLoop-&gt;EventLoop::<span class="built_in">runInLoop</span></span><br><span class="line">  (std::<span class="built_in">bind</span>(&amp;TcpConnection::connectEstablished, conn));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>只需简单<code>wakeup()</code> , Sub-Reactor便不再阻塞在epoll；</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用来唤醒loop所在线程 向wakeupFd_写一个数据 wakeupChannel就发生读事件 当前loop线程就会被唤醒</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EventLoop::wakeup</span><span class="params">()</span><span class="comment">// 删除write判错逻辑</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">uint64_t</span> one = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">ssize_t</span> n = <span class="built_in">write</span>(wakeupFd_, &amp;one, <span class="built_in"><span class="keyword">sizeof</span></span>(one));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>随后Sub-Reactor被唤醒，遍历处理队列中的回调事件。</p>
+</li>
+</ol>
+<p><strong><code>TcpConnection::connectEstablished</code> 做了什么</strong>？</p>
+<p>不难分析中，当新连接到来时，我们至少需要它可以完成以下工作：</p>
+<ul>
+<li>我们需要新连接的clientfd注册到Sub-Reactor，进行后续监听；</li>
+<li>我们需要执行用户自定义的连接回调；</li>
+<li>…</li>
+</ul>
+<p>其实现便呼吁而出：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 连接建立</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TcpConnection::connectEstablished</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">setState</span>(kConnected);</span><br><span class="line">    <span class="comment">// 1.解决TcpConnection对象已经不存在了，还能感知到Poller的通知并调用Channel的回调方法的问题</span></span><br><span class="line">    <span class="comment">// shared_from_this()==指向对象this指针的有效shared_ptr</span></span><br><span class="line">    channel_-&gt;<span class="built_in">tie</span>(<span class="built_in">shared_from_this</span>());</span><br><span class="line">    <span class="comment">// 2.向poller注册channel的EPOLLIN读事件</span></span><br><span class="line">    channel_-&gt;<span class="built_in">enableReading</span>(); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3.新连接建立：执行用户自定义的回调</span></span><br><span class="line">    <span class="comment">// TcpConnection::connectionCallback==EchoServer::onConnection</span></span><br><span class="line">    <span class="built_in">connectionCallback_</span>(<span class="built_in">shared_from_this</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但这里出现了一个奇怪的东西：<strong><code>tie</code> 这是什么？</strong></p>
+<p>简单来说，<code>tie</code>避免了这么一种情况：</p>
+<ul>
+<li>Channel所属的TcpConnection对象（简称<code>T</code>）已经不存在，但Channel还在处理clientfd回调事件&amp;调用Channel的回调方法；</li>
+<li>而且Channel回调方法里又往往调用了<code>T</code>的方法成员，如<code>send()</code>等处理数据收发；</li>
+<li>最后，调用不存在的对象<code>T</code>导致程序崩溃。</li>
+</ul>
+<p>在后面的<u>EventLoop::loop()</u>介绍中，我们还会详细解释分析<code>tie</code>调用流程。</p>
+<h5 id="析构函数">析构函数</h5>
+<p>EventLoop析构函数负责：</p>
+<ul>
+<li>①epoll上移除wakeupChannel_相关事件；</li>
+<li>②移除从epoll上把wakeupChannel_所管理的fd；</li>
+<li>③调用系统函数关闭fd。</li>
+</ul>
+<h5 id="loop-函数">loop() 函数</h5>
+<p><code>loop() </code> 函数用来开启事件循环，说人话便是：</p>
+<ol>
+<li>启动底层epoll_wait监听感兴趣事件 ；</li>
+<li>感兴趣事件处理，如：①for循环处理可读、可写、错误等事件；②doPendingFunctors函数处理回调队列中的事件。</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 开启事件循环</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EventLoop::loop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    looping_ = <span class="literal">true</span>;</span><br><span class="line">    quit_ = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">LOG_INFO</span>(<span class="string">&quot;EventLoop %p start looping\n&quot;</span>, <span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!quit_)</span><br><span class="line">    &#123;</span><br><span class="line">        activeChannels_.<span class="built_in">clear</span>();</span><br><span class="line">        <span class="comment">// 1. 底层实际还是调用epoll_wait监听</span></span><br><span class="line">        pollRetureTime_ = poller_-&gt;<span class="built_in">poll</span>(kPollTimeMs, &amp;activeChannels_);</span><br><span class="line">        <span class="comment">// 2. 处理事件1：遍历处理响应的EPOLLIN、EPOLLOUT等事件</span></span><br><span class="line">        <span class="keyword">for</span> (Channel *channel : activeChannels_)</span><br><span class="line">        &#123;    </span><br><span class="line">            channel-&gt;<span class="built_in">handleEvent</span>(pollRetureTime_);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 3. 处理事件2：遍历执行回调队列中的回调事件（函数）</span></span><br><span class="line">        <span class="comment">// 如前述提到的，新连接到来，Main-Reactor将回调事件</span></span><br><span class="line">        <span class="comment">// TcpConnection::connectEstablished加入Sub-Reactor的回调队列</span></span><br><span class="line">        <span class="built_in">doPendingFunctors</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">LOG_INFO</span>(<span class="string">&quot;EventLoop %p stop looping.\n&quot;</span>, <span class="keyword">this</span>);</span><br><span class="line">    looping_ = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个函数有两个地方值得注意：</p>
+<ol>
+<li><code>Channel::handleEvent</code> 实现逻辑，特别是其中<code>tie</code>相关逻辑；</li>
+<li><code>EventLoop::doPendingFunctors()</code>实现逻辑，特别是其中的<u>线程同步加锁逻辑</u>。</li>
+</ol>
+<h6 id="Channel-handleEvent实现"><strong><code>Channel::handleEvent</code>实现</strong></h6>
+<p><code>Channel::handleEventWithGuard</code> 作用：当epoll返回可读、可写、错误等事件，去调用TcpConnetion类给Channel设置的回调函数进行处理。</p>
+<p>这里又出现了那个奇怪的<code>tie</code> ？</p>
+<table>
+<thead>
+<tr>
+<th>Channel::handleEvent</th>
+<th>Channel::handleEventWithGuard</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230302213126042.png" alt="image-20230302213126042"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com//image-20230302213317905.png" alt="image-20230302213317905"></td>
+</tr>
+</tbody>
+</table>
+<h6 id="tie深入理解"><code>tie</code>深入理解</h6>
+<p>前面简单提到：</p>
+<blockquote>
+<p><code>tie</code>避免了这么一种情况：</p>
+<ul>
+<li>Channel所属的TcpConnection对象（简称<code>T</code>）已经不存在，但Channel还在处理clientfd回调事件&amp;调用Channel的回调方法；</li>
+<li>而且Channel回调方法里又往往调用了<code>T</code>的方法成员，如<code>send()</code>等处理数据收发；</li>
+<li>最后，调用不存在的对象<code>T</code>导致程序崩溃。</li>
+</ul>
+</blockquote>
+<p>所以，我们需要<code>tie</code>：保证<strong>先让Channel回调函数先把数据发送完，再释放TcpConnection对象的资源</strong>。</p>
+<p>整个过程复盘如下：</p>
+<ol>
+<li>
+<p>如前提到，Main-Reactor需要唤醒Sub-Reactor时，首先会将新连接回调事件（<em><strong>TcpConnection::connectEstablished</strong></em>,），压入Sub-Reactor的<u>回调队列</u> ；</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*in TcpServer.cc*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TcpServer::newConnection</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> InetAddress &amp;peerAddr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// .... 省略</span></span><br><span class="line">  ioLoop-&gt;EventLoop::<span class="built_in">runInLoop</span></span><br><span class="line">  (std::<span class="built_in">bind</span>(&amp;TcpConnection::connectEstablished, conn));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*in TcpConnection.cc*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TcpConnection::connectEstablished</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">setState</span>(kConnected);</span><br><span class="line">    <span class="comment">// 1.解决TcpConnection对象已经不存在了，还能感知到Poller的通知并调用Channel的回调方法的问题</span></span><br><span class="line">    channel_-&gt;<span class="built_in">tie</span>(<span class="built_in">shared_from_this</span>());</span><br><span class="line">    <span class="comment">// 2.向poller注册channel的EPOLLIN读事件</span></span><br><span class="line">    channel_-&gt;<span class="built_in">enableReading</span>(); </span><br><span class="line">    <span class="comment">// 3.新连接建立：执行用户自定义的回调</span></span><br><span class="line">    <span class="comment">// TcpConnection::connectionCallback==EchoServer::onConnection</span></span><br><span class="line">    <span class="built_in">connectionCallback_</span>(<span class="built_in">shared_from_this</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时是在<code>TcpConnection</code>对象<code>T</code>中，<code>shared_from_this()</code> 返回的是shared_ptr指针指向<code>T</code>。</p>
+<p><code>Channel::tie</code>使用<strong>weak_ptr</strong> 即<code>tie_</code>绑定了<code>T</code> ：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">std::weak_ptr&lt;<span class="keyword">void</span>&gt; tie_; </span><br><span class="line"><span class="comment">/*****  Channel.cc   ******/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Channel::tie</span><span class="params">(<span class="keyword">const</span> shared_ptr&lt;<span class="keyword">void</span>&gt;&amp; obj)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    tie_ = obj;</span><br><span class="line">    tied_ = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>这样，如果epoll监听事件触发，执行<code>Channel::HandlerEvent</code> ：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(tied_)&#123;</span><br><span class="line">        shared_ptr&lt;<span class="keyword">void</span>&gt; guard = tie_.<span class="built_in">lock</span>();</span><br><span class="line">        <span class="keyword">if</span> (guard)</span><br><span class="line">            <span class="built_in">HandleEventWithGuard</span>(receiveTime);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>首先判断一下当前Channel是否生命绑定了一个TcpConnection对象（貌似是一定成立的？） ；</p>
+</li>
+<li>
+<p>然后重头戏，使用<code>tie_.lock()</code> 将<code>tie_</code>这个weak_ptr提升→shared_ptr ，该shared_ptr执行TcpConnection对象；</p>
+<blockquote>
+<p>参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38410730/article/details/105903979">here</a>：weak_ptr不改变shared_ptr实例的引用计数，可能存在weak_ptr指向的对象被释放掉这种情况，<strong>如何判断weak_ptr指向对象是否存在呢</strong>？C++中提供了lock<code>()</code>来实现该功能。</p>
+<p>如果对象存在，lock()函数返回一个指向共享对象的shared_ptr(引用计数会增1)，否则返回一个空shared_ptr。</p>
+</blockquote>
+</li>
+<li>
+<p>如果<code>guard</code> 不为null，则说明共享的TcpConnection对象还存在，可以放心地继续往下执行<code>Channel::handleEventWithGuard</code> ；否则不做处理。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>至此，<code>tie</code>的作用便已了然于胸：保证在Channel对象执行回调时，TcpConnection对象一定存在。</p>
+<h6 id="doPendingFunctors-：结合runInLoop-理解回调队列中的多线程同步">doPendingFunctors() ：结合runInLoop()理解回调队列中的多线程同步</h6>
+<p>如前提到，在事件循环loop()中，epoll被触发时，需执行两类事件：</p>
+<ol>
+<li>处理事件1：遍历处理响应的EPOLLIN、EPOLLOUT等事件，这类事件处理<u>基本是用户自定义业务回调函数</u>处理；</li>
+<li>处理事件2：遍历执行回调队列中的回调事件（函数），如框架中预定义的TcpConnection::shutdownInLoop、TcpConnection::connectEstablished() 等。</li>
+</ol>
+<p>第2类事件处理，便在doPendingFunctors()中实现。其中的多线程设计难点，要结合runInLoop()函数理解：</p>
+<table>
+<thead>
+<tr>
+<th>EventLoop::runInLoop()</th>
+<th>EventLoop::doPendingFunctors()</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230303163927004.png" alt="image-20230303163927004"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230303163516830.png" alt="image-20230303163516830"></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong>runInLoop(cb)函数功能：负责唤醒调用其所属EventLoop对象所在的线程，并执行回调事件cb</strong>。</p>
+<ul>
+<li>
+<p><strong>如果TA≠TB</strong>，触发新事件时，某个EventLoop对象EA（所属线程TA），唤醒（不再阻塞在epoll）&amp;调用另外某个EventLoop对象EB（所属线程TB）的函数<code>runInLoop(cb)</code>，将回调cb加入到回调队列<code>pendingFunctors_</code>；</p>
+<p>比如，新连接到来时，main loop（所属线程TA）调用sub loop（所属线程TB）<code>runInLoop(TcpConnection::connectEstablished)</code>。</p>
+</li>
+<li>
+<p><strong>如果TA=TB</strong>，则立即执行回调事件<code>cb()</code>，走到这里说明线程没有处理其它事（比如正在处理回调队列），因此直接执行即可。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>doPendingFunctors()函数功能</strong>：在某个EventLoop对象，例如为上述EB，处理回调队列<code>pendingFunctors_</code>中的函数 。</p>
+</li>
+</ul>
+<p><strong>当TA≠TB，存在两个多线程同步问题</strong>：</p>
+<ol>
+<li>
+<p><strong>线程TA，如何保证将回调事件注册EventLoop对象 EB上时，去唤醒TB执行？EB属于线程TB</strong>；</p>
+</li>
+<li>
+<p><strong>EventLoop对象EB所属线程TB已经被唤醒，且正在处理<code>pendingFunctors_</code> ；此时TA又要将新回调<code>cb</code>加入<code>pendingFunctors_</code> ，该如何用锁优雅处理<code>pendingFunctors_</code>的多线程竞争</strong>？</p>
+<ul>
+<li>不过这里有个疑问：<u>这里是典型1消费者N生产者模型，即有多个生产线程可能往<code>pendingFunctors_</code>加入cb回调，当前EventLoop对象所在线程消费执行cb回调。虽然<code>pendingFunctors_</code>会被多个线程改变状态，但是生产者线程之间各自加入自己回调不需要状态同步，各自加入回调即可；消费者遍历<code>pendingFunctors_</code>回调队列时，虽然队列状态不一定准确，比如判断已经遍历到队尾时但恰好又有新cb加入，等待下次再处理即可</u>？</li>
+</ul>
+<p>我猜测原因应该是<u>pendingFunctors_是Vector类型，而Vector是线程非安全的，所以其实还是需要状态同步</u>。</p>
+<ul>
+<li>例如，<strong>多个</strong>生产者线程之间向pendingFunctors_.emplace_back(cb)加入回调<u>其实是需要状态同步</u>的。因为pendingFunctors_是vector数组，vector数组插入非线程安全，且存在<u>自动扩容</u>机制。比如线程a插入触发扩容数组的内存重新分配，线程b又恰好插入，可能会引起意料之外的内存错误。</li>
+<li>又如，<strong>单个</strong>消费者线程消费cb，erase后虽然vector不会<u>自动缩容</u>，但是考虑线程安全还是加锁？<strong>高手看不透啊</strong>。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>对于问题1：<strong>线程TA，如何保证将回调事件注册EventLoop对象 EB上时，去唤醒TB执行</strong>？</p>
+</blockquote>
+<p>muduo给出的答案是：</p>
+<ol>
+<li>EventLoop对象只运行在一个Thread上，并在对象初始化时使用<code>threadId_</code>字段记录该Thread的pid；</li>
+<li>在注册回调时，通过<code>isInLoopThread()</code> 函数比较调用EB线程的pid 和 <code>threadId_</code>字段，如果一样则直接执行；</li>
+<li>如果不一样，调用EB的wakeup()，唤醒其属Thread TB即可。</li>
+</ol>
+<blockquote>
+<p>对于问题2：<strong>如何优雅用锁处理<code>pendingFunctors_</code>的多线程竞争</strong>？</p>
+</blockquote>
+<p>设置互斥锁<code>mutex_</code>来处理，暂时忘记muduo，下面看似更简单一点实现有什么问题？</p>
+<table>
+<thead>
+<tr>
+<th>EventLoop::queueInLoop() : 基本无改动</th>
+<th>EventLoop::doPendingFunctors()：第一次实现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230303203552875.png" alt="image-20230303203552875"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230303211319508.png" alt="image-20230303211319508"></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong>锁范围增大，性能降低</strong>：只有等回调队列函数全部执行完才释放锁，在此期间<u>queueInLoop将不可用</u>；</p>
+</li>
+<li>
+<p><strong>死锁风险</strong>：<code>doPendingFunctors</code>拿到锁—&gt;<code>queueInLoop</code>等待<code>doPendingFunctors</code>释放锁—&gt; <code>doPendingFunctors</code>执行的回调恰好也要执行<code>queueInLoop</code> —&gt; <code>doPendingFunctors</code>等待<code>queueInLoop</code>执行 —&gt;死锁。</p>
+</li>
+</ul>
+<p>聪明的你想到：如<strong>前述，我们加锁主要是考虑Vector类型回调队列多线程操作（插入、删除等）安全；但消费线程（EventLoop对象）执行<code>cb()</code>时，里面的回调函数完全是可以独立执行的。如果将队列中回调函数放到临时队列，遍历临时队列执行回调就可以释放锁了（队列相关操作完成）。不但缩小锁范围了，同时还避免了死锁</strong>！</p>
+<p>因此，我们写出第2版代码：</p>
+<table>
+<thead>
+<tr>
+<th>EventLoop::queueInLoop() : 基本无改动</th>
+<th>EventLoop::doPendingFunctors()：修改锁范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230303203552875.png" alt="image-20230303203552875"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230303220711006.png" alt="image-20230303220711006"></td>
+</tr>
+</tbody>
+</table>
+<p>不过我们依旧可以做一个小改进：</p>
+<ul>
+<li>使用callingPendingFunctors_记录（右栏）EventLoop对象所在线程T<u>是否已经遍历执行完</u>回调队列中的函数；</li>
+<li>如果EventLoop对象所在线程在执行回调，新回调cb加入<u>应该要随着队列中的回调一起执行完</u>（属于时间段的事件），这样当<code>callingPendingFunctors_=true</code>，唤醒EventLoop对象所在线程， 让执行完<code>doPendingFunctors</code>进入到下一次<code>poller_-&gt;poll()</code>也不阻塞，会再依次执行<code>doPendingFunctors</code>处理新cb。</li>
+</ul>
+<p>最后muduo代码实现为：</p>
+<blockquote>
+<p>这里还有个小疑问：</p>
+<ul>
+<li>为什么这个callingPendingFunctors_变量没有用原子？外面有线程会来读这个变量，内部本身的io线程会修改这个变量，感觉需要保证这个变量的原子性？</li>
+</ul>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>EventLoop::queueInLoop()</th>
+<th>EventLoop::doPendingFunctors()：增加执行状态字段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230303224111361.png" alt="image-20230303224111361"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230303224204945.png" alt="image-20230303224204945"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="EventLoopThread类">EventLoopThread类</h4>
+<p>都说EventLoop是<code>one loop per thread</code>，其秘密便藏在EventLoopThread类中。</p>
+<p><strong>先来看看EventLoopThread类主要职能</strong>：</p>
+<ol>
+<li>负责管理<strong>一个</strong>线程；</li>
+<li><strong>一个</strong>线程对应创建<strong>一个</strong>EventLoop对象，且调用<code>EventLoop::loop()</code>。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>EventLoopThread类成员</th>
+<th>EventLoopThread类构造&amp;析构函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230306152734033.png" alt="image-20230306152734033"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230306150450754.png" alt="image-20230306150450754"></td>
+</tr>
+</tbody>
+</table>
+<p>EventLoopThread函数很少，我们重点关注：构造&amp;析构函数、<code>startLoop()</code>、<code>threadFunc()</code> 函数。</p>
+<h5 id="构造函数-析构函数">构造函数 &amp; 析构函数</h5>
+<ul>
+<li>
+<p>构造函数：可以看到，<code>thread_</code>绑定了<code>EventLoopThread::threadFunc</code>  函数；</p>
+</li>
+<li>
+<p><strong>析构函数</strong>：如果<code>loop_</code>不为null，说明线程绑定的EventLoopThread对象<code>loop_</code>还未析构，线程<code>thread_</code>也未退出：</p>
+<ol>
+<li>
+<p>首先退出事件循环，loop_-&gt;quit()</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">EventLoop::quit</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 设置quit_=true使得loop()函数：while(!quit_)&#123; epoll_wait()..&#125; ，退出事件while循环</span></span><br><span class="line">    quit_ = <span class="literal">true</span>;</span><br><span class="line">    <span class="comment">// 但是还可能出现：在其它EventLoop对象中，调用了当前EventLoop对象quit()</span></span><br><span class="line">    <span class="comment">// 比如：在subloop(worker)中调用mainloop(IO)的quit时，需要唤醒mainloop(IO)执行完loop()函数。</span></span><br><span class="line">    <span class="comment">// p.s. 不太理解这种情况，而且搜了全量代码，也只有在析构才会调用quit()？</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">isInLoopThread</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">wakeup</span>(); <span class="comment">// 当前EventLoop对象被唤醒，由于quit_ = true当前对象loop退出。</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>线程退出：thread_.join()</p>
+<p>保证线程执行完，然后退出。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h5 id="startLoop-threadFunc">startLoop() &amp; threadFunc()</h5>
+<p>startLoop()用来创建sub loop并启动事件循环loop()。</p>
+<p>startLoop()比较难理解的是其<u>锁逻辑</u>，这里首先需要明白：<strong>为什么loop_要上锁</strong>？</p>
+<ol>
+<li>在main线程中（主逻辑）启动线程池TcpServer::start()函数时，<strong>线程池EventThreadPool会创建N个EventLoopThread对象</strong>；所以，EventLoopThread::startLoop()是在<u>main线程中</u>被调用的，<strong>但main线程不负责具体的 sub loop（loop_）创建，会wait其它线程将sub loop创建完成</strong>。</li>
+<li>EventLoopThread::startLoop()还会启动<u>一个io线程</u>（绑定了<code>threadFunc</code>函数），<strong>io线程会执行<code>threadFunc</code>去创建sub loop（loop_），通知main线程</strong>。</li>
+</ol>
+<p>可知，<code>loop_</code>对上述两个线程都是可见的，需要上锁。</p>
+<table>
+<thead>
+<tr>
+<th>startLoop()</th>
+<th>threadFunc()</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230306165147863.png" alt="image-20230306165147863"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230306164520082.png" alt="image-20230306164520082"></td>
+</tr>
+</tbody>
+</table>
+<p>给<code>loop_</code> 上锁代码，是经典的：条件变量+while{wait}+notify逻辑：</p>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230306173226883.png" alt="image-20230306173226883"></p>
+<ul>
+<li>main线程，while循环+条件变量等待解锁；</li>
+<li>io 线程，创建完成EventLoop对象后，使用notify唤醒main线程；</li>
+<li>main线程返回创建好的EventLoop对象。</li>
+</ul>
+<h4 id="TcpConnection类">TcpConnection类</h4>
+<p>如前所述，TcpConnection类职能如下：</p>
+<blockquote>
+<p>…</p>
+<ol start="3">
+<li>Sub-Reactor 向其底层封装的epoll注册clientfd ；</li>
+<li>同时，对于每个新连接，其实是通过分配一个TcpConnection类对象处理：
+<ol>
+<li>
+<p><strong>new一个Channle对象封装clientfd</strong>，并<strong>向Channle注册回调事件</strong>（可读、可写、可关闭、错误处理）；</p>
+</li>
+<li>
+<p>封装底层InputBuffer和OutputBuffer，用来进行<strong>数据收发</strong>。</p>
+</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<p>不难发现，<strong>TcpConnection用于sub loop中处理新连接，对connfd封装以及数据收发</strong>。</p>
+<ul>
+<li>注，TcpConnection类析构函数为空，因此这里省略。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>TcpConnection类</th>
+<th>TcpConnection类构造函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230310205447731.png" alt="image-20230310205447731"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230302172836862.png" alt="image-20230302172836862"></td>
+</tr>
+</tbody>
+</table>
+<h5 id="TcpConnection对象上游调用链">TcpConnection对象上游调用链</h5>
+<p>在前面我们说过：对于每个新连接，Accpetor分配新连接给sub loop时，会创建一个新TcpConnection对象。</p>
+<p>那么在muduo代码中，<strong>TcpConnection对象生成的<u>具体</u>时机（调用链</strong>）？</p>
+<ul>
+<li>
+<p><strong>生成时机</strong>：main loop 有新连接 —&gt;<code>Acceptor::handleRead</code> （Acceptor初始化时注册该回调）—&gt; <code>TcpServer::newConnection</code>：</p>
+</li>
+<li>
+<p><strong>核心代码示例</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. accepChannel_上listenfd可读（epoll返回）--&gt;执行readCallback_--&gt;即Acceptor::handleRead()</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 2. Acceptor::handleRead()处理新连接</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Acceptor::handleRead</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    InetAddress peerAddr;</span><br><span class="line">    <span class="comment">// 调用accpet4返回client_fd（connfd)&amp;相应地址(peerAddr)</span></span><br><span class="line">    <span class="keyword">int</span> connfd = acceptSocket_.<span class="built_in">accept</span>(&amp;peerAddr);</span><br><span class="line">    <span class="keyword">if</span> (connfd &gt;= <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (NewConnectionCallback_)</span><br><span class="line">       			<span class="comment">// 绑定为：TcpServer::newConnection</span></span><br><span class="line">            <span class="built_in">NewConnectionCallback_</span>(connfd, peerAddr); </span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            ::<span class="built_in">close</span>(connfd);</span><br><span class="line">    &#125;</span><br><span class="line">  ... </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 3. TcpServer::newConnection：轮询找到subLoop 唤醒并分发当前的新客户端的Channel</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TcpServer::newConnection</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> InetAddress &amp;peerAddr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 3.1 轮询算法 选择一个subLoop 来管理connfd对应的channel</span></span><br><span class="line">    EventLoop *ioLoop = threadPool_-&gt;<span class="built_in">getNextLoop</span>();</span><br><span class="line">    ...</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 3.2 创建TcpConnection对象！</span></span><br><span class="line">    <span class="function">TcpConnectionPtr <span class="title">conn</span><span class="params">(<span class="keyword">new</span> TcpConnection(ioLoop,</span></span></span><br><span class="line"><span class="params"><span class="function">                                            connName,</span></span></span><br><span class="line"><span class="params"><span class="function">                                            sockfd,</span></span></span><br><span class="line"><span class="params"><span class="function">                                            localAddr,</span></span></span><br><span class="line"><span class="params"><span class="function">                                            peerAddr))</span></span>;</span><br><span class="line">    connections_[connName] = conn;</span><br><span class="line">    <span class="comment">// 3.3 TcpServer 设置回调给=&gt; TcpConnection的</span></span><br><span class="line">    conn-&gt;<span class="built_in">setConnectionCallback</span>(connectionCallback_);</span><br><span class="line">    conn-&gt;<span class="built_in">setMessageCallback</span>(messageCallback_);</span><br><span class="line">    conn-&gt;<span class="built_in">setWriteCompleteCallback</span>(writeCompleteCallback_);</span><br><span class="line">    conn-&gt;<span class="built_in">setCloseCallback</span>(std::<span class="built_in">bind</span>(&amp;TcpServer::removeConnection, <span class="keyword">this</span>, std::placeholders::_1));</span><br><span class="line">		<span class="comment">// 3.4 io loop（sub loop）执行回调connectEstablished</span></span><br><span class="line">    ioLoop-&gt;<span class="built_in">runInLoop</span>(</span><br><span class="line">        std::<span class="built_in">bind</span>(&amp;TcpConnection::connectEstablished, conn));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="构造函数：muduo中的回调注册链">构造函数：muduo中的回调注册链</h5>
+<p>注意到，<code>TcpConnection</code>在构造函数体内还给其绑定的<code>channel_</code>注册了四个<u>读</u>、<u>写</u>、<u>关闭</u>、<u>错误</u>回调。那handleRead、handleWrite、handleClose、handleError又是什么时候被注册？</p>
+<p>一图看明白muduo中<u>Channel类关键回调注册链</u>：</p>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230310233710151.png" alt="image-20230310233710151"></p>
+<p><code>TcpServer</code> 还没正式介绍过，其<strong>主要封装了Accpetor &amp; EventThreadPool ，是提供给用户的接口类</strong>。如:</p>
+<ul>
+<li>启动服务器<code>start()</code> 方法，启动线程池&amp;创建线程&amp;main loop开启事件循环；</li>
+<li>上述给用户注册自定义回调的<code>TcpServer::setConnectionCallback</code> 、<code>TcpServer::setMessageCallback</code> 等方法。</li>
+</ul>
+<h5 id="谈谈数据收发">谈谈数据收发</h5>
+<p>前面提到TcpConnection第二个职能：封装底层<code>InputBuffer</code>和<code>OutputBuffer</code>，用来进行<strong>数据收发</strong>。</p>
+<p>所谓<code>InputBuffer</code>和<code>OutputBuffer</code>都是<code>Buff</code>类对象：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数据缓冲区</span></span><br><span class="line">Buffer inputBuffer_;    <span class="comment">// 接收数据的缓冲区</span></span><br><span class="line">Buffer outputBuffer_;   <span class="comment">// 发送数据的缓冲区，用户向outputBuffer_发</span></span><br></pre></td></tr></table></figure>
+<p>下一节我们进行具体介绍。</p>
+<h4 id="Buff类">Buff类</h4>
+<p>Buffer类封装了一个vector数组，以及向这个缓冲区数组读、写数据等一系列控制方法。</p>
+<h5 id="Buff类底层数据结构">Buff类底层数据结构</h5>
+<p>Buff类底层数据结构是个vector数组<code>buffer_</code>，结合两个读<code>writerIndex_</code>、写<code>readerIndex_</code>索引：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;<span class="keyword">char</span>&gt; buffer_;</span><br><span class="line"><span class="keyword">size_t</span> readerIndex_; <span class="comment">// 数据开始读起始位置</span></span><br><span class="line"><span class="keyword">size_t</span> writerIndex_; <span class="comment">// 数据开始写起始位置</span></span><br></pre></td></tr></table></figure>
+<h5 id="Buff类关键函数">Buff类关键函数</h5>
+<p>关键函数：</p>
+<ul>
+<li><code>append(const char* data, size_t len)</code>，将data数据添加到缓冲区中；</li>
+<li><code>retrieveAllString()</code>，获取缓冲区所有数据，并以string返回；</li>
+<li><code>ensureWritableByts(size_t len)</code>，当你打算向缓冲区写入长度为len的数据之前，先调用这个函数，这个函数会检查你的缓冲区可写空间能不能装下长度为len的数据，如果不能，<strong>就动态扩容</strong>。</li>
+</ul>
+<p>下面两个方法主要是封装了调用了上面几个方法：</p>
+<ul>
+<li><code>ssize_t Buffer::readFd(int fd, int* saveErrno)</code>：客户端发来数据，readFd从该TCP接收缓冲区中将数据读出来==&gt;Buffer中；操作过程参考上图。</li>
+<li><code>ssize_t Buffer::writeFd(int fd, int* saveErrno)</code>：服务端要向这条TCP连接发送数据，通过该方法将Buffer中的数据拷贝==&gt;到TCP发送缓冲区outputBuffer_中；操作过程参考上图。</li>
+</ul>
+<p>Buff类这里浅浅提下，其核心设计精髓要结合<code>TcpConnection::send</code> &amp; <code>TcpConnection::handRead</code> 一起理解。在2.3、2.4复盘有详细分析。</p>
+<h4 id="Channel类">Channel类</h4>
+<p>Channel类主要是对描述符<code>fd</code>和感兴趣的事件<code>events</code>封装，一个Channel只属于一个EventLoop。</p>
+<blockquote>
+<p><strong>为啥Channel_类析构函数为空？似乎将所封装的fd移除注册的事件 &amp; 移除channelMap比较好</strong>？</p>
+<p>这部分代码放到EventLoop 和 Accpetor析构函数，可能是因为：①一个Channel属于一个EventLoop；②Channel的析构动作由其所属的Reactor负责比较好？保证先析构Channel？</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Channel类成员</th>
+<th>Channel类构造函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/classChannel__inherit__graph.png" alt="classChannel__inherit__graph"></td>
+<td><img src="https:/blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230307151436660.png" alt="image-20230307151436660"></td>
+</tr>
+</tbody>
+</table>
+<p>理解Channel类，关键在于理解：</p>
+<ol>
+<li>Channel类回调函数是如何被注册的？什么时候执行？第1个问题再TcpConnection类中已介绍。</li>
+<li><code>tie_</code> &amp; <code>tied</code> 字段作用？第2个问题在EventLoop类中也已介绍。</li>
+</ol>
+<p>因此，这里不再赘述。</p>
+<h3 id="1-3-2-Main-Reactor：Acceptor、EventThreadPool">1.3.2 Main Reactor：Acceptor、EventThreadPool</h3>
+<h4 id="Acceptor类">Acceptor类</h4>
+<p>在前面，我们已大致清楚Acceptor职能：</p>
+<ol>
+<li>封装listenfd：初始化时会创建<code>acceptChannel_</code>封装listenfd；</li>
+<li>处理&amp;分配新连接：通过<code>acceptChannel_</code>的<u>读</u>回调（具体是<code>Acceptor::handleRead</code>函数）。</li>
+</ol>
+<p>显然，Acceptor最重要的就是<code>Acceptor::handleRead</code> 方法。</p>
+<h5 id="构造函数和析构函数">构造函数和析构函数</h5>
+<table>
+<thead>
+<tr>
+<th>Acceptor类成员</th>
+<th>Acceptor类构造&amp;析构函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230307115631615.png" alt="image-20230307115631615"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230307120146153.png" alt="image-20230307120146153"></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong>构造函数</strong></p>
+<p>主要就做了两件事：</p>
+<ol>
+<li>创建listenfd–&gt;bind() --&gt; acceptChannel封装listenfd；</li>
+<li><strong>设置了acceptChannel的<u>读</u>回调 <code>Acceptor::handleRead</code></strong>  。</li>
+</ol>
+</li>
+<li>
+<p><strong>析构函数</strong></p>
+<p>类似Sub-Reactor（sub loop）会将其绑定的<code>wakeupChannel_</code>：</p>
+<ol>
+<li>感兴趣的事件移除；</li>
+<li>从chanenlMap上移除。</li>
+</ol>
+<p>Accpetor其绑定的<code>acceptChanne_</code>也做了上述处理。</p>
+</li>
+</ul>
+<h5 id="Acceptor-handleRead-函数"><code>Acceptor::handleRead</code>  函数</h5>
+<p><code>handleRead</code>进行处理&amp;分配新连接，具体来说：</p>
+<table>
+<thead>
+<tr>
+<th>Acceptor::handleRead</th>
+<th>TcpServer::newConnection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230307154319197.png" alt="image-20230307154319197"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230307154740008.png" alt="image-20230307154740008"></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p>接受新连接；</p>
+</li>
+<li>
+<p>轮询算法选择一个sub loop；</p>
+</li>
+<li>
+<p>new TcpConnection对象绑定该sub loop；</p>
+</li>
+<li>
+<p>设置TcpConnection的连接、读、写、关闭回调；</p>
+</li>
+<li>
+<p>sub loop执行<u><em><strong>connectEstablished</strong></em></u>回调：①设置<code>tie</code> （深入理解可以参考）②<code>acceptChanne_</code>绑定的listenfd开始listen() ③执行用户自定义连接回调。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TcpConnection::connectEstablished</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">setState</span>(kConnected);</span><br><span class="line">    <span class="comment">// 1.防止当channel被手动remove掉 channel还在执行回调操作</span></span><br><span class="line">    <span class="comment">// shared_from_this()==指向对象this指针的有效shared_ptr</span></span><br><span class="line">    channel_-&gt;<span class="built_in">tie</span>(<span class="built_in">shared_from_this</span>());</span><br><span class="line">    <span class="comment">// 2.向poller注册channel的EPOLLIN读事件</span></span><br><span class="line">    channel_-&gt;<span class="built_in">enableReading</span>(); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3.新连接建立：执行用户自定义的回调</span></span><br><span class="line">    <span class="comment">// TcpConnection::connectionCallback==EchoServer::onConnection</span></span><br><span class="line">    <span class="built_in">connectionCallback_</span>(<span class="built_in">shared_from_this</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>至此，Accpetor核心功能便已经分析完成。</p>
+<h4 id="EventThreadPool类">EventThreadPool类</h4>
+<p>在前面EventThread类介绍中，我们曾简单提过EventThreadPool的职能：</p>
+<blockquote>
+<p>线程池EventThreadPool会创建N个EventLoopThread对象 。</p>
+</blockquote>
+<p>更具体点，EventThreadPool类：</p>
+<ol>
+<li>负责在<code>构造函数</code>，初始化main loop、线程数等字段；</li>
+<li>负责在<code>start()</code>函数，创建N个EventLoopThread对象==&gt;N个EventLoopThread对象对应<u>启动</u>N个<code>thread_</code>==&gt;N个<code>thread_</code>创建对应创建N个EventLoop对象并开启事件循环loop()；</li>
+<li>负责在<code>getNextLoop()</code>实现sub loop的分发（具体调用是在Accpetor）；</li>
+<li>…</li>
+</ol>
+<p>需要重点关注的便是 <code>start()</code>创建线程池对象逻辑 。</p>
+<h5 id="构造函数-析构函数-2">构造函数&amp;析构函数</h5>
+<table>
+<thead>
+<tr>
+<th>EventLoopThreadPool类成员</th>
+<th>EventLoopThreadPool类构造&amp;析构函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230306152031494.png" alt="image-20230306152031494"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230307161953501.png" alt="image-20230307161953501"></td>
+</tr>
+</tbody>
+</table>
+<h5 id="start-函数"><code>start()</code> 函数</h5>
+<p>主要流程：</p>
+<ol>
+<li>循环创建N个EventLoopThread对象，保存在<code>threads_</code>，对于这N个对象；</li>
+<li>每个EventLoopThread对象执行<code>startLoop()</code>，并启动底层的<code>thread_</code>线程；</li>
+<li><code>thread_</code>线程， <strong>创建EventLoop对象并启动loop()事件循环</strong> 。</li>
+</ol>
+<p>可见，每个EventLoopThread对象（底层是<code>thread_</code>线程）都会创建一个EventLoop对象。也即是<code> one loop per thread</code>的秘密所在。</p>
+<blockquote>
+<p><code>startLoop()</code>&amp;<code>threadFunc()</code>，在EventLoopThread已详细分析，这里不再赘述。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>EventThreadPool::start()&amp;startLoop()</th>
+<th>EventLoopThread::threadFunc()</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230307171136801.png" alt="image-20230307171136801"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230306165147863.png" alt="image-20230306165147863"></td>
+</tr>
+<tr>
+<td></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230306164520082.png" alt="image-20230306164520082"></td>
+</tr>
+</tbody>
+</table>
+<p>Muduo的“各个”核心类至此便介绍完成，我们再来“整体”串联整个muduo代码。</p>
+<h1>二、 从三个半事件处理再看Muduo</h1>
+<p>muduo作者chengshuo说过，TCP网络编程最本质的是处理三个半事件：</p>
+<ol>
+<li><strong>连接建立</strong>：包括服务器端被动接受连接（accept）和客户端主动发起连接（connect），TCP连接一旦建立，客户端和服务端就是平等的，可以各自收发数据；</li>
+<li><strong>消息到达</strong>：即文件描述符可读，这是最为重要的一个事件，对它的处理方式决定了网络编程的风格（阻塞还是非阻塞，如何处理分包，应用层的缓冲如何设计等等）；</li>
+<li><strong>消息发送完毕（半个</strong>）：对于低流量的服务，可不必关心这个事件；另外，这里的“发送完毕”是指数据写入操作系统缓冲区（内核缓冲区），将由TCP协议栈负责数据的发送与重传，<u>不代表对方已经接收到数据</u>；</li>
+<li><strong>连接断开</strong>：包括主动断开（close、shutdown）和被动断开（read()返回0）。</li>
+</ol>
+<p>结合muduo代码，我们来深刻的全面理解。</p>
+<h2 id="2-1-连接建立">2.1 连接建立</h2>
+<h3 id="2-1-1-问题引入">2.1.1 问题引入</h3>
+<p><strong>对于Muduo这么一个基于Multi-Reator模型的网络库，连接的建立（或者说创建一个服务器）是如何完成的</strong>？</p>
+<p>在前面tcpserver.cc示例，其实已经做了非常好的示例。但这仅仅是业务层面的调用，底层又是如何完成的？</p>
+<p>其实前面的核心类分析，基本已经揭晓了答案。现在我们将各个“子图块”完整“拼接”起来。</p>
+<h3 id="2-2-2-从“复读机服务器”再看连接建立">2.2.2 从“复读机服务器”再看连接建立</h3>
+<h4 id="EchoServer-TcpServer作用">EchoServer&amp;TcpServer作用</h4>
+<p>EchoServer&amp;TcpServer在tcpserver.cc被使用，这里先简单介绍：</p>
+<ul>
+<li>
+<p><strong>EchoServer</strong>，是用户自定义的类，主要是<strong>封装了TcpServer对象<code>server_</code> &amp; 自定义连接、可读事件回调</strong>；</p>
+</li>
+<li>
+<p><strong>TcpServer</strong>，如前介绍，它主要<strong>封装了Accpetor &amp; EventThreadPool ，是提供给用户的接口类</strong>。如:</p>
+<ul>
+<li>启动服务器<code>start()</code> 方法，启动线程池&amp;创建线程&amp;main loop开启事件循环；</li>
+<li>上述给用户注册自定义回调的<code>TcpServer::setConnectionCallback</code> 、<code>TcpServer::setMessageCallback</code> 等方法。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>TcpServer类成员</th>
+<th>TcpServer构造函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230307191431104.png" alt="image-20230307191431104"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230307191524707.png" alt="image-20230307191524707"></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<h4 id="连接建立流程">连接建立流程</h4>
+<p>回忆一下tcpserver.cc主要逻辑：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EchoServer</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">   <span class="comment">// ...省略</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 1.用户自定义的loop作为main loop</span></span><br><span class="line">    EventLoop loop;</span><br><span class="line">    <span class="comment">// 2. 对socket编程中的sockaddr_in进行封装</span></span><br><span class="line">    <span class="function">InetAddress <span class="title">addr</span><span class="params">(<span class="number">8002</span>)</span></span>;</span><br><span class="line">    <span class="comment">// 3.EchoServer初始化</span></span><br><span class="line">    <span class="function">EchoServer <span class="title">server</span><span class="params">(&amp;loop, addr, <span class="string">&quot;EchoServer&quot;</span>)</span></span>;</span><br><span class="line">    <span class="comment">// 4.启动服务器server</span></span><br><span class="line">    server.<span class="built_in">start</span>();</span><br><span class="line">    <span class="comment">// 5.开启main loop事件循环：epoll_wait等待listenfd的accpet连接事件</span></span><br><span class="line">    loop.<span class="built_in">loop</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>
+<p><strong>用户自定义main loop</strong>，用于和后面Accpetor对象绑定；</p>
+</li>
+<li>
+<p><strong>封装要监听的ip&amp;port</strong>，使用InetAddress封装；</p>
+</li>
+<li>
+<p><strong>EchoServer初始化</strong>，主要完成：</p>
+<ul>
+<li>
+<p>loop_字段绑定前面创建的main loop；</p>
+</li>
+<li>
+<p><strong>TcpServer对象server_初始化</strong>，参考上图TcpServer构造函数：</p>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230307193308123.png" alt="image-20230307193308123"></p>
+<ul>
+<li>loop_字段EchoServer传过来的main loop；</li>
+<li><strong>Acceptor对象accpetor_初始化</strong>；</li>
+<li><strong>EventThreadPool对象threadpoll_初始化</strong>；</li>
+<li><strong>设置accpetor_新连接时的回调函数（即<code>TcpServer::newConnnection</code>，是<code>Accepetor::handleRead</code>函数核心逻辑</strong>）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>启动服务器server</strong>，真正调用的是<code>TcpServer::start()</code> 函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TcpServer::start</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (started_++ == <span class="number">0</span>)    <span class="comment">// 防止一个TcpServer对象被start多次</span></span><br><span class="line">    &#123;</span><br><span class="line">        threadPool_-&gt;<span class="built_in">start</span>(threadInitCallback_);    <span class="comment">// 启动底层的loop线程池</span></span><br><span class="line">        <span class="comment">// main_loop 执行Acceptor::listen</span></span><br><span class="line">        loop_-&gt;<span class="built_in">runInLoop</span>(std::<span class="built_in">bind</span>(&amp;Acceptor::listen, acceptor_.<span class="built_in">get</span>()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p><strong>线程池启动</strong>，即前所述的EventThreadPool::start()函数 ：</p>
+<ol>
+<li>循环创建N个EventLoopThread对象，保存在<code>threads_</code>，对于这N个对象：</li>
+<li>每个EventLoopThread对象执行startLoop()，并启动底层的<code>thread_</code>线程；</li>
+<li><code>thread_</code>线程， <strong>创建sub loop并启动loop()事件循环，监听clientfd的io事件</strong> 。</li>
+</ol>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230307194100456.png" alt="image-20230307194100456"></p>
+</li>
+<li>
+<p><strong>main loop的listenfd开始<code>listen() </code>&amp; 注册到epoll</strong>，listenfd开启listen() ，并在<em>enableReading()</em> 函数中将listenfd的io事件注册到epoll。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loop_-&gt;<span class="built_in">runInLoop</span>(std::<span class="built_in">bind</span>(&amp;Acceptor::listen, acceptor_.<span class="built_in">get</span>()));</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Acceptor::listen</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    listenning_ = <span class="literal">true</span>;</span><br><span class="line">    acceptSocket_.<span class="built_in">listen</span>();         <span class="comment">// listen</span></span><br><span class="line">    acceptChannel_.<span class="built_in">enableReading</span>(); <span class="comment">// acceptChannel_绑定fd并注册至mian loop的底层epoll</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>main loop启动事件循环</strong>，epoll_wait<strong>监听listenfd的accpet连接事件</strong> 。</p>
+</li>
+</ol>
+<h2 id="2-2-连接断开">2.2 连接断开</h2>
+<h3 id="2-2-1-问题引入">2.2.1 问题引入</h3>
+<p>在处理连接断开，我们必然要面对这么两个灵魂发问：</p>
+<ul>
+<li><strong>如果是被动关闭连接：服务端如何感知，应该处理哪些逻辑</strong>？</li>
+<li><strong>如果是主动关闭连接：如何保证对方已经收到全部数据</strong>？<strong>直接close(fd)肯定是不行的</strong>。因为应用层往往有缓冲（这在非阻塞网络编程中是必需的），我们需要保证先发送完缓冲区中的数据，然后再断开连接。</li>
+</ul>
+<h3 id="2-2-2-被动关闭连接">2.2.2 被动关闭连接</h3>
+<h4 id="如何感知？"><strong>如何感知</strong>？</h4>
+<p>在muduo中：</p>
+<ul>
+<li>服务端<code>TcpConnection::handleRead()</code>中，内部调用了Linux的函数<code>readv()</code>；</li>
+<li>当<code>readv()</code>返回0的时候，服务端就知道客户端断开连接了。</li>
+</ul>
+<h4 id="如何处理？">如何处理？</h4>
+<p>当<code>readv()</code>返回0 ，会紧接着调用<code>TcpConnection::handleClose()</code>，一图明白后续调用链：</p>
+<p><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/v2-f50b4f7e23b79110f453146163cb000c_r.jpg" alt="img"></p>
+<ol>
+<li><strong>将TcpConnection的channel_从Poller取消监听</strong>，因为一个TcpConnection对应一个Channel，连接关闭了首要是将channel_从Sub-EventLoop的epoll取消监听；</li>
+<li><strong>执行用户自定义的connectCallback_回调</strong>；</li>
+<li><strong>在TcpServer::connections_移除当前TcpConnection对象</strong>，由于<code>connections_</code>（一个unordered_map，负责保存<code>&lt;KEY:connName,VALUE:TcpConnection&gt;</code> 的映射）在TcpServer中定义（主线程），所以这里会跳转到main loop去执行；</li>
+<li><strong>最后将TcpConnection::channel_从底层Poller::chanenlMap移除</strong>，chanenlMap保存<code>&lt;KEY:sockfd,VALUE:Channel&gt;</code> 映射。</li>
+</ol>
+<h3 id="2-2-3-主动关闭连接">2.2.3 主动关闭连接</h3>
+<h4 id="如何实现优雅关闭？">如何实现优雅关闭？</h4>
+<p>在“复读机”服务器示例中，“复读”完可以主动调用<code>shutdown()</code> 关闭连接。这是一种“优雅关闭”，保证主动关闭时正在发生的数据可以全部发生完：</p>
+<ol>
+<li>
+<p><strong>如果要主动关闭连接，先关本地“写”端</strong></p>
+<p>这样muduo会发送 TCP FIN 分节，对方会读到 0 字节。<strong>注意此时muduo不是调用<code>close(fd)</code>，所以不是完全关闭</strong>。</p>
+</li>
+<li>
+<p><strong>等对方关闭之后，再关本地“读”端</strong></p>
+<ul>
+<li>一般来说，对方通常会关闭连接，这样 muduo 会read到 0 字节，然后 muduo 调用<code>TcpConnection::handleClose()</code>取消监听&amp;移除<code>channel_</code>&amp;<code>connections_</code>移除当前TcpConnection对象，不再接收客户端数据，即关闭了“读端”；</li>
+<li><strong>不过这种做法有风险</strong>：万一对方故意不不关，那么 muduo 的连接就一直半开着，消耗系统资源。</li>
+</ul>
+</li>
+</ol>
+<p>完整的代码实现：</p>
+<table>
+<thead>
+<tr>
+<th>用户自定义回调</th>
+<th>shutdown()实现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230310222330841.png" alt="image-20230310222330841"></td>
+<td><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20230310222254290.png" alt="image-20230310222254290"></td>
+</tr>
+</tbody>
+</table>
+<p>但是，截止目前依旧疑云重重：</p>
+<h5 id="什么时候muduo才会真正的close-fd-关闭连接？"><strong>什么时候muduo才会真正的close(fd)关闭连接</strong>？</h5>
+<p>答案是：<strong>在 TcpConnection 对象析构的时候</strong>。TcpConnection 不再持有一个 Socket 对象（<code>sockfd_</code>），Socket 是一个 RAII handler，它的析构函数会 <code>close(sockfd_)</code>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TcpConnection</span> :</span> noncopyable, <span class="keyword">public</span> std::enable_shared_from_this&lt;TcpConnection&gt;</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    std::unique_ptr&lt;Socket&gt; socket_;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Socket::~<span class="built_in">Socket</span>()</span><br><span class="line">&#123;</span><br><span class="line">    ::<span class="built_in">close</span>(sockfd_);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="那什么时候会触发TcpConnection-对象析构？"><strong>那什么时候会触发TcpConnection 对象析构</strong>？</h5>
+<p>我们知道，每个TcpConnection 对象引用计数至少为2，有新连接时执行<code>TcpServer::newConnection</code>：</p>
+<ol>
+<li>创建TcpConnection 对象指针<code>conn</code>时， 该<code>conn</code> 持有对象；</li>
+<li><code>TcpServer::connections_</code> 持有所有TcpConnection 对象。</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TcpServer::newConnection</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> InetAddress &amp;peerAddr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// conn持有</span></span><br><span class="line">    <span class="function">TcpConnectionPtr <span class="title">conn</span><span class="params">(<span class="keyword">new</span> TcpConnection(ioLoop,</span></span></span><br><span class="line"><span class="params"><span class="function">                                            connName,</span></span></span><br><span class="line"><span class="params"><span class="function">                                            sockfd,</span></span></span><br><span class="line"><span class="params"><span class="function">                                            localAddr,</span></span></span><br><span class="line"><span class="params"><span class="function">                                            peerAddr))</span></span>;</span><br><span class="line">    <span class="comment">// connections_持有</span></span><br><span class="line">    connections_[connName] = conn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关键在于让<code>connections_</code> 释放持有的TcpConnection 对象，从而触发TcpConnection 对象析构==&gt; Socket 对象对象析构。</p>
+<h5 id="connections-在什么时候会释放持有的TcpConnection-对象？"><strong><code>connections_</code> 在什么时候会释放持有的TcpConnection 对象</strong>？</h5>
+<p>答案是在触发<code>TcpServer::removeConnection</code> 时。<img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com//image-20230310233220594.png" alt="image-20230310233220594"></p>
+<p>而removeConnection函数：</p>
+<ol>
+<li><code>shutdown()</code>  ，关闭写端，底层响应EPOLLHUP，会触发<code>TcpConnection::handleClose()</code>，进而触发removeConnection函数。</li>
+<li>read到0，也会触发<code>TcpConnection::handleClose()</code>函数。</li>
+</ol>
+<p>如果 TcpConnection 的引用计数降到零，它就会析构了。</p>
+<p>当<u>服务器主动关闭</u>时，调用<code>TcpServer::~TcpServer()</code>析构函数，也会<strong>析构所有TcpConnection对象</strong>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">TcpServer::~<span class="built_in">TcpServer</span>()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//connections类型为std::unordered_map&lt;std::string, TcpConnectionPtr&gt;;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;item : connections_)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function">TcpConnectionPtr <span class="title">conn</span><span class="params">(item.second)</span></span>;</span><br><span class="line">        <span class="comment">// 释放掉TcpServer中（item.second）保存的该TcpConnectino对象的智能指针</span></span><br><span class="line">        <span class="comment">// 此时，只剩下conn还持有这个TcpConnection对象，因此当前TcpConnection对象还不会被析构</span></span><br><span class="line">        item.second.<span class="built_in">reset</span>(); </span><br><span class="line">        conn-&gt;<span class="built_in">getLoop</span>()-&gt;<span class="built_in">runInLoop</span>(<span class="built_in">bind</span>(&amp;TcpConnection::connectDestroyed, conn));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>TcpConnection::connectDestroyed</code> 即将所管理的channel_在chanenlMap移除。</p>
+<h5 id="疑问">疑问</h5>
+<blockquote>
+<p><strong>为什么这里不执行<code>disableAll()</code> ? 不先取消事件监听</strong>？</p>
+<p>观察到，相比<code>~Accpetor()</code>析构<code>wakeupChannel_ </code>还是前面<code>被动关闭连接</code>析构<code>channel_</code> 还会先执行<code>disableAll()</code>，将channel_从sub EventLoop的epoll取消监听。</p>
+</blockquote>
+<h4 id="如何保证主动关闭时正在发生的数据可以全部发生完？">如何保证主动关闭时正在发生的数据可以全部发生完？</h4>
+<p>我们需要<code>tie</code>：保证<strong>先让Channel回调函数先把数据发送完，再释放TcpConnection对象的资源</strong>。</p>
+<p>参考前：1.3.1其中小节—<code>tie</code>深入理解。</p>
+<h2 id="2-3-消息到达">2.3 消息到达</h2>
+<h3 id="2-3-1-问题引入">2.3.1 问题引入</h3>
+<h4 id="为什么要应用层接收缓冲区？">为什么要应用层接收缓冲区？</h4>
+<p>消息到达是最重要的事件，对它的处理决定了网络编程的风格：①是阻塞还是非阻塞；②分包的处理；③应用层的缓冲如何设计等等。</p>
+<p><strong>在非阻塞网络编程中，为什么要使用应用层接收缓冲区</strong>？</p>
+<p>假如一次读到的数据不够<u>一个完整的数据包</u>，也就是<strong>需要分包去区分一个个消息</strong>：已经读到的数据应该先暂存在某个地方，等剩余的数据收到之后再一并处理；</p>
+<blockquote>
+<p>常见的分包方法有：</p>
+<ol>
+<li>固定长度；</li>
+<li>特殊的结尾符，比如字符串的\0，或者回车换行等；</li>
+<li>固定的消息头中指定后续的消息的长度，然后跟上一个消息体内容；</li>
+<li>使用协议本身的格式，比如json格式头尾配对（XML也一样）。</li>
+</ol>
+</blockquote>
+<p>但是：<strong>从系统内核中调用的时候，在应用层需要有足够大的缓冲区，最好能一次将系统recv到的缓冲区给读空，但这可能是不行的；每次针对每个连接一次都分配较大的缓冲区，又会浪费严重</strong>。</p>
+<p>该如何处理？</p>
+<h3 id="2-3-2-muduo是如何做的？TcpConnection-handleRead">2.3.2 muduo是如何做的？TcpConnection::handleRead</h3>
+<p>TcpConnection::handleRead的核心函数便是Buffer::readFd。</p>
+<blockquote>
+<p><code>Buffer</code>已经是老熟人了：</p>
+<ul>
+<li><strong>底层数据结构</strong>：使用的是<code>vector::buffer_</code>，可以动态增长 ；</li>
+<li><strong>核心函数</strong>：<code>Buffer_.readFd(channel_-&gt;fd(), &amp;saveErrno)</code> 。</li>
+</ul>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TcpConnection::handleRead</span><span class="params">(Timestamp receiveTime)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> savedErrno = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">ssize_t</span> n = inputBuffer_.<span class="built_in">readFd</span>(channel_-&gt;<span class="built_in">fd</span>(), &amp;savedErrno);</span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">0</span>) <span class="comment">// 有数据到达</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 已建立连接的用户有可读事件发生了 调用用户传入的回调操作onMessage shared_from_this就是获取了TcpConnection的智能指针</span></span><br><span class="line">        <span class="built_in">messageCallback_</span>(<span class="built_in">shared_from_this</span>(), &amp;inputBuffer_, receiveTime);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="comment">// 客户端断开</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">handleClose</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="comment">// 出错了</span></span><br><span class="line">    &#123;</span><br><span class="line">        errno = savedErrno;</span><br><span class="line">        <span class="built_in">LOG_ERROR</span>(<span class="string">&quot;TcpConnection::handleRead&quot;</span>);</span><br><span class="line">        <span class="built_in">handleError</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>readFd关键设计</strong>：</p>
+<ol>
+<li>设计两个缓冲区vec[2]，vec[1]<strong>指向Buffer底层的<code>buffer_</code></strong>，vec[2]预分<strong>64K临时空间<code>extrabuf</code></strong>；</li>
+<li>readv的时候，如果第一个缓冲区&lt;=64k就使用两个缓冲区，否则就只使用第一个缓冲区（一般不会超过64K，tcp buffer如果确实要设置大的缓存区，需要调整系统参数），<strong>这样一次读取就足以将socket中的缓存区读空</strong>；</li>
+<li>开始readv，将socket上数据读到两个缓冲区；</li>
+<li>如果第一个缓冲区已满，<code>buffer_</code> 扩容，将第二个缓冲区数据append到第一个缓冲区；</li>
+</ol>
+<p>这样：既①保证一次就可以读完socket ；②也避免预申请过大的<code>buffer_</code>。</p>
+<p>具体实现代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 从fd上读取数据，Poller工作在LT模式</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="function"><span class="keyword">ssize_t</span> <span class="title">Buffer::readFd</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">int</span> *saveErrno)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 栈额外空间，用于从套接字往出读时，当buffer_暂时不够用时暂存数据，待buffer_重新分配足够空间后，在把数据交换给buffer_。</span></span><br><span class="line">    <span class="keyword">char</span> extrabuf[<span class="number">65536</span>] = &#123;<span class="number">0</span>&#125;; <span class="comment">// 栈上内存空间 65536/1024 = 64KB</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    struct iovec &#123;</span></span><br><span class="line"><span class="comment">        ptr_t iov_base; // iov_base指向的缓冲区存放的是readv所接收的数据或是writev将要发送的数据</span></span><br><span class="line"><span class="comment">        size_t iov_len; // iov_len在各种情况下分别确定了接收的最大长度以及实际写入的长度</span></span><br><span class="line"><span class="comment">    &#125;;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用iovec分配两个连续的缓冲区</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> <span class="title">vec</span>[2];</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">size_t</span> writable = <span class="built_in">writableBytes</span>(); <span class="comment">// 这是Buffer底层缓冲区剩余的可写空间大小 不一定能完全存储从fd读出的数据</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第一块缓冲区，指向可写空间</span></span><br><span class="line">    vec[<span class="number">0</span>].iov_base = <span class="built_in">begin</span>() + writerIndex_;</span><br><span class="line">    vec[<span class="number">0</span>].iov_len = writable;</span><br><span class="line">    <span class="comment">// 第二块缓冲区，指向栈空间</span></span><br><span class="line">    vec[<span class="number">1</span>].iov_base = extrabuf;</span><br><span class="line">    vec[<span class="number">1</span>].iov_len = <span class="built_in"><span class="keyword">sizeof</span></span>(extrabuf);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这里之所以说最多128k-1字节，是因为若writable为64k-1，那么需要两个缓冲区 第一个64k-1 第二个64k 所以做多128k-1</span></span><br><span class="line">    <span class="comment">// 如果第一个缓冲区&gt;=64k 那就只采用一个缓冲区 而不使用栈空间extrabuf[65536]的内容</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> iovcnt = (writable &lt; <span class="built_in"><span class="keyword">sizeof</span></span>(extrabuf)) ? <span class="number">2</span> : <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">ssize_t</span> n = ::<span class="built_in">readv</span>(fd, vec, iovcnt);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        *saveErrno = errno;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n &lt;= writable) <span class="comment">// Buffer的可写缓冲区已经够存储读出来的数据了</span></span><br><span class="line">    &#123;</span><br><span class="line">        writerIndex_ += n;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="comment">// extrabuf里面也写入了n-writable长度的数据</span></span><br><span class="line">    &#123;</span><br><span class="line">        writerIndex_ = buffer_.<span class="built_in">size</span>();</span><br><span class="line">        <span class="built_in">append</span>(extrabuf, n - writable); <span class="comment">// 对buffer_扩容 并将extrabuf存储的另一部分数据追加至buffer_</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-4-消息发送">2.4 消息发送</h2>
+<h3 id="2-4-1-问题引入">2.4.1 问题引入</h3>
+<h4 id="为什么要应用层发送缓冲区？">为什么要应用层发送缓冲区？</h4>
+<ul>
+<li><strong>TCP发送缓冲区空间不足</strong>：TCP发送缓冲区会出现不足；</li>
+<li><strong>应用层接收慢</strong>：发送数据时，应用层写的快而内核发送数据慢，需要把待发送数据写入缓冲区。</li>
+</ul>
+<h4 id="TCP发送缓冲区不足如何处理">TCP发送缓冲区不足如何处理?</h4>
+<p>假设应用程序需要发送40kB 数据，但是操作系统的 TCP 发送缓冲区只有 25kB 剩余空间，那么剩下的 15kB数据怎么办？</p>
+<ul>
+<li>
+<p><strong>如果等待 OS 缓冲区可用，会阻塞当前线程</strong>，所以我们需要一个发送缓冲区。</p>
+</li>
+<li>
+<p><strong>但是，如果应用程序随后又要发送 50kB 数据，不能立刻尝试 write() ，这样有可能打乱数据的顺序</strong>。如果发送缓冲区不为空，应该先write到发送缓冲区。</p>
+<p>这也是muduo的做法。</p>
+</li>
+</ul>
+<h3 id="2-4-2-muduo是如何做的：TcpConnetion-send">2.4.2 muduo是如何做的：TcpConnetion::send</h3>
+<p>在muduo中，当用户调用了<code>TcpConnetion::send(buf)</code>函数时：</p>
+<ul>
+<li><strong>如果发送缓冲区没有待发送数据</strong>：
+<ul>
+<li><strong>如果TCP发送缓冲区能一次性容纳buf</strong>，调用用户自定义的<code>writeCompleteCallback_</code> 来移除该TcpConnection在事件监听器上的可写事件（因为大多数时候是没有数据需要发送的，频繁触发可写事件但又没有数据可写）；</li>
+<li><strong>如果TCP发送缓冲区不能一次性容纳buf</strong>，判断一下errno是不是SIGPIPE RESET等致命错误。</li>
+</ul>
+</li>
+<li><strong>如果发送缓冲区没有待发送数据 &amp;&amp; 非致命错误</strong>：
+<ul>
+<li>判断是否是高水位，执行回调<code>highWaterMarkCallback_</code> ；</li>
+<li>不直接write，先将数据append到发送缓冲区（如果缓冲区不足会执行<code>makeSpace</code>扩容）；</li>
+<li>注册当前<code>channel_</code>的写事件，通知epoll监听处理。</li>
+</ul>
+</li>
+</ul>
+<p>完整代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 发送数据 应用写的快 而内核发送数据慢 需要把待发送数据写入缓冲区，而且设置了水位回调</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">TcpConnection::sendInLoop</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *data, <span class="keyword">size_t</span> len)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">ssize_t</span> nwrote = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">size_t</span> remaining = len;</span><br><span class="line">    <span class="keyword">bool</span> faultError = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (state_ == kDisconnected) <span class="comment">// 之前调用过该connection的shutdown 不能再进行发送了</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">LOG_ERROR</span>(<span class="string">&quot;disconnected, give up writing&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 表示channel_第一次开始写数据或者缓冲区没有待发送数据</span></span><br><span class="line">    <span class="keyword">if</span> (!channel_-&gt;<span class="built_in">isWriting</span>() &amp;&amp; outputBuffer_.<span class="built_in">readableBytes</span>() == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        nwrote = ::<span class="built_in">write</span>(channel_-&gt;<span class="built_in">fd</span>(), data, len);</span><br><span class="line">        <span class="keyword">if</span> (nwrote &gt;= <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            remaining = len - nwrote;</span><br><span class="line">            <span class="keyword">if</span> (remaining == <span class="number">0</span> &amp;&amp; writeCompleteCallback_)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 既然在这里数据全部发送完成，就不用再给channel设置epollout事件了</span></span><br><span class="line">                loop_-&gt;<span class="built_in">queueInLoop</span>(</span><br><span class="line">                    std::<span class="built_in">bind</span>(writeCompleteCallback_, <span class="built_in">shared_from_this</span>()));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">// nwrote &lt; 0</span></span><br><span class="line">        &#123;</span><br><span class="line">            nwrote = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> (errno != EWOULDBLOCK) <span class="comment">// EWOULDBLOCK表示非阻塞情况下没有数据后的正常返回 等同于EAGAIN</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">LOG_ERROR</span>(<span class="string">&quot;TcpConnection::sendInLoop&quot;</span>);</span><br><span class="line">                <span class="keyword">if</span> (errno == EPIPE || errno == ECONNRESET) <span class="comment">// SIGPIPE RESET</span></span><br><span class="line">                &#123;</span><br><span class="line">                    faultError = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 说明当前这一次write并没有把数据全部发送出去 剩余的数据需要保存到缓冲区当中</span></span><br><span class="line"><span class="comment">     * 然后给channel注册EPOLLOUT事件，Poller发现tcp的发送缓冲区有空间后会通知</span></span><br><span class="line"><span class="comment">     * 相应的sock-&gt;channel，调用channel对应注册的writeCallback_回调方法，</span></span><br><span class="line"><span class="comment">     * channel的writeCallback_实际上就是TcpConnection设置的handleWrite回调，</span></span><br><span class="line"><span class="comment">     * 把发送缓冲区outputBuffer_的内容全部发送完成</span></span><br><span class="line"><span class="comment">     **/</span></span><br><span class="line">    <span class="keyword">if</span> (!faultError &amp;&amp; remaining &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 目前发送缓冲区剩余的待发送的数据的长度</span></span><br><span class="line">        <span class="keyword">size_t</span> oldLen = outputBuffer_.<span class="built_in">readableBytes</span>();</span><br><span class="line">        <span class="keyword">if</span> (oldLen + remaining &gt;= highWaterMark_ &amp;&amp; oldLen &lt; highWaterMark_ &amp;&amp; highWaterMarkCallback_)</span><br><span class="line">        &#123;</span><br><span class="line">            loop_-&gt;<span class="built_in">queueInLoop</span>(</span><br><span class="line">                std::<span class="built_in">bind</span>(highWaterMarkCallback_, <span class="built_in">shared_from_this</span>(), oldLen + remaining));</span><br><span class="line">        &#125;</span><br><span class="line">        outputBuffer_.<span class="built_in">append</span>((<span class="keyword">char</span> *)data + nwrote, remaining);</span><br><span class="line">        <span class="keyword">if</span> (!channel_-&gt;<span class="built_in">isWriting</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            channel_-&gt;<span class="built_in">enableWriting</span>(); <span class="comment">// 这里一定要注册channel的写事件 否则poller不会给channel通知epollout</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-5-其它：LT与ET">2.5  其它：LT与ET</h2>
+<p>细心的读者已经注意到，Muduo使用的是LT（Lever Trigger，边缘触发，默认模式）而非是ET（Edge Trigger，边缘触发）。</p>
+<ul>
+<li>为什么muduo使用ET？不是说ET更快吗？</li>
+<li>LT什么时候关注 EPOLLOUT 事件？会造成 busy-loop吗？muduo是怎么做的？</li>
+<li>如果使用ET，如何防止漏读造成的饥饿？</li>
+</ul>
+<h3 id="2-5-1-LT与ET介绍">2.5.1 LT与ET介绍</h3>
+<p>要讲明白这个问题，我们先来复习LT与ET基本概念和触发条件。</p>
+<h4 id="LT与ET触发条件">LT与ET触发条件</h4>
+<p>LT与ET两种模式本质区别：</p>
+<ul>
+<li>对于水平触发模式LT，一个事件只要有就会一直触发；</li>
+<li>对于边缘触发模式ET，只有一个事件从无到有才会触发。</li>
+</ul>
+<p>具体到读、写事件：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>读事件触发条件</th>
+<th>写事件触发条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LT</td>
+<td>socket有数据（就一直触发）</td>
+<td>socket可写（就一直触发）</td>
+</tr>
+<tr>
+<td>ET</td>
+<td>socket有<strong>新</strong>数据到来</td>
+<td>socket不可写 =&gt; socket可写</td>
+</tr>
+</tbody>
+</table>
+<p>这决定LT、ET在编程上对于读、写事件的不同处理。</p>
+<h4 id="LT与ET编程">LT与ET编程</h4>
+<p>对于一个非阻塞 socket：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>读事件处理</th>
+<th>写事件处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LT</td>
+<td>根据业务自行决定recv多少数据，尽量多读点防止<strong>busy-loop</strong></td>
+<td><strong>必须</strong>：不需要写事件EPOLLOUT一定要及时移除，避免<strong>busy-loop</strong></td>
+</tr>
+<tr>
+<td>ET</td>
+<td><strong>必须</strong>：循环recv到错误码<code>EWOULDBLOCK</code>/<code>EAGAIN</code>，<strong>防止漏读</strong></td>
+<td>根据业务自行决定下次是否触发</td>
+</tr>
+</tbody>
+</table>
+<p>所在，对于LT模式，最要紧的就是防止busy-loop：</p>
+<ol>
+<li><strong>对于可读事件busy-loop</strong>：muduo有接收缓冲区+recv(2)策略，能保证数据能被尽量一次读完；</li>
+<li><strong>对于可写事件busy-loop</strong>：在muduo的<code>TcpConnetion::send(buf)</code>函数时，<strong>如果能一次发送完</strong>，会马上调用<code>writeCompleteCallback_</code> 回调函数，<strong>移除可写事件监听</strong>；如果不能发完，可以先放到发送缓冲区。</li>
+</ol>
+<h3 id="2-5-2-muduo为什么使用ET？">2.5.2 muduo为什么使用ET？</h3>
+<p>muduo使用是LT而非ET，主要原因：</p>
+<ol>
+<li>LT读的时候只需要一次系统调用，而ET必须循环read到EAGAIN错误逻辑处理更复杂；</li>
+<li>muduo有应用层缓冲区，对于可读/可写事件的busy-loop，可以进行很好的避免。</li>
+</ol>
+<p>而且：<strong>ET不一定比LT快</strong> 。</p>
+<p>ET模式下用户要自行进行 read/write 循环处理，这其中<u>增加的read/write系统调用</u>和<u>减少的epoll 系统调用</u>相比，综合收益其实不大。为了降低处理逻辑复杂度，常用的事件处理库大部分都选择了LT 模式（如 libevent、boost::asio、muduo等）。</p>
+<h1>三、总结与展望</h1>
+<h3 id="3-1-本文总结">3.1 本文总结</h3>
+<p>本文主要介绍了以下内容：</p>
+<ol>
+<li>
+<p>高并发IO网络模型介绍，从最简单的单线程网络IO模型==&gt;Reactor模式==&gt;Muduo网络框架介绍；</p>
+</li>
+<li>
+<p>Muduo各个核心类的介绍，尤其是对<code>loop()</code> 、<code>tie</code>等重难点进行了介绍；</p>
+</li>
+<li>
+<p>结合muduo源码，来分析“三个半事件”的每个事件的关键处理，如：muduo连接建立全流程、被动关闭如何感知/处理、主动优雅关闭、消息到达使用缓冲区+recv(2)处理分包、消息发送使用缓冲区处理应用层接收慢或TCP发送缓冲区不足等；</p>
+</li>
+<li>
+<p>muduo为何使用LT等。</p>
+</li>
+</ol>
+<p>总的来说尽量考虑了整体联系和细节丰满。</p>
+<h3 id="3-2-未来展望">3.2 未来展望</h3>
+<p>本文陆陆续续在半个月落笔完成，中间修修改改多次。在成文的过程中，也学习、巩固到不少网络编程知识。对于网络编程入门来说，muduo的确是个不错的参考。</p>
+<p>但限于自身水平，自己对muduo中一些设计细节还是存在些疑问。比如，muduo代码大量使用了智能指针和RAII管理对象的生命周期，但对于TcpConnection/Eventloop/Socket/…各个对象在连接关闭/整个服务器关闭/…等各种情况核心设计处理理念，目前依旧存在些疑惑。这个，留到后面再来补全吧！</p>
+<p>最后，如果本文能给学习网络编程or研究muduo库的同学带来帮助，那就再好不过了。欢迎在下留言交流。</p>
+<h1>四、更新记录</h1>
+<div class="timeline">
+<div class="timenode"><div class="meta"><p><p>2023-03-10：第一次更新</p>
+</p></div><div class="body"><ol><li>第一次更新上传。</li></ol></div></div>
+</div>
+<h1>五、参考文献</h1>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">1.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;">陈硕.《Linux多线程服务端编程》<a href="#fnref:1" rev="footnote"> ↩</a></span></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;">万字长文梳理Muduo库核心代码及优秀编程细节思想剖析：https://zhuanlan.zhihu.com/p/495016351<a href="#fnref:2" rev="footnote"> ↩</a></span></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">3.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;">Muduo 源码分析：https://youjiali1995.github.io/network/muduo/<a href="#fnref:3" rev="footnote"> ↩</a></span></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">4.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;">IO - Netty的模型：https://www.cnblogs.com/hlkawa/p/15303013.html<a href="#fnref:4" rev="footnote"> ↩</a></span></li><li id="fn:5"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">5.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;">【muduo】net篇---TcpConnection：https://blog.csdn.net/daaikuaichuan/article/details/87822822<a href="#fnref:5" rev="footnote"> ↩</a></span></li><li id="fn:6"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">6.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;">高并发之网络IO模型  https://www.cnblogs.com/xiekun/p/16593204.html<a href="#fnref:6" rev="footnote"> ↩</a></span></li></ol></div></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Wanghui Huang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://hwh.zone/p/37224/">https://hwh.zone/p/37224/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hwh.zone" target="_blank">royhuang's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C/">C++</a><a class="post-meta__tags" href="/tags/%E6%95%99%E7%A8%8B/">教程</a><a class="post-meta__tags" href="/tags/muduo/">muduo</a></div><div class="post_share"><div class="social-share" data-image="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/about-bg.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button button--animated"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/wechatPay.png" target="_blank"><img class="post-qr-code-img" src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/wechatPay.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/alipay.png" target="_blank"><img class="post-qr-code-img" src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/p/45495/"><img class="prev-cover" src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/about-bg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">C++从零开始（十二）：Linux系统编程入门</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/p/18652/" title="C++从零开始（一）：环境搭建（上）VSCode远程开发"><img class="cover" src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20211211214212828.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-05</div><div class="title">C++从零开始（一）：环境搭建（上）VSCode远程开发</div></div></a></div><div><a href="/p/17506/" title="C++从零开始（七）：面对对象（上）快速入门"><img class="cover" src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-24</div><div class="title">C++从零开始（七）：面对对象（上）快速入门</div></div></a></div><div><a href="/p/60158/" title="C++从零开始（九）：面对对象（下）继承和虚函数"><img class="cover" src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-08</div><div class="title">C++从零开始（九）：面对对象（下）继承和虚函数</div></div></a></div><div><a href="/p/2834/" title="C++从零开始（二）：环境搭建（下）g++/Makefile/CMake快速入门"><img class="cover" src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/image-20211211215040434.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-05</div><div class="title">C++从零开始（二）：环境搭建（下）g++/Makefile/CMake快速入门</div></div></a></div><div><a href="/p/43924/" title="C++从零开始（八）：面对对象（中）运算符重载"><img class="cover" src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-27</div><div class="title">C++从零开始（八）：面对对象（中）运算符重载</div></div></a></div><div><a href="/p/6587/" title="C++从零开始（六）：务实基础（下）复合类型及转换"><img class="cover" src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/about-bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-16</div><div class="title">C++从零开始（六）：务实基础（下）复合类型及转换</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://blog-imgs-1256686095.cos.ap-guangzhou.myqcloud.com/cat.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Wanghui Huang</div><div class="author-info__description">tech & life</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">31</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Wanghui-Huang"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Wanghui-Huang" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:hwh199601@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">royhuang's studio</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">一、Muduo整体架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E4%BB%8EEchoServer%E8%AF%B4%E8%B5%B7"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 从EchoServer说起</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-1-%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1.1 快速开始</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-2-%E2%80%9C%E5%A4%8D%E8%AF%BB%E6%9C%BA%E2%80%9C%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%9A%E5%8A%A1%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.1.2 “复读机“服务器业务层实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%EF%BC%9AMulti-Reactor"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 整体架构：Multi-Reactor</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-1-%E9%AB%98%E5%B9%B6%E5%8F%91%E4%B9%8B%E7%BD%91%E7%BB%9CIO%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.2.1 高并发之网络IO模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9F%E7%BD%91%E7%BB%9C-IO-%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">传统网络 IO 模型的缺陷</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%92%88%E5%AF%B9%E4%BC%A0%E7%BB%9F%E7%BD%91%E7%BB%9C-IO-%E6%A8%A1%E5%9E%8B%E7%BC%BA%E9%99%B7%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">针对传统网络 IO 模型缺陷的改进</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B-%E7%BA%BF%E7%A8%8B%EF%BC%9A%E9%81%BF%E5%85%8Dread-write%E9%98%BB%E5%A1%9E"><span class="toc-number">1.2.1.2.1.</span> <span class="toc-text">多进程&#x2F;线程：避免read&#x2F;write阻塞</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%EF%BC%9Aselect-poll-epoll"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">IO多路复用：select&#x2F;poll&#x2F;epoll</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Reactor%E6%A8%A1%E5%BC%8F%EF%BC%9A%E7%BB%A7%E7%BB%AD%E4%BC%98%E5%8C%96%E5%A4%9A%E8%B7%AFIO"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">Reactor模式：继续优化多路IO</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8D%95%E8%BF%9B%E7%A8%8B-%E7%BA%BF%E7%A8%8B-%E5%8D%95Reactor%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.2.1.4.1.</span> <span class="toc-text">单进程&#x2F;线程&amp;单Reactor模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B-%E7%BA%BF%E7%A8%8B-%E5%8D%95Reactor%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.2.1.4.2.</span> <span class="toc-text">多进程&#x2F;线程&amp;单Reactor模式</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B-%E7%BA%BF%E7%A8%8B-%E5%A4%9AReactor%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.2.1.4.3.</span> <span class="toc-text">多进程&#x2F;线程&amp;多Reactor模式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-2-Muduo%E4%B8%8EReactor%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.2.2.</span> <span class="toc-text">1.2.2 Muduo与Reactor模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-Muduo%E6%A0%B8%E5%BF%83%E7%B1%BB"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 Muduo核心类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-1-Reactor%EF%BC%9APoller%E3%80%81EventLoop%E3%80%81EventLoopThread%E3%80%81TcpConnection%E3%80%81Channel"><span class="toc-number">1.3.1.</span> <span class="toc-text">1.3.1 Reactor：Poller、EventLoop、EventLoopThread、TcpConnection、Channel</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Poller%E7%B1%BB-EPollPoller%E7%B1%BB"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">Poller类 &amp; EPollPoller类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EventLoop%E7%B1%BB"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">EventLoop类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%8E%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E7%9C%8B%EF%BC%9AwakeupFd%E8%AE%BE%E8%AE%A1%E4%B8%8Etie%E5%88%9D%E8%AF%86"><span class="toc-number">1.3.1.2.1.</span> <span class="toc-text">从构造函数看：wakeupFd设计与tie初识</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.1.2.2.</span> <span class="toc-text">析构函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#loop-%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.1.2.3.</span> <span class="toc-text">loop() 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Channel-handleEvent%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.3.1.2.3.1.</span> <span class="toc-text">Channel::handleEvent实现</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#tie%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3"><span class="toc-number">1.3.1.2.3.2.</span> <span class="toc-text">tie深入理解</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#doPendingFunctors-%EF%BC%9A%E7%BB%93%E5%90%88runInLoop-%E7%90%86%E8%A7%A3%E5%9B%9E%E8%B0%83%E9%98%9F%E5%88%97%E4%B8%AD%E7%9A%84%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="toc-number">1.3.1.2.3.3.</span> <span class="toc-text">doPendingFunctors() ：结合runInLoop()理解回调队列中的多线程同步</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EventLoopThread%E7%B1%BB"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">EventLoopThread类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0-%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.1.3.1.</span> <span class="toc-text">构造函数 &amp; 析构函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#startLoop-threadFunc"><span class="toc-number">1.3.1.3.2.</span> <span class="toc-text">startLoop() &amp; threadFunc()</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TcpConnection%E7%B1%BB"><span class="toc-number">1.3.1.4.</span> <span class="toc-text">TcpConnection类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#TcpConnection%E5%AF%B9%E8%B1%A1%E4%B8%8A%E6%B8%B8%E8%B0%83%E7%94%A8%E9%93%BE"><span class="toc-number">1.3.1.4.1.</span> <span class="toc-text">TcpConnection对象上游调用链</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%EF%BC%9Amuduo%E4%B8%AD%E7%9A%84%E5%9B%9E%E8%B0%83%E6%B3%A8%E5%86%8C%E9%93%BE"><span class="toc-number">1.3.1.4.2.</span> <span class="toc-text">构造函数：muduo中的回调注册链</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%88%E8%B0%88%E6%95%B0%E6%8D%AE%E6%94%B6%E5%8F%91"><span class="toc-number">1.3.1.4.3.</span> <span class="toc-text">谈谈数据收发</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Buff%E7%B1%BB"><span class="toc-number">1.3.1.5.</span> <span class="toc-text">Buff类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Buff%E7%B1%BB%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">1.3.1.5.1.</span> <span class="toc-text">Buff类底层数据结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Buff%E7%B1%BB%E5%85%B3%E9%94%AE%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.1.5.2.</span> <span class="toc-text">Buff类关键函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Channel%E7%B1%BB"><span class="toc-number">1.3.1.6.</span> <span class="toc-text">Channel类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-2-Main-Reactor%EF%BC%9AAcceptor%E3%80%81EventThreadPool"><span class="toc-number">1.3.2.</span> <span class="toc-text">1.3.2 Main Reactor：Acceptor、EventThreadPool</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Acceptor%E7%B1%BB"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">Acceptor类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.2.1.1.</span> <span class="toc-text">构造函数和析构函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Acceptor-handleRead-%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.2.1.2.</span> <span class="toc-text">Acceptor::handleRead  函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EventThreadPool%E7%B1%BB"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">EventThreadPool类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0-%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0-2"><span class="toc-number">1.3.2.2.1.</span> <span class="toc-text">构造函数&amp;析构函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#start-%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.2.2.2.</span> <span class="toc-text">start() 函数</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">二、 从三个半事件处理再看Muduo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E8%BF%9E%E6%8E%A5%E5%BB%BA%E7%AB%8B"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 连接建立</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-1-%E9%97%AE%E9%A2%98%E5%BC%95%E5%85%A5"><span class="toc-number">2.1.1.</span> <span class="toc-text">2.1.1 问题引入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-%E4%BB%8E%E2%80%9C%E5%A4%8D%E8%AF%BB%E6%9C%BA%E6%9C%8D%E5%8A%A1%E5%99%A8%E2%80%9D%E5%86%8D%E7%9C%8B%E8%BF%9E%E6%8E%A5%E5%BB%BA%E7%AB%8B"><span class="toc-number">2.1.2.</span> <span class="toc-text">2.2.2 从“复读机服务器”再看连接建立</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#EchoServer-TcpServer%E4%BD%9C%E7%94%A8"><span class="toc-number">2.1.2.1.</span> <span class="toc-text">EchoServer&amp;TcpServer作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E5%BB%BA%E7%AB%8B%E6%B5%81%E7%A8%8B"><span class="toc-number">2.1.2.2.</span> <span class="toc-text">连接建立流程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E8%BF%9E%E6%8E%A5%E6%96%AD%E5%BC%80"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 连接断开</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-%E9%97%AE%E9%A2%98%E5%BC%95%E5%85%A5"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.2.1 问题引入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-%E8%A2%AB%E5%8A%A8%E5%85%B3%E9%97%AD%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2.2 被动关闭连接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%84%9F%E7%9F%A5%EF%BC%9F"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">如何感知？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%EF%BC%9F"><span class="toc-number">2.2.2.2.</span> <span class="toc-text">如何处理？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3-%E4%B8%BB%E5%8A%A8%E5%85%B3%E9%97%AD%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.2.3.</span> <span class="toc-text">2.2.3 主动关闭连接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%EF%BC%9F"><span class="toc-number">2.2.3.1.</span> <span class="toc-text">如何实现优雅关闭？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99muduo%E6%89%8D%E4%BC%9A%E7%9C%9F%E6%AD%A3%E7%9A%84close-fd-%E5%85%B3%E9%97%AD%E8%BF%9E%E6%8E%A5%EF%BC%9F"><span class="toc-number">2.2.3.1.1.</span> <span class="toc-text">什么时候muduo才会真正的close(fd)关闭连接？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%82%A3%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E8%A7%A6%E5%8F%91TcpConnection-%E5%AF%B9%E8%B1%A1%E6%9E%90%E6%9E%84%EF%BC%9F"><span class="toc-number">2.2.3.1.2.</span> <span class="toc-text">那什么时候会触发TcpConnection 对象析构？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#connections-%E5%9C%A8%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E9%87%8A%E6%94%BE%E6%8C%81%E6%9C%89%E7%9A%84TcpConnection-%E5%AF%B9%E8%B1%A1%EF%BC%9F"><span class="toc-number">2.2.3.1.3.</span> <span class="toc-text">connections_ 在什么时候会释放持有的TcpConnection 对象？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%96%91%E9%97%AE"><span class="toc-number">2.2.3.1.4.</span> <span class="toc-text">疑问</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%8A%A8%E5%85%B3%E9%97%AD%E6%97%B6%E6%AD%A3%E5%9C%A8%E5%8F%91%E7%94%9F%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8F%AF%E4%BB%A5%E5%85%A8%E9%83%A8%E5%8F%91%E7%94%9F%E5%AE%8C%EF%BC%9F"><span class="toc-number">2.2.3.2.</span> <span class="toc-text">如何保证主动关闭时正在发生的数据可以全部发生完？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E6%B6%88%E6%81%AF%E5%88%B0%E8%BE%BE"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 消息到达</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-1-%E9%97%AE%E9%A2%98%E5%BC%95%E5%85%A5"><span class="toc-number">2.3.1.</span> <span class="toc-text">2.3.1 问题引入</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BA%94%E7%94%A8%E5%B1%82%E6%8E%A5%E6%94%B6%E7%BC%93%E5%86%B2%E5%8C%BA%EF%BC%9F"><span class="toc-number">2.3.1.1.</span> <span class="toc-text">为什么要应用层接收缓冲区？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2-muduo%E6%98%AF%E5%A6%82%E4%BD%95%E5%81%9A%E7%9A%84%EF%BC%9FTcpConnection-handleRead"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.3.2 muduo是如何做的？TcpConnection::handleRead</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 消息发送</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-1-%E9%97%AE%E9%A2%98%E5%BC%95%E5%85%A5"><span class="toc-number">2.4.1.</span> <span class="toc-text">2.4.1 问题引入</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BA%94%E7%94%A8%E5%B1%82%E5%8F%91%E9%80%81%E7%BC%93%E5%86%B2%E5%8C%BA%EF%BC%9F"><span class="toc-number">2.4.1.1.</span> <span class="toc-text">为什么要应用层发送缓冲区？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP%E5%8F%91%E9%80%81%E7%BC%93%E5%86%B2%E5%8C%BA%E4%B8%8D%E8%B6%B3%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86"><span class="toc-number">2.4.1.2.</span> <span class="toc-text">TCP发送缓冲区不足如何处理?</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-2-muduo%E6%98%AF%E5%A6%82%E4%BD%95%E5%81%9A%E7%9A%84%EF%BC%9ATcpConnetion-send"><span class="toc-number">2.4.2.</span> <span class="toc-text">2.4.2 muduo是如何做的：TcpConnetion::send</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-%E5%85%B6%E5%AE%83%EF%BC%9ALT%E4%B8%8EET"><span class="toc-number">2.5.</span> <span class="toc-text">2.5  其它：LT与ET</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-1-LT%E4%B8%8EET%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.5.1.</span> <span class="toc-text">2.5.1 LT与ET介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LT%E4%B8%8EET%E8%A7%A6%E5%8F%91%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.5.1.1.</span> <span class="toc-text">LT与ET触发条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LT%E4%B8%8EET%E7%BC%96%E7%A8%8B"><span class="toc-number">2.5.1.2.</span> <span class="toc-text">LT与ET编程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-2-muduo%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8ET%EF%BC%9F"><span class="toc-number">2.5.2.</span> <span class="toc-text">2.5.2 muduo为什么使用ET？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">三、总结与展望</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%9C%AC%E6%96%87%E6%80%BB%E7%BB%93"><span class="toc-number">3.0.1.</span> <span class="toc-text">3.1 本文总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%9C%AA%E6%9D%A5%E5%B1%95%E6%9C%9B"><span class="toc-number">3.0.2.</span> <span class="toc-text">3.2 未来展望</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">四、更新记录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">五、参考文献</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/37224/" title="C++从零开始（开源）：一文读懂muduo">C++从零开始（开源）：一文读懂muduo</a><time datetime="2023-03-11T05:48:01.602Z" title="发表于 2023-03-11 13:48:01">2023-03-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/45495/" title="C++从零开始（十二）：Linux系统编程入门">C++从零开始（十二）：Linux系统编程入门</a><time datetime="2022-04-03T05:45:34.660Z" title="发表于 2022-04-03 13:45:34">2022-04-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/17467/" title="C++从零开始（十一）：C++进阶（下）STL">C++从零开始（十一）：C++进阶（下）STL</a><time datetime="2022-02-14T09:55:49.585Z" title="发表于 2022-02-14 17:55:49">2022-02-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/p/51012/" title="C++从零开始（十）：C++进阶（上）模板">C++从零开始（十）：C++进阶（上）模板</a><time datetime="2022-02-11T08:17:22.936Z" title="发表于 2022-02-11 16:17:22">2022-02-11</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By Wanghui Huang</div><div class="footer_custom_text">Support By <a target="_blank" rel="noopener" href="https://cloud.tencent.com/" style="text-decoration:underline; color:#476679;"> Tencent Cloud </a> |  <a target="_blank" rel="noopener" href="https://hexo.io/" style="text-decoration:underline; color:#476679;">Hexo</a> | <a target="_blank" rel="noopener" href="https://butterfly.js.org/" style="text-decoration:underline; color:#476679;">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'blog-comments-5g2cfsved8c0de34',
+      region: 'ap-shanghai'
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'blog-comments-5g2cfsved8c0de34',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script src="https://cdn.jsdelivr.net/npm/hexo-widget-tree@0.2.2/js/index.js"></script><div id="widget-tree">
+      <h1 id="tree-toc-title" style="text-align:center;margin:0;line-hight:1.5"> <a href="https://hwh.zone/categories/">目 录 </a> </h1>
+      <h5 id="tree-toc-subtitle" style="text-align:center;margin:0;line-hight:1.5"> <a href="https://hwh.zone/">royhuang's blog</a> </h5>
+      <ul>
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/C/">
+          C++
+        </a>
+      <ul class="tree-list-children">
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/">
+          从零开始
+        </a>
+      <ul class="tree-list-children">
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/C-%E5%9F%BA%E7%A1%80/">
+          C++基础
+        </a>
+      <ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/p/6587/" title="C++从零开始（六）：务实基础（下）复合类型及转换"><i class="post-icon gg-file-document"></i>C++从零开始（六）：务实基础（下）复合类型及转换</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/26224/" title="C++从零开始（三）：务实基础（上）快速入门"><i class="post-icon gg-file-document"></i>C++从零开始（三）：务实基础（上）快速入门</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/51595/" title="C++从零开始（五）：务实基础（下）函数"><i class="post-icon gg-file-document"></i>C++从零开始（五）：务实基础（下）函数</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/24237/" title="C++从零开始（四）：务实基础（中）指针和引用"><i class="post-icon gg-file-document"></i>C++从零开始（四）：务实基础（中）指针和引用</a></li></ul></li>
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/C-%E8%BF%9B%E9%98%B6/">
+          C++进阶
+        </a>
+      <ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/p/51012/" title="C++从零开始（十）：C++进阶（上）模板"><i class="post-icon gg-file-document"></i>C++从零开始（十）：C++进阶（上）模板</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/17467/" title="C++从零开始（十一）：C++进阶（下）STL"><i class="post-icon gg-file-document"></i>C++从零开始（十一）：C++进阶（下）STL</a></li></ul></li>
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/C-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+          C++环境搭建
+        </a>
+      <ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/p/18652/" title="C++从零开始（一）：环境搭建（上）VSCode远程开发"><i class="post-icon gg-file-document"></i>C++从零开始（一）：环境搭建（上）VSCode远程开发</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/2834/" title="C++从零开始（二）：环境搭建（下）g++/Makefile/CMake快速入门"><i class="post-icon gg-file-document"></i>C++从零开始（二）：环境搭建（下）g++/Makefile/CMake快速入门</a></li></ul></li>
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/C-%E9%9D%A2%E5%AF%B9%E5%AF%B9%E8%B1%A1/">
+          C++面对对象
+        </a>
+      <ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/p/17506/" title="C++从零开始（七）：面对对象（上）快速入门"><i class="post-icon gg-file-document"></i>C++从零开始（七）：面对对象（上）快速入门</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/60158/" title="C++从零开始（九）：面对对象（下）继承和虚函数"><i class="post-icon gg-file-document"></i>C++从零开始（九）：面对对象（下）继承和虚函数</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/43924/" title="C++从零开始（八）：面对对象（中）运算符重载"><i class="post-icon gg-file-document"></i>C++从零开始（八）：面对对象（中）运算符重载</a></li></ul></li>
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/C/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B/Linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/">
+          Linux系统编程
+        </a>
+      <ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/p/45495/" title="C++从零开始（十二）：Linux系统编程入门"><i class="post-icon gg-file-document"></i>C++从零开始（十二）：Linux系统编程入门</a></li></ul></li></ul></li></ul></li>
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/%E5%BB%BA%E7%AB%99/">
+          建站
+        </a>
+      <ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/p/56326/" title="Hexo+Github Pages快速打造属于自己的网站"><i class="post-icon gg-file-document"></i>Hexo+Github Pages快速打造属于自己的网站</a></li></ul></li>
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/Git/">
+          Git
+        </a>
+      <ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/p/43848/" title="Git基础笔记（初步整理）"><i class="post-icon gg-file-document"></i>Git基础笔记（初步整理）</a></li></ul></li>
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/%E6%A0%A1%E6%8B%9B%E7%AC%94%E8%AE%B0/">
+          校招笔记
+        </a>
+      <ul class="tree-list-children">
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/%E6%A0%A1%E6%8B%9B%E7%AC%94%E8%AE%B0/JAVA/">
+          JAVA
+        </a>
+      <ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/p/42516/" title="校招笔记（一）_Java_JVM"><i class="post-icon gg-file-document"></i>校招笔记（一）_Java_JVM</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/8959/" title="校招笔记（一）_Java_多线程"><i class="post-icon gg-file-document"></i>校招笔记（一）_Java_多线程</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/51787/" title="校招笔记（一）_Java_Java入门"><i class="post-icon gg-file-document"></i>校招笔记（一）_Java_Java入门</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/7257/" title="校招笔记（一）_Java_面对对象"><i class="post-icon gg-file-document"></i>校招笔记（一）_Java_面对对象</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/45493/" title="校招笔记（一）_Java_锁"><i class="post-icon gg-file-document"></i>校招笔记（一）_Java_锁</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/21069/" title="校招笔记（一）_Java_集合"><i class="post-icon gg-file-document"></i>校招笔记（一）_Java_集合</a></li></ul></li>
+      <li class="tree-list-item">
+        <i class="toggle-post-icon gg-folder-add"></i>
+        <a class="tree-list-link" href="/categories/%E6%A0%A1%E6%8B%9B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">
+          计算机基础
+        </a>
+      <ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/p/61434/" title="校招笔记（七）_计算机基础_数据结构"><i class="post-icon gg-file-document"></i>校招笔记（七）_计算机基础_数据结构</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/44980/" title="校招笔记（二）_计算机基础_Linux&Git"><i class="post-icon gg-file-document"></i>校招笔记（二）_计算机基础_Linux&Git</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/5582/" title="校招笔记（九）_计算机基础_相关补充"><i class="post-icon gg-file-document"></i>校招笔记（九）_计算机基础_相关补充</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/46361/" title="校招笔记（三）_计算机基础_计算机网络"><i class="post-icon gg-file-document"></i>校招笔记（三）_计算机基础_计算机网络</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/31667/" title="校招笔记（八）_计算机基础_场景&智力题"><i class="post-icon gg-file-document"></i>校招笔记（八）_计算机基础_场景&智力题</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/56848/" title="校招笔记（五）_计算机基础_MySQL"><i class="post-icon gg-file-document"></i>校招笔记（五）_计算机基础_MySQL</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/31215/" title="校招笔记（六）_计算机基础_Redis"><i class="post-icon gg-file-document"></i>校招笔记（六）_计算机基础_Redis</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/p/15646/" title="校招笔记（四）_计算机基础_操作系统"><i class="post-icon gg-file-document"></i>校招笔记（四）_计算机基础_操作系统</a></li></ul></li></ul></li></ul>
+        <div id="widget-tree-button">
+          <i class="gg-chevron-right"></i>
+        </div>
+      </div><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
