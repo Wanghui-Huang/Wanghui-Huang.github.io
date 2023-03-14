@@ -90,9 +90,9 @@
             
             <tag> 教程 </tag>
             
-            <tag> C++进阶 </tag>
-            
             <tag> STL </tag>
+            
+            <tag> C++进阶 </tag>
             
         </tags>
       
@@ -304,9 +304,9 @@
             
             <tag> 教程 </tag>
             
-            <tag> C++基础 </tag>
-            
             <tag> 快速入门 </tag>
+            
+            <tag> C++基础 </tag>
             
         </tags>
       
@@ -409,9 +409,9 @@
             
             <tag> 教程 </tag>
             
-            <tag> 远程开发 </tag>
-            
             <tag> C++环境搭建 </tag>
+            
+            <tag> 远程开发 </tag>
             
         </tags>
       
@@ -444,13 +444,13 @@
             
             <tag> 教程 </tag>
             
+            <tag> C++环境搭建 </tag>
+            
             <tag> CMake </tag>
             
             <tag> Makefile </tag>
             
             <tag> g++ </tag>
-            
-            <tag> C++环境搭建 </tag>
             
         </tags>
       
